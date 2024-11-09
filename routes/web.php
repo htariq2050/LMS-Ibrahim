@@ -6,11 +6,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home.landing')->name('home');
 
+
 Route::middleware(['auth'])->group(function () {
-    // Define your protected routes here
-    Route::view('/student/dashboard', 'admin.student.dashboard')->name('Student Dashboard');
-    Route::view('/instructor/dashboard', 'admin.instructor.dashboard')->name('instructor Dashboard');
+  
+    Route::get('/student/dashboard', action: function () {
+        return view('admin.student.dashboard'); 
+    })->name('student.dashboard');
+
+
+    Route::get('/instructor/dashboard', function () {
+        return view('admin.instructor.dashboard'); 
+    })->name('instructor.dashboard');
 });
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'showRegisterForm')->name('register');
