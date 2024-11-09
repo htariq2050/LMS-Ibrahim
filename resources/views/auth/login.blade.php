@@ -3,9 +3,18 @@
 @section('content')
 <div class="login-container">
     <div class="login-form">
-        <h2>Login</h2>
+        <h2>
+            {{-- Display the role-based title --}}
+            @if(request()->query('role') === 'instructor')
+                Instructor Login
+            @else
+                Student Login
+            @endif
+        </h2>
+        
         <form method="POST" action="{{ route('login') }}">
             @csrf
+            <input type="hidden" name="role" value="{{ request()->query('role') }}">
 
             <div class="input-group">
                 <label for="email">Email</label>
@@ -26,13 +35,23 @@
             <button type="submit" class="btn-login">Login</button>
 
             <div class="options">
-                {{-- <a href="{{ route('password.request') }}">Forgot your password?</a> --}}
-                <p>Don't have an account? <a href="{{ route('register') }}">Register</a></p>
+                {{-- Role-based registration link --}}
+                <p>Don't have an account? 
+                    <a href="{{ route('register', ['role' => request()->query('role')]) }}">
+                        Register as @if(request()->query('role') === 'instructor') Instructor @else Student @endif
+                    </a>
+                </p>
+                
+                {{-- Link to toggle between Student and Instructor login --}}
+                <p>
+                    <a href="{{ route('login', ['role' => request()->query('role') === 'instructor' ? 'student' : 'instructor']) }}">
+                        Login as {{ request()->query('role') === 'instructor' ? 'Student' : 'Instructor' }}
+                    </a>
+                </p>
             </div>
         </form>
     </div>
 </div>
-
 @endsection
 
 @section('styles')

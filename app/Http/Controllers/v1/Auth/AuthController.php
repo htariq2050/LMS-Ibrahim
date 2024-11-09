@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showRegisterForm()
+    public function showRegisterForm(Request $request)
     {
         return view('auth.register',['noHeaderFooter' => true]);
     }
@@ -30,6 +30,7 @@ class AuthController extends Controller
             'password' => 'required|string|confirmed|min:8',
             'country' => 'nullable|string|max:255',
             'newsletter_subscription' => 'nullable|boolean',
+            'role' => 'required',
             'description' => 'nullable|string',
             'facebook_url' => 'nullable|url',
             'x_url' => 'nullable|url', 
@@ -42,6 +43,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'country' => $request->country,
+            'role' => $request->role,
             'newsletter_subscription' => $request->newsletter_subscription ?? false,
             'description' => $request->description,
             'facebook_url' => $request->facebook_url,
@@ -51,7 +53,7 @@ class AuthController extends Controller
     
         Auth::login($user);
     
-        return redirect()->route('home')->with('success', 'Registration successful');
+        return redirect()->route('login')->with('success', 'Registration successful');
     }
     
     public function login(Request $request)
@@ -59,16 +61,27 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
+            'role' => 'required|string',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('home')->with('success', 'Login successful');
+        if (Auth::attempt($request->only('email', 'password','role'))) {
+            $user = Auth::user();
+
+            
+            if ($user->role == 'student') 
+                return redirect()->route('Student Dashboard')->with('success', 'Login successful');
+            
+    
+            if ($user->role == 'instructor') 
+                return redirect()->route('instructor Dashboard')->with('success', 'Login successful');
+            
         }
 
         throw ValidationException::withMessages([
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
+
     public function logout(Request $request)
     {
         Auth::logout();

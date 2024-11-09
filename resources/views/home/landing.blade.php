@@ -6,7 +6,7 @@
     <title>Course Website - Learn and Grow</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Basic Styling */ 
+        /* Basic Styling */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; color: #333; background-color: #fafafa; }
         .container { width: 90%; max-width: 1200px; margin: auto; }
@@ -29,15 +29,6 @@
         section { padding: 4rem 0; text-align: center; }
         .course, .testimonial { background: #fff; padding: 2rem; border-radius: 10px; width: 28%; margin: 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .course:hover, .testimonial:hover { transform: translateY(-10px); box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15); }
-
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); }
-        .modal-content { background: #fff; padding: 2rem; width: 90%; max-width: 500px; margin: 5% auto; text-align: center; border-radius: 10px; }
-        .modal-content h2 { margin-bottom: 1rem; font-size: 1.8rem; color: #333; }
-        .modal-content .role-button { padding: 1rem 2rem; margin: 1rem; border: none; border-radius: 30px; background-color: #FF6F61; color: #fff; font-weight: 600; cursor: pointer; transition: background-color 0.3s ease; }
-        .modal-content .role-button:hover { background-color: #FF5A4A; }
-        .modal-content .role-button.cancel { background-color: #ccc; }
-        .modal-content .role-button.cancel:hover { background-color: #bbb; }
 
         /* About Us */
         .about { display: flex; align-items: center; justify-content: space-between; padding: 4rem 0; }
@@ -100,7 +91,7 @@
                 <a href="#courses">Courses</a>
                 <a href="#testimonials">Testimonials</a>
                 <a href="#contact">Contact</a>
-                <button class="btn-login" onclick="showModal('login')">Login</button>
+                <a href="/login?role=student" class="btn-login">Login</a>
             </nav>
         </div>
     </header>
@@ -114,20 +105,8 @@
         </div>
     </section>
 
-    <!-- Modal for Login/Registration Role Selection -->
-    <div id="roleModal" class="modal">
-        <div class="modal-content">
-            <h2>Select Your Role</h2>
-            <button class="role-button" onclick="navigateTo('login', 'student')">Login as Student</button>
-            <button class="role-button" onclick="navigateTo('login', 'instructor')">Login as Instructor</button>
-            <button class="role-button cancel" onclick="hideModal()">Cancel</button>
-        </div>
-    </div>
-
-
-
     <!-- About Section -->
-    {{-- <section id="about" class="about">
+    <section id="about" class="about">
         <div class="container">
             <img src="about-image.jpg" alt="About Us Image">
             <div class="text">
@@ -136,92 +115,64 @@
                 <p>Our mission is to empower individuals by making quality education accessible and affordable for everyone. Whether you’re looking to advance in your career or explore a new field, CourseBrand has something for you.</p>
             </div>
         </div>
-    </section> --}}
+    </section>
 
     <!-- Courses Section -->
     <section id="courses" class="courses">
-        <div class="container">
-            <h2>Our Courses</h2>
-            <div class="course-list">
-                <div class="course">
-                    <h3>Web Development</h3>
-                    <p>Learn the fundamentals of web development, including HTML, CSS, JavaScript, and modern frameworks to build responsive websites.</p>
-                </div>
-                <div class="course">
-                    <h3>Data Science</h3>
-                    <p>Explore data science concepts, including machine learning, data visualization, and Python programming to become data-savvy.</p>
-                </div>
-                <div class="course">
-                    <h3>Graphic Design</h3>
-                    <p>Get creative with graphic design. Learn Adobe tools, color theory, typography, and more to craft visually stunning content.</p>
-                </div>
+        <h2>Our Courses</h2>
+        <div class="container course-list">
+            <div class="course">
+                <h3>Course 1</h3>
+                <p>Learn the fundamentals of Course 1 and gain valuable insights to enhance your skills.</p>
+            </div>
+            <div class="course">
+                <h3>Course 2</h3>
+                <p>Master Course 2 and advance your career with industry-recognized skills and knowledge.</p>
+            </div>
+            <div class="course">
+                <h3>Course 3</h3>
+                <p>Dive into Course 3 and become proficient with hands-on experience and expert guidance.</p>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2>What Our Students Say</h2>
-            <div class="testimonial-list">
-                <div class="testimonial">
-                    <h3>John Doe</h3>
-                    <p>"The Web Development course helped me land my first job as a frontend developer! The content was clear, and the support from instructors was great."</p>
-                </div>
-                <div class="testimonial">
-                    <h3>Jane Smith</h3>
-                    <p>"I loved the Data Science course! It was challenging but well-structured, and now I feel confident working with large data sets."</p>
-                </div>
-                <div class="testimonial">
-                    <h3>Michael Lee</h3>
-                    <p>"Graphic Design has always been my passion, and this course gave me the skills and portfolio to go freelance. Highly recommend!"</p>
-                </div>
+        <h2>What Our Students Say</h2>
+        <div class="container testimonial-list">
+            <div class="testimonial">
+                <h3>John Doe</h3>
+                <p>"The best learning experience I've ever had! Highly recommend CourseBrand."</p>
+            </div>
+            <div class="testimonial">
+                <h3>Jane Smith</h3>
+                <p>"CourseBrand's courses are well-structured and easy to follow. Fantastic!"</p>
+            </div>
+            <div class="testimonial">
+                <h3>Michael Brown</h3>
+                <p>"I gained the skills I needed to advance in my career. Thank you, CourseBrand!"</p>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <p>Have questions? We’d love to hear from you. Reach out to our support team for any inquiries or assistance.</p>
-            <a href="mailto:support@coursebrand.com" class="btn-contact">Email Us</a>
-        </div>
+        <h2>Contact Us</h2>
+        <p>Have questions or need help? Reach out to our support team, and we’ll be happy to assist you.</p>
+        <a href="mailto:support@coursebrand.com" class="btn-contact">Contact Support</a>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 CourseBrand. All Rights Reserved.</p>
             <nav>
                 <a href="#about">About</a>
                 <a href="#courses">Courses</a>
+                <a href="#testimonials">Testimonials</a>
                 <a href="#contact">Contact</a>
             </nav>
+            <p>&copy; 2024 CourseBrand. All Rights Reserved.</p>
         </div>
     </footer>
-
-    <!-- JavaScript -->
-    <script>
-        function showModal(action) {
-            document.getElementById('roleModal').style.display = 'block';
-            document.getElementById('roleModal').dataset.action = action;
-        }
-
-        function hideModal() {
-            document.getElementById('roleModal').style.display = 'none';
-        }
-
-        function navigateTo(action, role) {
-            const route = action === 'login' ? '/login' : '/register';
-            window.location.href = `${route}?role=${role}`;
-        }
-
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('roleModal')) {
-                hideModal();
-            }
-        }
-    </script>
 </body>
 </html>

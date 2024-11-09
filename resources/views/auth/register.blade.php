@@ -6,6 +6,7 @@
         <h2>Create an Account</h2>
         <form method="POST" action="{{ route('register') }}">
             @csrf
+            <input type="hidden" name="role" value="{{ request()->query('role') }}">
             
             <!-- Basic Information -->
             <div class="input-group">
@@ -38,37 +39,9 @@
             </div>
 
             <!-- Additional Information -->
-            <div class="input-group">
+            {{-- <div class="input-group">
                 <label for="country">Country</label>
                 <input type="text" name="country" placeholder="Country" value="{{ old('country') }}">
-            </div>
-
-            {{-- <div class="input-group">
-                <label for="description">Description</label>
-                <textarea name="description" placeholder="Tell us a bit about yourself">{{ old('description') }}</textarea>
-            </div> --}}
-
-            <!-- Social Media Links -->
-            {{-- <div class="input-group">
-                <label for="facebook_url">Facebook URL</label>
-                <input type="url" name="facebook_url" placeholder="Facebook URL" value="{{ old('facebook_url') }}">
-            </div> --}}
-
-            {{-- <div class="input-group">
-                <label for="x_url">X (Twitter) URL</label>
-                <input type="url" name="x_url" placeholder="X (Twitter) URL" value="{{ old('x_url') }}">
-            </div> --}}
-
-            {{-- <div class="input-group">
-                <label for="instagram_url">Instagram URL</label>
-                <input type="url" name="instagram_url" placeholder="Instagram URL" value="{{ old('instagram_url') }}">
-            </div> --}}
-
-            <!-- Newsletter Subscription -->
-            {{-- <div class="input-group">
-                <label>
-                    <input type="checkbox" name="newsletter_subscription"> Subscribe to Newsletter
-                </label>
             </div> --}}
 
             <button type="submit" class="btn-register">Register</button>

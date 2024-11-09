@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('country', 50)->nullable();
+            $table->enum('role', ['student', 'instructor', 'admin'])->default('student');
             $table->boolean('newsletter_subscription')->default(false);            
             $table->text('description')->nullable();  
             $table->string('facebook_url', 255)->nullable();
