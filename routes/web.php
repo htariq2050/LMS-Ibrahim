@@ -11,7 +11,7 @@ Route::middleware(['auth'])->group(function () {
   
     Route::get('/student/dashboard', action: function () {
         return view('admin.student.dashboard'); 
-    })->name('student.dashboard');
+    })->name('Student Dashboard');
 
 
     Route::get('/instructor/dashboard', function () {
