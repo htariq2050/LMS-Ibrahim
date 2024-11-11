@@ -39,6 +39,7 @@
             <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">   
             
                 @yield('dashboardcontent')
+                
                 @include('admin.partials.sidebar')
 
             </div>
@@ -215,37 +216,35 @@
     }"></app-settings>
     </div>
     
-    <!-- jQuery -->
-    <script src="assets/vendor/jquery.min.js"></script>
-    
-    <!-- Bootstrap -->
-    <script src="assets/vendor/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap.min.js"></script>
-    
-    <!-- Perfect Scrollbar -->
-    <script src="assets/vendor/perfect-scrollbar.min.js"></script>
-    
-    <!-- DOM Factory -->
-    <script src="assets/vendor/dom-factory.js"></script>
-    
-    <!-- MDK -->
-    <script src="assets/vendor/material-design-kit.js"></script>
-    
-    <!-- Range Slider -->
-    <script src="assets/vendor/ion.rangeSlider.min.js"></script>
-    <script src="assets/js/ion-rangeslider.js"></script>
-    
-    <!-- App -->
-    <script src="assets/js/toggle-check-all.js"></script>
-    <script src="assets/js/check-selected-row.js"></script>
-    <script src="assets/js/dropdown.js"></script>
-    <script src="assets/js/sidebar-mini.js"></script>
-    <script src="assets/js/app.js"></script>
-    
-    <!-- App Settings (safe to remove) -->
-    <script src="assets/js/app-settings.js"></script>
-    
+<!-- jQuery -->
+<script src="{{ asset('assets/vendor/jquery.min.js') }}"></script>
 
-   
+<!-- Bootstrap -->
+<script src="{{ asset('assets/vendor/popper.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/bootstrap.min.js') }}"></script>
+
+<!-- Perfect Scrollbar -->
+<script src="{{ asset('assets/vendor/perfect-scrollbar.min.js') }}"></script>
+
+<!-- DOM Factory -->
+<script src="{{ asset('assets/vendor/dom-factory.js') }}"></script>
+
+<!-- MDK -->
+<script src="{{ asset('assets/vendor/material-design-kit.js') }}"></script>
+
+<!-- Range Slider -->
+<script src="{{ asset('assets/vendor/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ asset('assets/js/ion-rangeslider.js') }}"></script>
+
+<!-- App -->
+<script src="{{ asset('assets/js/toggle-check-all.js') }}"></script>
+<script src="{{ asset('assets/js/check-selected-row.js') }}"></script>
+<script src="{{ asset('assets/js/dropdown.js') }}"></script>
+<script src="{{ asset('assets/js/sidebar-mini.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script>
+
+<!-- App Settings (safe to remove) -->
+<script src="{{ asset('assets/js/app-settings.js') }}"></script>
+
 </body>
 </html>

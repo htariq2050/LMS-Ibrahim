@@ -13,6 +13,7 @@ class AuthController extends Controller
 {
     public function showRegisterForm(Request $request)
     {
+        
         return view('auth.register',['noHeaderFooter' => true]);
     }
 
@@ -69,11 +70,11 @@ class AuthController extends Controller
 
             
             if ($user->role == 'student') 
-                return redirect()->route('Student Dashboard')->with('success', 'Login successful');
+                return redirect()->route('student_dashboard')->with('success', 'Login successful');
             
     
             if ($user->role == 'instructor') 
-                return redirect()->route('instructor Dashboard')->with('success', 'Login successful');
+                return redirect()->route('instructor_dashboard')->with('success', 'Login successful');
             
         }
 

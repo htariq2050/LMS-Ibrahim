@@ -10,8 +10,8 @@
                             <span class="avatar-title rounded-circle bg-soft-secondary text-muted">AD</span>
                         </span>
                         <span class="flex d-flex flex-column">
-                            <strong>Adrian Demian</strong>
-                            <small class="text-muted text-uppercase">Instructor</small>
+                            <strong>{{auth()->user()->first_name}}</strong>
+                            <small class="text-muted text-uppercase">{{auth()->user()->role}}</small>
                         </span>
                     </a>
                     <div class="dropdown ml-auto">
@@ -29,7 +29,7 @@
             <div class="sidebar-block p-0">
                 
 
-
+{{-- 
                 <div class="sidebar-heading">Layouts</div>
                 <ul class="sidebar-menu mt-0 mb-4">
 
@@ -57,7 +57,7 @@
                         <span class="sidebar-menu-text">Fluid</span>
                         </a>
                     </li>
-                </ul>
+                </ul> --}}
 
                 <div class="sidebar-heading">Student</div>
 
@@ -66,7 +66,7 @@
 
 
                     <li class="sidebar-menu-item active">
-                        <a class="sidebar-menu-button" href="student-dashboard.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_dashboard') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -80,7 +80,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-series.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_series') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -93,7 +93,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-courses.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_courses') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -107,7 +107,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-course.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_lessons') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -121,7 +121,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-take-course.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_take_course') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -134,7 +134,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-take-quiz.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_take_quiz') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -148,7 +148,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-billing.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_billing') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -162,7 +162,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-edit-account.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_edit_account') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -176,7 +176,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="student-profile.html">
+                        <a class="sidebar-menu-button" href="{{ route('student_profile') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -224,7 +224,7 @@
 
                 <ul class="sidebar-menu mt-0">
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-dashboard.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_dashboard') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -237,7 +237,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-courses.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_courses') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -250,7 +250,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-course-edit.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_edit_course') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -265,7 +265,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-lesson-edit.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_edit_lesson') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -280,7 +280,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-create-quiz.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_create_quiz') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -296,7 +296,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-earnings.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_earnings') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -310,7 +310,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-profile.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_profile') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left material-icons">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -322,10 +322,8 @@
                         </a>
                     </li>
 
-
-
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="instructor-payout.html">
+                        <a class="sidebar-menu-button" href="{{ route('instructor_payout') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -397,7 +395,7 @@
 
 
 
-            <div class="sidebar-heading">UI Components</div>
+            {{-- <div class="sidebar-heading">UI Components</div>
             <div class="sidebar-block p-0">
                 <ul class="sidebar-menu" id="components_menu">
                     <li class="sidebar-menu-item">
@@ -504,7 +502,7 @@
                         <div class="progress-bar bg-success" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
     </div>

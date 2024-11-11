@@ -9,14 +9,14 @@ Route::view('/', 'home.landing')->name('home');
 
 Route::middleware(['auth'])->group(function () {
   
-    Route::get('/student/dashboard', action: function () {
-        return view('admin.student.dashboard'); 
-    })->name('Student Dashboard');
+    // Route::get('/student/dashboard', action: function () {
+    //     return view('admin.student.dashboard'); 
+    // })->name('Student Dashboard');
 
 
     Route::get('/instructor/dashboard', function () {
         return view('admin.instructor.dashboard'); 
-    })->name('instructor.dashboard');
+    })->name('instructor_dashboard');
 });
 
 
@@ -26,4 +26,31 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/login', 'showLoginForm')->name('login');
     Route::post('/login', 'login');
     Route::post('/logout', 'logout')->name('logout');
+});
+
+
+Route::prefix('student')->group(function () {
+    Route::view('/dashboard', 'admin.student.dashboard')->name('student_dashboard');
+    Route::view('/series', 'admin.student.series')->name('student_series');
+    Route::view('/courses', 'admin.student.courses')->name('student_courses');
+    Route::view('/lessons', 'admin.student.lessons')->name('student_lessons');
+    Route::view('/take-course', 'admin.student.take_course')->name('student_take_course');
+    Route::view('/take-quiz', 'admin.student.take_quiz')->name('student_take_quiz');
+    Route::view('/billing', 'admin.student.billing')->name('student_billing');
+    Route::view('/edit-account', 'admin.student.edit_account')->name('student_edit_account');
+    Route::view('/profile', 'admin.student.profile')->name('student_profile');
+    // Route::view('/profile', 'admin.student.profile')->name('student_profile');
+
+});
+
+
+Route::prefix('instructor')->group(function () {
+    Route::view('/dashboard', 'admin.instructor.dashboard')->name('instructor_dashboard');
+    Route::view('/courses', 'admin.instructor.courses')->name('instructor_courses');
+    Route::view('/edit-course', 'admin.instructor.edit_course')->name('instructor_edit_course');
+    Route::view('/edit-lesson', 'admin.instructor.edit_lesson')->name('instructor_edit_lesson');
+    Route::view('/create-quiz', 'admin.instructor.create_quiz')->name('instructor_create_quiz');
+    Route::view('/earnings', 'admin.instructor.earnings')->name('instructor_earnings');
+    Route::view('/profile', 'admin.instructor.profile')->name('instructor_profile');
+    Route::view('/payout', 'admin.instructor.payout')->name('instructor_payout');
 });
