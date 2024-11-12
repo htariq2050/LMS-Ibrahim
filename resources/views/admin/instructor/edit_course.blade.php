@@ -39,10 +39,10 @@ Instructor
                         <div class="form-group">
                             <label for="category">Category</label><br />
                             <select id="category" class="custom-select w-auto">
-                                <option value="usa">Web Design</option>
-                                <option value="usa">Web Development</option>
-                                <option value="usa">Marketing</option>
+                                <option disabled selected>Select Category</option>
                             </select>
+
+
                         </div>
                         <div class="form-group">
                             <label for="subscribe">Published</label><br>
@@ -55,16 +55,23 @@ Instructor
 
                         <div class="form-group">
                             <label>Course Preview</label>
-                            <div class="dz-clickable media align-items-center" data-toggle="dropzone" data-dropzone-url="http://" data-dropzone-clickable=".dz-clickable" data-dropzone-files='["assets/images/account-add-photo.svg"]'>
-                                <div class="dz-preview dz-file-preview dz-clickable mr-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="assets/images/account-add-photo.svg" class="avatar-img rounded" alt="..." data-dz-thumbnail>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <button class="btn btn-sm btn-light dz-clickable">Choose photo</button>
-                                </div>
-                            </div>
+                            <div class="dz-clickable media align-items-center" 
+                            data-toggle="dropzone" 
+                            {{-- data-dropzone-url="{{ route('upload_url') }}"  --}}
+                            data-dropzone-clickable=".dz-clickable" 
+                            data-dropzone-files='["{{ asset('assets/images/account-add-photo.svg') }}"]'>
+                           
+                           <div class="dz-preview dz-file-preview dz-clickable mr-3">
+                               <div class="avatar avatar-lg">
+                                   <img src="{{ asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
+                               </div>
+                           </div>
+                           
+                           <div class="media-body">
+                               <button class="btn btn-sm btn-light dz-clickable">Choose photo</button>
+                           </div>
+                       </div>
+                       
                         </div>
                     </div>
                     <div class="card-body text-center">
@@ -193,4 +200,28 @@ Instructor
 
 </div>
 
+
+<script>  
+ 
+ window.onload = async function() {
+        try {
+           
+            const response = await fetch('{{ route('categories.index') }}');
+            const categories = await response.json();
+            
+            
+            const categorySelect = document.getElementById('category');
+            
+           
+            const options = categories.map(category => 
+                `<option value="${category.id}">${category.name}</option>`
+            ).join('');
+
+           
+            categorySelect.innerHTML += options;
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    }
+</script>
 @endsection

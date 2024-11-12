@@ -28,7 +28,14 @@ class User extends Authenticatable
         'description',
         'facebook_url',
         'x_url',
-        'instagram_url'
+        'instagram_url',
+        'status', 
+        'created_at', 
+        'updated_at', 
+        'created_by', 
+        'updated_by', 
+        'deleted_at', 
+        'deleted_by'
     ];
 
     /**

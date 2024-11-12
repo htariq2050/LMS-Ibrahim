@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\admin\CategoryController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,4 +54,13 @@ Route::prefix('instructor')->group(function () {
     Route::view('/earnings', 'admin.instructor.earnings')->name('instructor_earnings');
     Route::view('/profile', 'admin.instructor.profile')->name('instructor_profile');
     Route::view('/payout', 'admin.instructor.payout')->name('instructor_payout');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/categories', 'index')->name('categories.index');       
+        Route::post('/categories', 'store')->name('categories.store');      
+        Route::put('/categories/{id}', 'update')->name('categories.update'); 
+        Route::get('/categories/{id}', 'show')->name('categories.show');     
+    });
 });

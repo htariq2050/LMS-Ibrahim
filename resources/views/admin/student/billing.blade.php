@@ -15,10 +15,6 @@ Student
 
 
 
-
-
-
-
     <div class="container-fluid page__container">
         <div class="alert alert-soft-warning d-flex align-items-center card-margin" role="alert">
             <i class="material-icons mr-3">error_outline</i>

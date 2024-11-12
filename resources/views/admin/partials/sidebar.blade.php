@@ -59,6 +59,7 @@
                     </li>
                 </ul> --}}
 
+                @if(auth()->user()->role == 'student')
                 <div class="sidebar-heading">Student</div>
 
 
@@ -217,8 +218,9 @@
                         </a>
                     </li>
                 </ul>
+                @endif
 
-
+                @if(auth()->user()->role == 'instructor')
                 <div class="sidebar-heading">Instructor</div>
 
 
@@ -338,7 +340,9 @@
 
 
                 </ul>
-                
+                @endif
+
+                @if(auth()->user()->role == 'admin')
                 <div class="sidebar-heading">Administrator</div>
 
                 
@@ -390,7 +394,7 @@
                     </li>
 
                 </ul>
-
+                @endif
             </div>
 
 
