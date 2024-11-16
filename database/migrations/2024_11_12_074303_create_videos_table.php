@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('video_url'); 
             $table->string('thumbnail')->nullable()->comment('URL or path to the video thumbnail image'); 
-            $table->integer('order')->autoIncrement()->unique()->comment('Position of the video within the lesson');
+            $table->integer('order')->unique()->comment('Position of the video within the lesson');
             $table->integer('duration')->comment('Duration of the video in seconds')->nullable();
             $this->addCommonColumns($table);
         });

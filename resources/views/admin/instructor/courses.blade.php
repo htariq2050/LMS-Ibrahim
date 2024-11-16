@@ -1,27 +1,21 @@
 @extends('admin.layouts.app')
+
 @section('title')
 Instructor
 @endsection
+
 @section('dashboardcontent')
 
 <div class="mdk-drawer-layout__content page">
 
-
-
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <h1 class="m-lg-0">Instructor Courses</h1>
-            <a href="instructor-course-edit.html" class="btn btn-success ml-lg-3">New Course <i class="material-icons">add</i></a>
+            <a href="{{ route('instructor.course.create') }}" class="btn btn-success ml-lg-3">New Course <i class="material-icons">add</i></a>
         </div>
     </div>
 
-
-
-
-
     <div class="container-fluid page__container">
-
-
         <form action="#" class="mb-2">
             <div class="d-flex">
                 <div class="search-form mr-3 search-form--light">
@@ -50,30 +44,28 @@ Instructor
             </div>
         </form>
 
-
-
         <div class="row">
-
+            @foreach($courses as $course)
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
 
                         <div class="d-flex flex-column flex-sm-row">
                             <a href="#" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/logos/vuejs.svg" alt="Card image cap" class="avatar-course-img">
+                                <img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" alt="{{$course->title}}" class="avatar-course-img">
                             </a>
                             <div class="flex" style="min-width: 200px;">
                                 <div class="d-flex">
                                     <div>
-                                        <h4 class="card-title mb-1"><a href="instructor-course-edit.html">Learn Vue.js</a></h4>
-                                        <p class="text-muted">Let’s start with a quick tour of Vue’s data binding features.</p>
+                                        <h4 class="card-title mb-1"><a href="{{ route('instructor.course.edit', $course->id) }}">{{ $course->title }}</a></h4>
+                                        <p class="text-muted">{{ Str::limit($course->description, 100) }}</p>
                                     </div>
                                     <div class="dropdown ml-auto">
                                         <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
                                             <i class="material-icons">more_vert</i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="instructor-course-edit.html">Edit Course</a>
+                                            <a class="dropdown-item" href="{{ route('instructor.course.edit', $course->id) }}">Edit Course</a>
                                             <a class="dropdown-item" href="#">Statistics</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="#">Archive</a>
@@ -83,11 +75,11 @@ Instructor
                                 <div class="d-flex align-items-end">
                                     <div class="d-flex flex flex-column mr-3">
                                         <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">&dollar;1,230/mo</span>
-                                            <small class="text-muted ml-auto">34 SALES</small>
+                                            <span class="mr-2">${{ number_format($course->earnings, 2) }}/mo</span>
+                                            <small class="text-muted ml-auto">{{ $course->sales_count }} SALES</small>
                                         </div>
                                         <div class="d-flex align-items-center py-2">
-                                            <span class="badge badge-vuejs mr-2">VUEJS</span>
+                                            <span class="badge badge-vuejs mr-2">{{ $course->category->name }}</span>
                                             <span class="badge badge-soft-secondary">INTERMEDIATE</span>
                                         </div>
                                     </div>
@@ -98,146 +90,11 @@ Instructor
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="#" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/logos/node.svg" alt="Card image cap" class="avatar-course-img">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <div class="d-flex">
-                                    <div>
-                                        <h4 class="card-title mb-1"><a href="instructor-course-edit.html">Npm &amp; Gulp Advanced Workflow</a></h4>
-                                        <p class="text-muted">Learn the basics of Github and become a power Github developer.</p>
-                                    </div>
-                                    <div class="dropdown ml-auto">
-                                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="instructor-course-edit.html">Edit Course</a>
-                                            <a class="dropdown-item" href="#">Statistics</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#">Archive</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">&dollar;421/mo</span>
-                                            <small class="text-muted ml-auto">12 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-2">
-                                            <span class="badge badge-node mr-2">NODE</span>
-                                            <span class="badge badge-soft-secondary">INTERMEDIATE</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="#" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/logos/gitlab.png" alt="Card image cap" class="avatar-course-img">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <div class="d-flex">
-                                    <div>
-                                        <h4 class="card-title mb-1"><a href="instructor-course-edit.html">Gitlab for Beginners</a></h4>
-                                        <p class="text-muted">Developing static website with fast and advanced gulp setup.</p>
-                                    </div>
-                                    <div class="dropdown ml-auto">
-                                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="instructor-course-edit.html">Edit Course</a>
-                                            <a class="dropdown-item" href="#">Statistics</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#">Archive</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">&dollar;2,191/mo</span>
-                                            <small class="text-muted ml-auto">50 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-2">
-                                            <span class="badge badge-gitlab mr-2">GITLAB</span>
-                                            <span class="badge badge-soft-secondary">INTERMEDIATE</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-
-                        <div class="d-flex flex-column flex-sm-row">
-                            <a href="#" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="assets/images/logos/rails.svg" alt="Card image cap" class="avatar-course-img">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <div class="d-flex">
-                                    <div>
-                                        <h4 class="card-title mb-1"><a href="instructor-course-edit.html">Ruby on Rails Workflows</a></h4>
-                                        <p class="text-muted">Let’s start with a quick tour of Vue’s data binding features.</p>
-                                    </div>
-                                    <div class="dropdown ml-auto">
-                                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="instructor-course-edit.html">Edit Course</a>
-                                            <a class="dropdown-item" href="#">Statistics</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#">Archive</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">&dollar;300/mo</span>
-                                            <small class="text-muted ml-auto">5 SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-2">
-                                            <span class="badge badge-angular mr-2">ANGULAR</span>
-                                            <span class="badge badge-soft-secondary">INTERMEDIATE</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
 
     </div>
 
-
 </div>
+
 @endsection

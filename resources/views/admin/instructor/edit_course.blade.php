@@ -21,64 +21,95 @@ Instructor
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-form__body card-body">
-                        <div class="form-group">
-                            <label for="fname">Slug (URL)</label>
-                            <div class="help-block my-1 p-1 text-muted bg-light border rounded">/course-title-is-editable-here</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fname">Title</label>
-                            <input id="fname" type="text" class="form-control" placeholder="Title goes here" value="Course title is editable here">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="desc">Description</label>
-                            <textarea id="desc" rows="4" class="form-control" placeholder="Please enter a description"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category</label><br />
-                            <select id="category" class="custom-select w-auto">
-                                <option disabled selected>Select Category</option>
-                            </select>
-
-
-                        </div>
-                        <div class="form-group">
-                            <label for="subscribe">Published</label><br>
-                            <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
-                                <input checked="" type="checkbox" id="subscribe" class="custom-control-input">
-                                <label class="custom-control-label" for="subscribe">Yes</label>
+                    <form action="{{ route('instructor.course.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-form__body card-body">
+                            
+                            <!-- General Validation Errors -->
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            
+                            <div class="form-group">
+                                <label for="slug">Slug (URL)</label>
+                                <div class="help-block my-1 p-1 text-muted bg-light border rounded">
+                                    /course-title-is-editable-here
+                                </div>
                             </div>
-                            <label for="subscribe" class="mb-0">Yes</label>
+                    
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input id="title" type="text" name="title" class="form-control" placeholder="Title goes here" value="{{ old('title', 'Course title is editable here') }}">
+                                @error('title')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Please enter a description">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                    
+                            <div class="form-group">
+                                <label for="category">Category</label><br />
+                                <select id="category" name="category_id" class="custom-select w-auto">
+                                    <option disabled selected>Select Category</option>
+                                </select>
+                                @error('category_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input id="price" type="number" name="price" class="form-control" placeholder="price goes here" value="{{ old('price', '0') }}">
+                                @error('price')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                    
+                            <div class="form-group">
+                                <label for="status">Published</label><br>
+                                <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
+                                    <input type="checkbox" id="status" name="status" class="custom-control-input" value="1" {{ old('status', 1) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="status">Yes</label>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group">
+                                <label>Course Preview</label>
+                                <div class="dz-clickable media align-items-center" data-toggle="dropzone" data-dropzone-clickable=".dz-clickable">
+                                    <div class="dz-preview dz-file-preview dz-clickable mr-3">
+                                        <div class="avatar avatar-lg">
+                                            <img src="{{ asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <input type="file" name="cover_image" class="form-control-file">
+                                        @error('cover_image')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                    
                         </div>
-
-                        <div class="form-group">
-                            <label>Course Preview</label>
-                            <div class="dz-clickable media align-items-center" 
-                            data-toggle="dropzone" 
-                            {{-- data-dropzone-url="{{ route('upload_url') }}"  --}}
-                            data-dropzone-clickable=".dz-clickable" 
-                            data-dropzone-files='["{{ asset('assets/images/account-add-photo.svg') }}"]'>
-                           
-                           <div class="dz-preview dz-file-preview dz-clickable mr-3">
-                               <div class="avatar avatar-lg">
-                                   <img src="{{ asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
-                               </div>
-                           </div>
-                           
-                           <div class="media-body">
-                               <button class="btn btn-sm btn-light dz-clickable">Choose photo</button>
-                           </div>
-                       </div>
-                       
+                        
+                        <div class="card-body text-center">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
                         </div>
-                    </div>
-                    <div class="card-body text-center">
-
-                        <button type="submit" class="btn btn-success">Save Changes</button>
-                    </div>
-
+                    </form>
+                    
                 </div>
             </div>
             <div class="col-md-4">

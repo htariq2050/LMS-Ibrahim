@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->integer('order')->autoIncrement()->unique()->comment('Position of the lesson within the course');
+            $table->integer('order')->unique()->comment('Position of the lesson within the course');
             $this->addCommonColumns($table);
         });
     }

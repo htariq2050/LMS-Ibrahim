@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->string('title');
+            $table->string('cover_image')->nullable()->comment('URL or path to the course cover image');
             $table->text('description');
+            $table->string('slug_url')->unique();
             $table->integer('price')->comment('Price of the course');
             $this->addCommonColumns($table);
         });
