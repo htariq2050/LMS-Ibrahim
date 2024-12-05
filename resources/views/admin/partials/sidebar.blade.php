@@ -226,7 +226,7 @@
 
                 <ul class="sidebar-menu mt-0">
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_dashboard') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.dashboard') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -239,7 +239,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_courses') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.courses.index') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -251,8 +251,23 @@
                         </a>
                     </li>
 
+
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_edit_course') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.courses.create') }}">
+                            <span class="sidebar-menu-icon sidebar-menu-icon--left">
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
+                                    <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
+                                        <path d="M19,13c-0.552,0-1,0.448-1,1v7c0,0.552-0.448,1-1,1H3c-0.552,0-1-0.448-1-1V3c0-0.552,0.448-1,1-1h7c0.552,0,1-0.448,1-1 s-0.448-1-1-1H3C1.343,0,0,1.343,0,3v18c0,1.657,1.343,3,3,3h14c1.657,0,3-1.343,3-3v-7C20,13.448,19.552,13,19,13z M8.73,12.521 c-0.174,0.048-0.309,0.186-0.353,0.361L7.82,15.119l-1.252,1.252c-0.293,0.293-0.293,0.768,0,1.061c0,0,0,0,0,0 c0.295,0.287,0.765,0.287,1.06,0l1.264-1.262l2.207-0.555c0.174-0.044,0.312-0.177,0.36-0.35c0.048-0.173,0-0.359-0.127-0.487 L9.217,12.65C9.09,12.522,8.904,12.473,8.73,12.521z M23.707,0.293c-0.39-0.39-1.024-0.39-1.414,0l-0.9,0.9 c-0.518-0.138-1.07-0.063-1.533,0.208L19.808,1.35c-1.172-1.165-3.066-1.162-4.235,0.006l-3.612,3.605 c-0.39,0.391-0.39,1.023,0,1.414c0.394,0.384,1.021,0.384,1.415,0L17,2.761c0.392-0.384,1.019-0.381,1.407,0.007L17.7,3.475 c-0.195,0.195-0.195,0.512,0,0.707L19.818,6.3c0.195,0.195,0.512,0.195,0.707,0l1.768-1.768c0.504-0.505,0.701-1.241,0.517-1.93 l0.9-0.9C24.096,1.311,24.095,0.682,23.707,0.293z M12.4,14.22c0.132,0,0.259-0.053,0.353-0.147l6.356-6.355 c0.195-0.195,0.195-0.512,0-0.707L16.99,4.889c-0.198-0.188-0.509-0.188-0.707,0l-6.356,6.356c-0.195,0.195-0.195,0.512,0,0.707 l2.121,2.121C12.141,14.167,12.268,14.219,12.4,14.22z" stroke="none" fill="currentColor" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="sidebar-menu-text">Add Course</span>
+                        </a>
+                    </li>
+
+
+                    {{-- <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.courses.edit') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -262,12 +277,12 @@
                             </span>
                             <span class="sidebar-menu-text">Edit Course</span>
                         </a>
-                    </li>
+                    </li> --}}
 
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_edit_lesson') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.lessons.index') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -282,7 +297,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_create_quiz') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.create.quiz') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -298,7 +313,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_earnings') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.earnings') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -312,7 +327,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_profile') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.profile') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left material-icons">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -325,7 +340,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('instructor_payout') }}">
+                        <a class="sidebar-menu-button" href="{{ route('instructor.payout') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">

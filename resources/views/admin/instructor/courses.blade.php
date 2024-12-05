@@ -11,7 +11,7 @@ Instructor
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <h1 class="m-lg-0">Instructor Courses</h1>
-            <a href="{{ route('instructor.course.create') }}" class="btn btn-success ml-lg-3">New Course <i class="material-icons">add</i></a>
+            <a href="{{ route('instructor.courses.create') }}" class="btn btn-success ml-lg-3">New Course <i class="material-icons">add</i></a>
         </div>
     </div>
 
@@ -57,7 +57,7 @@ Instructor
                             <div class="flex" style="min-width: 200px;">
                                 <div class="d-flex">
                                     <div>
-                                        <h4 class="card-title mb-1"><a href="{{ route('instructor.course.edit', $course->id) }}">{{ $course->title }}</a></h4>
+                                        <h4 class="card-title mb-1"><a href="{{ route('instructor.courses.edit', $course->id) }}">{{ $course->title }}</a></h4>
                                         <p class="text-muted">{{ Str::limit($course->description, 100) }}</p>
                                     </div>
                                     <div class="dropdown ml-auto">
@@ -65,7 +65,7 @@ Instructor
                                             <i class="material-icons">more_vert</i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('instructor.course.edit', $course->id) }}">Edit Course</a>
+                                            <a class="dropdown-item" href="{{ route('instructor.courses.edit', $course->id) }}">Edit Course</a>
                                             <a class="dropdown-item" href="#">Statistics</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-danger" href="#">Archive</a>
@@ -75,12 +75,12 @@ Instructor
                                 <div class="d-flex align-items-end">
                                     <div class="d-flex flex flex-column mr-3">
                                         <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">${{ number_format($course->earnings, 2) }}/mo</span>
+                                            <span class="mr-2">${{ number_format($course->price, 2) }}/mo</span>
                                             <small class="text-muted ml-auto">{{ $course->sales_count }} SALES</small>
                                         </div>
                                         <div class="d-flex align-items-center py-2">
                                             <span class="badge badge-vuejs mr-2">{{ $course->category->name }}</span>
-                                            <span class="badge badge-soft-secondary">INTERMEDIATE</span>
+                                            <span class="badge badge-soft-secondary">{{ optional($course->subcategory)->name }}</span>
                                         </div>
                                     </div>
                                 </div>

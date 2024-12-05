@@ -11,15 +11,14 @@ class RoleMiddleware
 
     public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check()) {
-            return redirect('/'); // Redirect to home if not logged in
-        }
-
+        if (!Auth::check()) return redirect('/'); 
+        
         $user = Auth::user();
 
-        if ($user->role !== $role) {
-            return redirect('/'); // Redirect if user does not have the correct role
-        }
+        if ($user) $request->merge(['user_id' => $user->id]);
+        
+        if ($user->role !== $role)   return redirect('/'); 
+        
 
         return $next($request);
     }

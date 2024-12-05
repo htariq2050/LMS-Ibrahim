@@ -1,22 +1,28 @@
 @extends('admin.layouts.app')
 @section('title')
-    Instructor
+Instructor
 @endsection
 @section('dashboardcontent')
 <div class="mdk-drawer-layout__content page">
+
+
+
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex align-items-center justify-content-between">
-            <h1 class="m-0">Edit Course</h1>
+            <h1 class="m-0">Add Course</h1>
         </div>
     </div>
+
+
+
+
 
     <div class="container-fluid page__container">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
-                    <form action="{{ route('instructor.courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('instructor.courses.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')  <!-- Add method field for update -->
                         <div class="card-form__body card-body">
                             
                             <!-- General Validation Errors -->
@@ -30,9 +36,16 @@
                                 </div>
                             @endif
                             
+                            {{-- <div class="form-group">
+                                <label for="slug">Slug (URL)</label>
+                                <div class="help-block my-1 p-1 text-muted bg-light border rounded">
+                                    /course-title-is-editable-here
+                                </div>
+                            </div> --}}
+                    
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input id="title" type="text" name="title" class="form-control" placeholder="Title goes here" value="{{ old('title', $course->title) }}">
+                                <input id="title" type="text" name="title" class="form-control" placeholder="Title goes here" value="{{ old('title', '') }}">
                                 @error('title')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -40,19 +53,18 @@
                     
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Please enter a description">{{ old('description', $course->description) }}</textarea>
+                                <textarea id="description" name="description" rows="4" class="form-control" placeholder="Please enter a description">{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
+                    
                             <div class="form-group">
                                 <label for="category">Category</label><br />
                                 <select id="category" name="category_id" class="custom-select w-auto">
-                                    <option disabled>Select Category</option>
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category->id }}" {{ old('category_id', $course->category_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
-                                    @endforeach
+                                    <option disabled selected>Select Category</option>
+                                    <!-- Categories populated by JavaScript -->
                                 </select>
                                 @error('category_id')
                                     <div class="text-danger">{{ $message }}</div>
@@ -62,10 +74,7 @@
                             <div class="form-group">
                                 <label for="subcategory">SubCategory</label><br />
                                 <select id="subcategory" name="subcategory_id" class="custom-select w-auto">
-                                    <option disabled>Select subcategory</option>
-                                    @foreach($subcategories as $subcategory)
-                                        <option value="{{ $subcategory->id }}" {{ old('subcategory_id', $course->subcategory_id) == $subcategory->id ? 'selected' : '' }}>{{ $subcategory->name }}</option>
-                                    @endforeach
+                                    <option disabled selected>Select subcategory</option>
                                 </select>
                                 @error('subcategory_id')
                                     <div class="text-danger">{{ $message }}</div>
@@ -74,7 +83,7 @@
 
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input id="price" type="number" name="price" class="form-control" placeholder="price goes here" value="{{ old('price', $course->price) }}">
+                                <input id="price" type="number" name="price" class="form-control" placeholder="price goes here" value="{{ old('price', '0') }}">
                                 @error('price')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -83,7 +92,7 @@
                             <div class="form-group">
                                 <label for="status">Published</label><br>
                                 <div class="custom-control custom-checkbox-toggle custom-control-inline mr-1">
-                                    <input type="checkbox" id="status" name="status" class="custom-control-input" value="1" {{ old('status', $course->status) ? 'checked' : '' }}>
+                                    <input type="checkbox" id="status" name="status" class="custom-control-input" value="1" {{ old('status', 1) ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="status">Yes</label>
                                 </div>
                             </div>
@@ -93,7 +102,7 @@
                                 <div class="dz-clickable media align-items-center" data-toggle="dropzone" data-dropzone-clickable=".dz-clickable">
                                     <div class="dz-preview dz-file-preview dz-clickable mr-3">
                                         <div class="avatar avatar-lg">
-                                            <img src="{{ $course->cover_image ? asset('storage/'.$course->cover_image) : asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
+                                            <img src="{{ asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
                                         </div>
                                     </div>
                                     <div class="media-body">
@@ -128,8 +137,8 @@
                         </div>
                     </div>
 
+
                     <ul class="list-group list-group-fit">
-                        @foreach($course->lessons as $lesson)
                         <li class="list-group-item">
                             <div class="media">
                                 <div class="media-left">
@@ -138,20 +147,101 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="#">{{ $lesson->title }}</a>
+                                    <a href="#">Overview</a>
                                 </div>
                                 <div class="media-right">
-                                    <small class="text-muted">{{ $lesson->duration }}</small>
+                                    <small class="text-muted">3:33</small>
                                 </div>
                             </div>
                         </li>
-                        @endforeach
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <i class="material-icons text-light-gray">list</i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="#">Asset Pipeline</a>
+                                </div>
+                                <div class="media-right">
+                                    <small>18:43</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <i class="material-icons text-light-gray">list</i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="#">Getting Started</a>
+                                    <small class="badge badge-soft-success ">FREE</small>
+                                </div>
+                                <div class="media-right">
+                                    <small class="text-muted">5:21</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <i class="material-icons text-light-gray">list</i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="#">Advanced Workflows</a>
+                                    <small class="badge badge-soft-warning ">PRO</small>
+                                </div>
+                                <div class="media-right">
+                                    <small class="text-muted">5:24</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <i class="material-icons text-light-gray">list</i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="#">Tips & Tricks</a>
+                                    <small class="badge badge-soft-warning ">PRO</small>
+                                </div>
+                                <div class="media-right">
+                                    <small class="text-muted">11:38</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <i class="material-icons text-light-gray">list</i>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a href="#">Final Quiz</a>
+                                </div>
+                                <div class="media-right">
+                                    <small class="badge badge-soft-primary ">QUIZ</small>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </div>
+
 
 <script>
     window.onload = async function() {
@@ -162,7 +252,7 @@
 
             const categorySelect = document.getElementById('category');
             categorySelect.innerHTML += categories.map(category => 
-                `<option value="${category.id}" ${category.id == {{ $course->category_id }} ? 'selected' : ''}>${category.name}</option>`
+                `<option value="${category.id}">${category.name}</option>`
             ).join('');
 
             // Add event listener to category dropdown
@@ -179,7 +269,7 @@
                     const subcategories = await subcategoryResponse.json();
 
                     subcategorySelect.innerHTML += subcategories.map(subcategory =>
-                        `<option value="${subcategory.id}" ${subcategory.id == {{ $course->subcategory_id }} ? 'selected' : ''}>${subcategory.name}</option>`
+                        `<option value="${subcategory.id}">${subcategory.name}</option>`
                     ).join('');
                 } catch (error) {
                     console.error('Error fetching subcategories:', error);

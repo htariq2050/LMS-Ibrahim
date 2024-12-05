@@ -2,36 +2,68 @@
 
 namespace App\Services;
 
+use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Video;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Exception;
+use FFMpeg\FFMpeg;
 
 class LessonService
 {
     /**
      * Get all lessons for a specific course.
      */
-    public function getLessonsByCourse($courseId)
+    public function getLessonsByCourse()
     {
-        return Lesson::where('course_id', $courseId)
-            ->orderBy('order', 'asc')
-            ->get();
+        return Course::with('subcategory')->orderBy('id', 'asc')->get();
     }
 
-    /**
-     * Get a specific lesson by ID.
-     */
+ 
     public function getLessonById($id)
     {
         return Lesson::findOrFail($id);
     }
 
-    /**
-     * Create a new lesson.
-     */
+  
     public function createLesson(array $data)
     {
         return Lesson::create($data);
     }
 
+    // public function createLessonWithVideos(array $data)
+    // {
+    //     DB::beginTransaction(); 
+
+    //     try {
+            
+    //         $lesson = Lesson::create([
+    //             'course_id' => $data['course_id'],
+    //             'title' => $data['title'],
+    //             'description' => $data['description'],
+    //             'order' => $data['order'],
+    //             'status' => $data['status'],
+    //             'created_by' => auth()->id(),
+    //             'updated_by' => auth()->id(),
+    //         ]);
+
+            
+
+    //         DB::commit(); 
+
+    //         return $lesson;
+    //     } catch (Exception $e) {
+    //         DB::rollBack(); 
+    //         return $e->getMessage();
+    //         Log::error('Error creating lesson with videos: ', [
+    //             'message' => $e->getMessage(),
+    //             'stack' => $e->getTraceAsString(),
+    //         ]);
+
+    //         throw new \RuntimeException('An error occurred while creating the lesson. Please try again.');
+    //     }
+    // }
     /**
      * Update an existing lesson.
      */

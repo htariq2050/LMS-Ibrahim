@@ -3,29 +3,25 @@
 namespace App\Http\Controllers\v1\Instructor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
-    public function index()
-    {
-        
-        $instructor_id = auth()->user()->id;
-     
-        
-        $courses = Course::where('instructor_id', $instructor_id)->get();
-       
-        
+    public function index(Request $request)
+    {   
+        $courses = Course::filter('instructor_id', $request->user_id)->get();
         return view('admin.instructor.courses', ['courses' => $courses]);
     }
     
 
     public function create()
     {
-        return view('instructor.courses.create');
+         return view('admin.instructor.add_course');
     }
 
     public function store(Request $request)
@@ -35,6 +31,7 @@ class CoursesController extends Controller
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
                 'category_id' => 'required|exists:categories,id',
+                'subcategory_id' => 'required',
                 'status' => 'boolean',
                 'price' => 'integer',
                 'cover_image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
@@ -53,20 +50,33 @@ class CoursesController extends Controller
     
             Course::create($validatedData);
     
-            return redirect()->route('instructor_courses')->with('success', 'Course created successfully.');
+            return redirect()->route('instructor.courses.index')->with('success', 'Course created successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Failed to create course. Please try again.'.$e])->withInput();
         }
     }
     
 
-    public function edit(Course $course)
+    public function edit($id)
     {
-        return view('courses.edit', compact('course'));
+        // Find the course by ID and load related subcategories and categories
+        $course = Course::with('subcategory', 'category')->findOrFail($id);
+        
+        // Fetch all categories for the category dropdown
+        $categories = Category::all();
+    
+        // Fetch subcategories based on the selected category (if available)
+        $subcategories = SubCategory::where('category_id', $course->category_id)->get();
+    
+        return view('admin.instructor.edit_course', compact('course', 'categories', 'subcategories'));
     }
+    
+    
 
     public function update(Request $request, Course $course)
     {
+
+        $request->merge(['instructor_id' => auth()->id()]);
         $validated = $request->validate([
             'instructor_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
@@ -74,7 +84,6 @@ class CoursesController extends Controller
             'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'status' => 'required|in:active,inactive',
         ]);
 
         if ($request->title !== $course->title) {
@@ -92,7 +101,7 @@ class CoursesController extends Controller
 
         $course->update($validated);
 
-        return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
+        return redirect()->route('instructor.courses.index')->with('success', 'Course updated successfully.');
     }
 
     private function generateUniqueSlug($title)

@@ -74,7 +74,7 @@ class AuthController extends Controller
             
     
             if ($user->role == 'instructor') 
-                return redirect()->route('instructor_dashboard')->with('success', 'Login successful');
+                return redirect()->route('instructor.dashboard')->with('success', 'Login successful');
             
         }
 

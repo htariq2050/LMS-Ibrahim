@@ -5,19 +5,12 @@ Student
 @section('dashboardcontent')
 <div class="mdk-drawer-layout__content page">
 
-
-
-
-
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex align-items-center justify-content-between">
             <h1 class="m-0">Courses</h1>
             <a href="" class="btn btn-success ml-3">Go to Courses <i class="material-icons">arrow_forward</i></a>
         </div>
     </div>
-
-
-
 
 
     <div class="container-fluid page__container">

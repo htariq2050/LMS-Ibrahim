@@ -8,6 +8,7 @@ class Course extends BaseModel
     protected $fillable = [
         'instructor_id',
         'category_id',
+        'subcategory_id',
         'slug_url',
         'cover_image',
         'title',
@@ -25,6 +26,11 @@ class Course extends BaseModel
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
 
     
