@@ -64,7 +64,6 @@ class CoursesController extends Controller
         }
     }
 
-
     public function edit($id)
     {
         // Find the course by ID and load related subcategories and categories
@@ -78,8 +77,6 @@ class CoursesController extends Controller
 
         return view('admin.instructor.courses.edit', compact('course', 'categories', 'subcategories'));
     }
-
-
 
     public function update(Request $request, Course $course)
     {
@@ -124,7 +121,7 @@ class CoursesController extends Controller
     {
         return $image->store('course_images', 'public');
     }
-
+    
     public function destroy(Course $course)
     {
         if ($course->cover_image) {

@@ -47,10 +47,10 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
         Route::view('/earnings', 'admin.instructor.earnings')->name('earnings');
         Route::view('/payout', 'admin.instructor.payout')->name('payout');
 
+
         Route::resource('quizzes', QuizController::class);
-        
         Route::resource('courses', CoursesController::class);
-        Route::resource('lessons', LessonController::class);
+        Route::resource('lessons',  LessonController::class);
         Route::resource('profile', ProfileController::class);
     });
 

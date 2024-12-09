@@ -10,9 +10,6 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the instructor's profile.
-     */
     public function index(Request $request)
     {
         $instructor = auth()->user();
@@ -23,16 +20,12 @@ class ProfileController extends Controller
         return view('admin.instructor.profile.index', compact('instructor', 'courses'));
     }
 
-
     public function edit()
     {
         $instructor = auth()->user();
         return view('admin.instructor.profile.edit', compact('instructor'));
     }
 
-    /**
-     * Update the instructor's profile in storage.
-     */
     public function update(Request $request)
     {
         $instructor = auth()->user();
@@ -46,7 +39,7 @@ class ProfileController extends Controller
             'facebook_url' => 'nullable|url',
             'x_url' => 'nullable|url',
             'instagram_url' => 'nullable|url',
-            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate the profile image
+            'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
         ]);
 
         if ($request->hasFile('profile')) {

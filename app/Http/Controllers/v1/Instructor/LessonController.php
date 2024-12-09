@@ -23,13 +23,11 @@ class LessonController extends Controller
         
     }
 
-  
     public function index()
     {
         $courses = $this->lessonService->getLessonsByCourse();
         return view('admin.instructor.lessons.create', compact('courses'));
     }
-
 
     public function create()
     {
@@ -37,9 +35,6 @@ class LessonController extends Controller
         return view('admin.instructor.lessons.create', compact('courses'));
     }
 
-  
-
-    
     public function store(Request $request)
     {
         // Validate lesson and video fields
@@ -101,15 +96,11 @@ class LessonController extends Controller
         }
     }
     
-    
-
-   
     public function edit($id)
     {
         $lesson = $this->lessonService->getLessonById($id);
         return view('admin.instructor.lessons.edit', compact('lesson'));
     }
-
 
     public function update(LessonRequest $request, $id)
     {
@@ -117,8 +108,7 @@ class LessonController extends Controller
         return redirect()->route('instructor.course.index')
             ->with('success', 'Lesson updated successfully.');
     }
-
-
+    
     public function destroy($id)
     {
         $this->lessonService->deleteLesson($id);
