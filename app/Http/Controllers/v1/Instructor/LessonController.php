@@ -27,13 +27,14 @@ class LessonController extends Controller
     public function index()
     {
         $courses = $this->lessonService->getLessonsByCourse();
-        return view('admin.instructor.add_lesson', compact('courses'));
+        return view('admin.instructor.lessons.create', compact('courses'));
     }
 
 
     public function create()
     {
-        return view('admin.instructor.lessons.create');
+        $courses = $this->lessonService->getLessonsByCourse();
+        return view('admin.instructor.lessons.create', compact('courses'));
     }
 
   

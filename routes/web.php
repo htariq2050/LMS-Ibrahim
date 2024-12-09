@@ -6,6 +6,7 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use App\Http\Controllers\v1\Instructor\CoursesController;
 use App\Http\Controllers\v1\Instructor\LessonController;
+use App\Http\Controllers\v1\Instructor\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -44,13 +45,13 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
     Route::view('/dashboard', 'admin.instructor.dashboard')->name('dashboard');
         Route::view('/create-quiz', 'admin.instructor.create_quiz')->name('create.quiz');
         Route::view('/earnings', 'admin.instructor.earnings')->name('earnings');
-        Route::view('/profile', 'admin.instructor.profile')->name('profile');
         Route::view('/payout', 'admin.instructor.payout')->name('payout');
 
         Route::resource('quizzes', QuizController::class);
         
         Route::resource('courses', CoursesController::class);
         Route::resource('lessons', LessonController::class);
+        Route::resource('profile', ProfileController::class);
     });
 
 

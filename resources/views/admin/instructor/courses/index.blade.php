@@ -49,15 +49,18 @@ Instructor
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-
                         <div class="d-flex flex-column flex-sm-row">
-                            <a href="#" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
+                            <!-- Link to the course show page on image -->
+                            <a href="{{ route('instructor.courses.show', $course->id) }}" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
                                 <img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" alt="{{$course->title}}" class="avatar-course-img">
                             </a>
                             <div class="flex" style="min-width: 200px;">
                                 <div class="d-flex">
                                     <div>
-                                        <h4 class="card-title mb-1"><a href="{{ route('instructor.courses.edit', $course->id) }}">{{ $course->title }}</a></h4>
+                                        <!-- Link to the course show page on title -->
+                                        <h4 class="card-title mb-1">
+                                            <a href="{{ route('instructor.courses.show', $course->id) }}">{{ $course->title }}</a>
+                                        </h4>
                                         <p class="text-muted">{{ Str::limit($course->description, 100) }}</p>
                                     </div>
                                     <div class="dropdown ml-auto">
@@ -86,12 +89,12 @@ Instructor
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
+        
 
     </div>
 

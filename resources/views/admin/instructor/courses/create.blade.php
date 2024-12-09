@@ -138,7 +138,7 @@ Instructor
                     </div>
 
 
-                    <ul class="list-group list-group-fit">
+                    {{-- <ul class="list-group list-group-fit">
                         <li class="list-group-item">
                             <div class="media">
                                 <div class="media-left">
@@ -232,7 +232,7 @@ Instructor
                                 </div>
                             </div>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </div>
