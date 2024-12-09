@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use App\Http\Controllers\v1\Instructor\CoursesController;
@@ -46,6 +47,7 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
         Route::view('/profile', 'admin.instructor.profile')->name('profile');
         Route::view('/payout', 'admin.instructor.payout')->name('payout');
 
+        Route::resource('quizzes', QuizController::class);
         
         Route::resource('courses', CoursesController::class);
         Route::resource('lessons', LessonController::class);
