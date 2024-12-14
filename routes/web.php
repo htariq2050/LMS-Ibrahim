@@ -31,10 +31,11 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
     Route::get('/courses', [CoursesController::class, 'get'])->name('courses');
+    Route::get('/series', [CoursesController::class, 'studentCourses'])->name('series');
 
 
     Route::view('/dashboard', 'admin.student.dashboard')->name('dashboard');
-    Route::view('/series', 'admin.student.series')->name('series');
+    // Route::view('/series', 'admin.student.series')->name('series');
     Route::view('/lessons', 'admin.student.lessons')->name('lessons');
     Route::view('/take-course', 'admin.student.take_course')->name('take_course');
     Route::view('/take-quiz', 'admin.student.take_quiz')->name('take_quiz');

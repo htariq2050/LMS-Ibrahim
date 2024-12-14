@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Purchase;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -21,14 +22,20 @@ class CoursesController extends Controller
 
     public function get(Request $request)
     {
-        $courses = Course::get();
-        return view('admin.student.courses.index', ['courses' => $courses]);
+        $courses = Purchase::where('user_id', auth()->id()) // Corrected method for getting authenticated user's ID
+            ->with('course') // Corrected eager loading syntax
+            ->get();
+    
+        return view('admin.student.courses.index', ['courses' => $courses[0]->course]);
     }
+    
 
     public function studentCourses(Request $request)
     {
+
         $courses = Course::get();
-        return view('admin.student.courses.index', ['courses' => $courses]);
+        return view('admin.student.series', ['courses' => $courses]);
+
     }
 
     public function show($id)
