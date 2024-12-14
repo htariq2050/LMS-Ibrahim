@@ -41,7 +41,6 @@ Route::prefix('student')->middleware(['role:student'])->as('student.')->group(fu
     Route::view('/billing', 'admin.student.billing')->name('billing');
     Route::view('/edit-account', 'admin.student.edit_account')->name('account');
     Route::view('/profile', 'admin.student.profile')->name('profile');
-    // Route::view('/profile', 'admin.student.profile')->name('student_profile');
 
 });
 

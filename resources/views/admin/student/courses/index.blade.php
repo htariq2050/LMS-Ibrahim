@@ -47,7 +47,7 @@ Student
                     <div class="card card__course">
                         <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
                             <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('student.courses', $course->id) }}">
-                                <span><img src="{{ asset('path/to/default/logo.svg') }}" class="mb-1" style="width:34px;" alt="logo"></span>
+                                <span><img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" class="mb-1" style="width:100%; hight:100%" alt="logo"></span>
                                 <span class="course__title">{{ $course->title }}</span>
                                 <span class="course__subtitle">{{ $course->description }}</span>
                             </a>

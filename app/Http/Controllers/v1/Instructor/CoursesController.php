@@ -25,6 +25,12 @@ class CoursesController extends Controller
         return view('admin.student.courses.index', ['courses' => $courses]);
     }
 
+    public function studentCourses(Request $request)
+    {
+        $courses = Course::get();
+        return view('admin.student.courses.index', ['courses' => $courses]);
+    }
+
     public function show($id)
     {
         $course = Course::with(['lessons.videos'])->findOrFail($id);
