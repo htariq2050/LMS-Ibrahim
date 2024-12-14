@@ -111,7 +111,7 @@
                     </li>
 
 
-                    <li class="sidebar-menu-item">
+                    {{-- <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="{{ route('student.lessons') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
@@ -122,7 +122,7 @@
                             </span>
                             <span class="sidebar-menu-text">Course Lessons</span>
                         </a>
-                    </li>
+                    </li> --}}
 
 
 

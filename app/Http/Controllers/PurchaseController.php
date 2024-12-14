@@ -29,11 +29,15 @@ class PurchaseController extends Controller
         return view('admin.student.courses.index', ['courses' => $courses]);
     }
 
-    public function studentCoursesAndLessons(Request $request)
+    public function studentCoursesAndLessons(Request $request, $id)
     {
-        $courses = Course::with(['lessons.videos'])->get();
-        return view('admin.student.series', ['courses' => $courses]);
-
+        $courses = Purchase::where('user_id', Auth::id()) 
+        ->where('course_id', $id) 
+        ->with(['course.lessons.videos', 'user']) 
+        ->get();
+    
+        // Pass the data to the view
+        return view('admin.student.lessons', ['courses' => $courses]);
     }
     
 

@@ -14,15 +14,12 @@ use Illuminate\Support\Facades\Storage;
 
 class CoursesController extends Controller
 {
+
     public function index(Request $request)
     {
         $courses = Course::filter('instructor_id', $request->user_id)->get();
         return view('admin.instructor.courses.index', ['courses' => $courses]);
-    }
-
-
-
-    
+    } 
 
     public function studentCourses(Request $request)
     {
@@ -31,8 +28,6 @@ class CoursesController extends Controller
         return view('admin.student.series', ['courses' => $courses]);
 
     }
-
-
 
     public function show($id)
     {

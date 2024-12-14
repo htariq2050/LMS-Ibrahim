@@ -43,11 +43,11 @@ Student
 
         <div class="row">
             @foreach($courses as $purchase)
-            
                 <div class="col-md-3">
                     <div class="card card__course">
                         <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                            <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('student.courses', $purchase->course->slug_url) }}">
+                            <!-- Updated route to use student.lessons with course ID -->
+                            <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('student.lessons', $purchase->course->id) }}">
                                 <span><img src="{{ asset('uploads/courses_cover_images/' . $purchase->course->cover_image) }}" class="mb-1" style="width:100%; hight:100" alt="logo"></span>
                                 <span class="course__title">{{ $purchase->course->title }}</span>
                                 <span class="course__subtitle">{{ $purchase->course->description }}</span>
@@ -74,6 +74,7 @@ Student
                 </div>
             @endforeach
         </div>
+        
     </div>
 </div>
 @endsection
