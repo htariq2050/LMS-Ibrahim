@@ -44,7 +44,7 @@ class LessonController extends Controller
             'description'  => 'required|string',
             'order'        => 'required|integer',
             'video_title'  => 'required|string|max:255',
-            'video_url'    => 'required|url',
+            // 'video_url'    => 'required|url',
             'thumbnail'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'duration'     => 'required|integer',
             'video_order'  => 'required|integer',

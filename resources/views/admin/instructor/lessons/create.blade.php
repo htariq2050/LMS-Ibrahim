@@ -95,7 +95,7 @@
                             <!-- Video URL -->
                             <div class="form-group">
                                 <label for="video_url">Video URL</label>
-                                <input id="video_url" type="url" name="video_url" class="form-control" placeholder="Enter video URL" value="{{ old('video_url') }}">
+                                <input id="video_url" type="text" name="video_url" class="form-control" placeholder="Enter video URL" value="{{ old('video_url') }}">
                                 @error('video_url')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

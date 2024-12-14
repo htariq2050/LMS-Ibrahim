@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\PurchasedCourseController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\v1\Auth\AuthController;
@@ -11,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::view('/', 'home.landing')->name('home');
+
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubCategoryController::class);
+
+Route::resource('purchases', PurchaseController::class);
 
 
 
