@@ -203,7 +203,7 @@
                         <a class="dropdown-item d-flex align-items-center py-2" href="#">
                             <span class="material-icons mr-2">settings</span> Settings
                         </a>
-                        <a class="dropdown-item d-flex align-items-center py-2" href="login.html">
+                        <a class="dropdown-item d-flex align-items-center py-2" href={{ route('logout') }}>
                             <span class="material-icons mr-2">exit_to_app</span> Logout
                         </a>
                     </div>
