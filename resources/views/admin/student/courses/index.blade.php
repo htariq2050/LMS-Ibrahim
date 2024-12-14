@@ -1,4 +1,7 @@
 
+{{
+    die($courses);
+}}
 @extends('admin.layouts.app')
 
 @section('title')
