@@ -26,7 +26,7 @@ class CoursesController extends Controller
             ->with('course') // Corrected eager loading syntax
             ->get();
     
-        return view('admin.student.courses.index', ['courses' => $courses[0]->course]);
+        return view('admin.student.courses.index', ['courses' => $courses]);
     }
     
 

@@ -1,7 +1,3 @@
-
-{{
-    die($courses);
-}}
 @extends('admin.layouts.app')
 
 @section('title')
@@ -46,14 +42,15 @@ Student
         </form>
 
         <div class="row">
-            @foreach($courses as $course)
+            @foreach($courses as $purchase)
+            
                 <div class="col-md-3">
                     <div class="card card__course">
                         <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
-                            <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('student.courses', $course->id) }}">
-                                <span><img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" class="mb-1" style="width:100%; hight:100%" alt="logo"></span>
-                                <span class="course__title">{{ $course->title }}</span>
-                                <span class="course__subtitle">{{ $course->description }}</span>
+                            <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('student.courses', $purchase->course->slug_url) }}">
+                                <span><img src="{{ asset('uploads/courses_cover_images/' . $purchase->course->cover_image) }}" class="mb-1" style="width:100%; hight:100" alt="logo"></span>
+                                <span class="course__title">{{ $purchase->course->title }}</span>
+                                <span class="course__subtitle">{{ $purchase->course->description }}</span>
                             </a>
                         </div>
                         <div class="p-3">
@@ -69,7 +66,7 @@ Student
                                 <small class="text-muted">(391 ratings)</small>
                             </div>
                             <div class="d-flex align-items-center">
-                                <strong class="h4 m-0">${{ $course->price }}</strong>
+                                <strong class="h4 m-0">${{ $purchase->course->price }}</strong>
                                 <a href="#" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></a>
                             </div>
                         </div>
