@@ -67,7 +67,7 @@
 
 
                     <li class="sidebar-menu-item active">
-                        <a class="sidebar-menu-button" href="{{ route('student_dashboard') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.dashboard') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -81,7 +81,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_series') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.series') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -94,7 +94,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_courses') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.courses') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -108,7 +108,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_lessons') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.lessons') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -125,7 +125,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_take_course') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.take_course') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -138,7 +138,7 @@
                     </li>
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_take_quiz') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.take_quiz') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -152,7 +152,7 @@
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_billing') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.billing') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -165,8 +165,8 @@
                     </li>
 
 
-                    <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_edit_account') }}">
+                    {{-- <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="{{ route('student.edit_account') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -176,11 +176,11 @@
                             </span>
                             <span class="sidebar-menu-text">Edit Account</span>
                         </a>
-                    </li>
+                    </li> --}}
 
 
                     <li class="sidebar-menu-item">
-                        <a class="sidebar-menu-button" href="{{ route('student_profile') }}">
+                        <a class="sidebar-menu-button" href="{{ route('student.profile') }}">
                             <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                     <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">

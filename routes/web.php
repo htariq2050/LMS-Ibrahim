@@ -16,7 +16,6 @@ Route::view('/', 'home.landing')->name('home');
 
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubCategoryController::class);
-
 Route::resource('purchases', PurchaseController::class);
 
 
@@ -30,16 +29,18 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
-Route::prefix('student')->middleware(['role:student'])->group(function () {
-    Route::view('/dashboard', 'admin.student.dashboard')->name('student_dashboard');
-    Route::view('/series', 'admin.student.series')->name('student_series');
-    Route::view('/courses', 'admin.student.courses')->name('student_courses');
-    Route::view('/lessons', 'admin.student.lessons')->name('student_lessons');
-    Route::view('/take-course', 'admin.student.take_course')->name('student_take_course');
-    Route::view('/take-quiz', 'admin.student.take_quiz')->name('student_take_quiz');
-    Route::view('/billing', 'admin.student.billing')->name('student_billing');
-    Route::view('/edit-account', 'admin.student.edit_account')->name('student_edit_account');
-    Route::view('/profile', 'admin.student.profile')->name('student_profile');
+Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
+    Route::get('/courses', [CoursesController::class, 'get'])->name('courses');
+
+
+    Route::view('/dashboard', 'admin.student.dashboard')->name('dashboard');
+    Route::view('/series', 'admin.student.series')->name('series');
+    Route::view('/lessons', 'admin.student.lessons')->name('lessons');
+    Route::view('/take-course', 'admin.student.take_course')->name('take_course');
+    Route::view('/take-quiz', 'admin.student.take_quiz')->name('take_quiz');
+    Route::view('/billing', 'admin.student.billing')->name('billing');
+    Route::view('/edit-account', 'admin.student.edit_account')->name('account');
+    Route::view('/profile', 'admin.student.profile')->name('profile');
     // Route::view('/profile', 'admin.student.profile')->name('student_profile');
 
 });

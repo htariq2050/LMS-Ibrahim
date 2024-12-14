@@ -18,12 +18,16 @@ class CoursesController extends Controller
         return view('admin.instructor.courses.index', ['courses' => $courses]);
     }
 
+
+    public function get(Request $request)
+    {
+        $courses = Course::get();
+        return view('admin.student.courses.index', ['courses' => $courses]);
+    }
+
     public function show($id)
     {
-        // Find the course by its ID
         $course = Course::with(['lessons.videos'])->findOrFail($id);
-
-        // Pass the course data to the view
         return view('admin.instructor.courses.show', ['course' => $course]);
     }
 
