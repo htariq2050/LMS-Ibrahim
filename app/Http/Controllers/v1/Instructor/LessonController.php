@@ -9,6 +9,7 @@ use App\Models\Lesson;
 use App\Models\Video;
 use App\Services\LessonService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -64,8 +65,8 @@ class LessonController extends Controller
                 'description'  => $request->description,
                 'order'        => $request->order,
                 'status'       => $request->status,
-                'created_by'   => auth()->id(),
-                'updated_by'   => auth()->id(),
+                'created_by'   => Auth::id(),
+                'updated_by'   => Auth::id(),
             ]);
     
             $thumbnailPath = null;
@@ -81,8 +82,8 @@ class LessonController extends Controller
                 'order'        => $request->video_order,
                 'duration'     => $request->duration,
                 'status'       => $request->status,
-                'created_by'   => auth()->id(),
-                'updated_by'   => auth()->id(),
+                'created_by'   => Auth::id(),
+                'updated_by'   => Auth::id(),
             ]);
     
             DB::commit();

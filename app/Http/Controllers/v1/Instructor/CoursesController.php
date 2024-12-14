@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Purchase;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,14 +21,7 @@ class CoursesController extends Controller
     }
 
 
-    public function get(Request $request)
-    {
-        $courses = Purchase::where('user_id', auth()->id()) // Corrected method for getting authenticated user's ID
-            ->with('course') // Corrected eager loading syntax
-            ->get();
-    
-        return view('admin.student.courses.index', ['courses' => $courses]);
-    }
+
     
 
     public function studentCourses(Request $request)
@@ -37,6 +31,8 @@ class CoursesController extends Controller
         return view('admin.student.series', ['courses' => $courses]);
 
     }
+
+
 
     public function show($id)
     {
@@ -63,7 +59,7 @@ class CoursesController extends Controller
             ]);
 
             $validatedData['slug_url'] = Str::slug($validatedData['title']) . '-' . uniqid();
-            $validatedData['instructor_id'] = auth()->id();
+            $validatedData['instructor_id'] = Auth::id();
 
 
             if ($request->hasFile('cover_image')) {
@@ -98,7 +94,7 @@ class CoursesController extends Controller
     public function update(Request $request, Course $course)
     {
 
-        $request->merge(['instructor_id' => auth()->id()]);
+        $request->merge(['instructor_id' => Auth::id()]);
         $validated = $request->validate([
             'instructor_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
@@ -119,7 +115,7 @@ class CoursesController extends Controller
             $validated['cover_image'] = $this->uploadImage($request->file('cover_image'));
         }
 
-        $validated['updated_by'] = auth()->id();
+        $validated['updated_by'] = Auth::id();
 
         $course->update($validated);
 
@@ -145,7 +141,7 @@ class CoursesController extends Controller
             Storage::delete($course->cover_image);
         }
 
-        $course->deleted_by = auth()->id();
+        $course->deleted_by = Auth::id();
         $course->save();
         $course->delete();
 

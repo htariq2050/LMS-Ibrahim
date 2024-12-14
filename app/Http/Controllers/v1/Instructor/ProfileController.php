@@ -7,12 +7,13 @@ use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $instructor = auth()->user();
+        $instructor = Auth::user();
         
 
         $courses = Course::where('instructor_id', $instructor->id)->get();
@@ -22,13 +23,13 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        $instructor = auth()->user();
+        $instructor = Auth::user();
         return view('admin.instructor.profile.edit', compact('instructor'));
     }
 
     public function update(Request $request)
     {
-        $instructor = auth()->user();
+        $instructor = Auth::user();
 
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',

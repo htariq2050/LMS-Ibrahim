@@ -19,6 +19,22 @@ class PurchaseController extends Controller
     
         return view('admin.purchases.index', compact('purchases'));
     }
+
+    public function get(Request $request)
+    {
+        $courses = Purchase::where('user_id', Auth::id()) 
+            ->with('course')
+            ->get();
+    
+        return view('admin.student.courses.index', ['courses' => $courses]);
+    }
+
+    public function studentCoursesAndLessons(Request $request)
+    {
+        $courses = Course::with(['lessons.videos'])->get();
+        return view('admin.student.series', ['courses' => $courses]);
+
+    }
     
 
 
@@ -28,6 +44,8 @@ class PurchaseController extends Controller
 
         return view('admin.purchases.create', compact('courses'));
     }
+
+
 
 
     public function store(Request $request)
