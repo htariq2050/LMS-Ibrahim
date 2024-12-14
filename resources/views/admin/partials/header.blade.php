@@ -30,7 +30,7 @@
 
 
 
-                <ul class="nav navbar-nav d-none d-lg-flex pl-2">
+                <!-- <ul class="nav navbar-nav d-none d-lg-flex pl-2">
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
                             <span class="mr-1"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
@@ -45,7 +45,7 @@
                             <a class="dropdown-item" href="fixed-index.html">Fixed</a>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
 
 
 
@@ -176,38 +176,39 @@
                     </li>
                    
                 </ul>
-
-                <div class="dropdown">
-                    <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown">
-                        <img src="assets/images/avatar/demi.png" class="rounded-circle" width="32" alt="Frontted">
-                        <span class="ml-1 d-flex-inline">
-                            <span class="text-light">Adrian D.</span>
-                        </span>
-                    </a>
-                    <div id="company_menu" class="dropdown-menu dropdown-menu-right navbar-company-menu">
-                        <div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
-
-                            <span class="mr-3">
-                                <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
+                @if (auth()->user()->role == 'student')
+                    <div class="dropdown">
+                        <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown">
+                            <img src="assets/images/avatar/demi.png" class="rounded-circle" width="32" alt="Frontted">
+                            <span class="ml-1 d-flex-inline">
+                                <span class="text-light">{{auth()->user()->first_name}}</span>
                             </span>
-                            <span class="flex d-flex flex-column">
-                                <strong class="h5 m-0">Adrian D.</strong>
-                                <small class="text-muted text-uppercase">STUDENT</small>
-                            </span>
+                        </a>
+                        <div id="company_menu" class="dropdown-menu dropdown-menu-right navbar-company-menu">
+                            <div class="dropdown-item d-flex align-items-center py-2 navbar-company-info py-3">
 
+                                <span class="mr-3">
+                                    <img src="assets/images/frontted-logo-blue.svg" width="43" height="43" alt="avatar">
+                                </span>
+                                <span class="flex d-flex flex-column">
+                                    <strong class="h5 m-0">{{auth()->user()->first_name}}</strong>
+                                    <small class="text-muted text-uppercase">{{auth()->user()->role}}</small>
+                                </span>
+
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item d-flex align-items-center py-2" href="student-edit-account.html">
+                                <span class="material-icons mr-2">account_circle</span> Edit Account
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center py-2" href="#">
+                                <span class="material-icons mr-2">settings</span> Settings
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center py-2" href={{ route('logout') }}>
+                                <span class="material-icons mr-2">exit_to_app</span> Logout
+                            </a>
                         </div>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item d-flex align-items-center py-2" href="student-edit-account.html">
-                            <span class="material-icons mr-2">account_circle</span> Edit Account
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center py-2" href="#">
-                            <span class="material-icons mr-2">settings</span> Settings
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center py-2" href={{ route('logout') }}>
-                            <span class="material-icons mr-2">exit_to_app</span> Logout
-                        </a>
                     </div>
-                </div>
+                @endif
 
             </div>
         </div>
