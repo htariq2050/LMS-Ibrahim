@@ -13,10 +13,13 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        $purchases = Purchase::where('user_id', Auth::id())->with('course')->get();
-
+        $purchases = Purchase::where('user_id', Auth::id())
+            ->with(['user', 'course'])
+            ->get();
+    
         return view('admin.purchases.index', compact('purchases'));
     }
+    
 
 
     public function create()
