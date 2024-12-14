@@ -20,7 +20,7 @@ class PurchaseController extends Controller
         return view('admin.purchases.index', compact('purchases'));
     }
 
-    public function get(Request $request)
+    public function purchasedCourses(Request $request)
     {
         $courses = Purchase::where('user_id', Auth::id()) 
             ->with('course')

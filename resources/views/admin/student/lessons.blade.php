@@ -5,9 +5,6 @@ Student
 @section('dashboardcontent')
 
 <div class="mdk-drawer-layout__content page">
-
-
-
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <div>
@@ -24,11 +21,6 @@ Student
             </div>
         </div>
     </div>
-
-
-
-
-
     <div class="container-fluid page__container">
         <div class="row">
             <div class="col-md-8">
@@ -258,17 +250,7 @@ Student
 
                     </div>
                 </div>
-                <!--
-<div class="rating text-warning">
-    <i class="material-icons">star</i>
-    <i class="material-icons">star</i>
-    <i class="material-icons">star</i>
-    <i class="material-icons">star</i>
-    <i class="material-icons">star_border</i>
-</div>
-<small class="text-muted">20 ratings</small>
-</div>
-</div> -->
+
             </div>
         </div>
     </div>

@@ -30,8 +30,9 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
-    Route::get('/courses', [CoursesController::class, 'get'])->name('courses');
-    Route::get('/courses', [CoursesController::class, 'get'])->name('courses');
+    Route::get('/courses', [PurchaseController::class, 'purchasedCourses'])->name('courses');
+    // Route::get('/courses', [PurchaseController::class, 'get'])->name('courses');
+
     Route::get('/series', [CoursesController::class, 'studentCourses'])->name('series');
 
 
