@@ -14,7 +14,7 @@ Student
             <div class="col-md-4">
                 <div data-perfect-scrollbar style="position: relative; height:400px;">
 
-                    <div class="card clear-shadow border">
+                    {{-- <div class="card clear-shadow border">
                         <div class="card-body ">
                             <div class="d-flex justify-content-between align-items-center">
                                 <strong>Getting Started with Vision</strong>
@@ -31,7 +31,7 @@ Student
                                 <small class="text-muted">(391 ratings)</small>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <ul class="list-group list-group-fit">
 
                         <li class="list-group-item">
@@ -187,12 +187,7 @@ Student
                             </div>
                         </div>
 
-                        <div class="tab-pane" id="comments">
-                            //comments
-                        </div>
-                        <div class="tab-pane" id="assets">
-                            //assets
-                        </div>
+       
 
                     </div>
                 </div>

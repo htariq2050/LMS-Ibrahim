@@ -35,8 +35,7 @@ class PurchaseController extends Controller
         ->where('course_id', $id) 
         ->with(['course.lessons.videos', 'user']) 
         ->get();
-    
-        // Pass the data to the view
+        
         return view('admin.student.lessons', ['courses' => $courses]);
     }
     
