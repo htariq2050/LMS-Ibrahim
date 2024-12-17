@@ -31,7 +31,8 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
     Route::get('/courses', [PurchaseController::class, 'purchasedCourses'])->name('courses');
-    // Route::get('/courses', [PurchaseController::class, 'get'])->name('courses');
+    Route::post('/lesson/set-active/{lessonId}', [LessonController::class, 'setActiveLesson'])->name('setActiveLesson');
+
 
     Route::get('/series', [CoursesController::class, 'studentCourses'])->name('series');
 

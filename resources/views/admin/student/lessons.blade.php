@@ -1,161 +1,190 @@
 {{-- {{
-    die($courses[0]->course->lessons)
+    die($currentLesson->videos[0]->video_url)
 }} --}}
 
 @extends('admin.layouts.app')
 
-@section('title', $courses[0]->course->title)
+@section('title', $purchasedCourse->course->title)
 
 @section('dashboardcontent')
-
-<div class="mdk-drawer-layout__content page">
-    <div class="container-fluid page__heading-container">
-        <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
-            <div>
-                <h1 class="m-lg-0">{{ $courses[0]->course->title }}</h1>
-                <div class="d-inline-flex align-items-center">
-                    <i class="material-icons icon-16pt mr-1 text-muted">access_time</i> 
-                    {{ $courses[0]->course->duration_hours }} 
-                    <small class="text-muted ml-1 mr-1">hours</small>: 
-                    {{ $courses[0]->course->duration_minutes }} 
-                    <small class="text-muted ml-1">min</small>
+    <div class="mdk-drawer-layout__content page">
+        <!-- Course Header -->
+        <div class="container-fluid page__heading-container">
+            <div
+                class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
+                <div>
+                    <h1 class="m-lg-0">{{ $purchasedCourse->course->title }}</h1>
+                    <div class="d-inline-flex align-items-center">
+                        <i class="material-icons icon-16pt mr-1 text-muted">access_time</i>
+                        {{ $purchasedCourse->course->duration_hours }}
+                        <small class="text-muted ml-1 mr-1">hours</small>:
+                        {{ $purchasedCourse->course->duration_minutes }}
+                        <small class="text-muted ml-1">min</small>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <a href="#" class="btn btn-success">
-                    Purchase:
-                    <strong>${{ $courses[0]->course->price }}</strong>
-                </a>
+                <div>
+                    <a href="#" class="btn btn-success">
+                        Purchase:
+                        <strong>${{ $purchasedCourse->course->price }}</strong>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container-fluid page__container">
-        <div class="row">
-            <!-- Course Video and Description -->
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="video-iframe" 
-                        src="https://www.youtube-nocookie.com/embed/{{ $courses[0]->course->lessons[0]->videos[0]->video_url }}?rel=0&modestbranding=1&showinfo=0" 
-                        frameborder="0" 
-                        allowfullscreen></iframe>
-                        {{-- <iframe class="embed-responsive-item" src="{{ $courses[0]->course->lessons[0]->videos[0]->video_url }}" allowfullscreen></iframe> --}}
-                    </div>
-                </div>
 
-                <!-- Instructor Info -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="media align-items-center">
-                            <div class="media-left">
-                                <img src="{{ $courses[0]->course->instructor->profile_image }}" alt="About {{ $courses[0]->course->instructor->name }}" width="40" class="rounded-circle">
-                            </div>
-                            <div class="media-body">
-                                <div class="card-title mb-0">
-                                    <a href="{{ route('student.profile', $courses[0]->course->instructor->id) }}" class="text-body">
-                                        <strong>{{ $courses[0]->course->instructor->name }}</strong>
-                                    </a>
-                                </div>
-                                <p class="text-muted mb-0">Instructor</p>
-                            </div>
-                            <div class="media-right">
-                                <a href="{{ $courses[0]->course->instructor->facebook }}" class="btn btn-facebook btn-sm"><i class="fab fa-facebook"></i></a>
-                                <a href="{{ $courses[0]->course->instructor->twitter }}" class="btn btn-twitter btn-sm"><i class="fab fa-twitter"></i></a>
-                                <a href="{{ $courses[0]->course->instructor->github }}" class="btn btn-light btn-sm"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        {{ $courses[0]->course->instructor->bio }}
-                    </div>
-                </div>
-
-                <!-- Course Description -->
-                <div class="card">
-                    <div class="card-header card-header-large bg-light d-flex align-items-center">
-                        <div class="flex">
-                            <h4 class="card-header__title">Course Description</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        {!! $courses[0]->course->description !!}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sidebar for Lessons and Related Courses -->
-            <div class="col-md-4">
-
-                <!-- Lessons -->
-                <div class="card">
-                    <div class="card-header card-header-large bg-light d-flex align-items-center">
-                        <div class="flex">
-                            <h4 class="card-header__title">Course Lessons</h4>
+        <!-- Page Container -->
+        <div class="container-fluid page__container">
+            <div class="row">
+                <!-- Course Video and Description -->
+                <div class="col-md-8">
+                    <!-- Video Player -->
+                    <div class="card">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            @if ($currentLesson && $currentLesson->videos)
+                                <iframe class="embed-responsive-item"
+                                    src="https://www.youtube-nocookie.com/embed/{{ $currentLesson->videos[0]->video_url }}?rel=0&modestbranding=1&showinfo=0"
+                                    frameborder="0" allowfullscreen>
+                                </iframe>
+                            @else
+                                <div class="text-center p-5">No video available for this lesson.</div>
+                            @endif
                         </div>
                     </div>
 
-                    <ul class="list-group list-group-fit">
-                        @foreach($courses[0]->course->lessons as $index => $lesson)
-                        <li class="list-group-item {{ $lesson->is_active ? 'active' : '' }}">
-                            <div class="media">
+                    <!-- Instructor Info -->
+                    <div class="card mt-3">
+                        <div class="card-header">
+                            <div class="media align-items-center">
                                 <div class="media-left">
-                                    <div class="{{ $lesson->is_active ? '' : 'text-muted' }}">{{ $index + 1 }}.{{$lesson->title}}</div>
+                                    <img src="{{ $purchasedCourse->course->instructor->profile_image }}"
+                                        alt="About {{ $purchasedCourse->course->instructor->name }}" width="40"
+                                        class="rounded-circle">
                                 </div>
                                 <div class="media-body">
-                                    {{-- <a href="{{ route('lesson.view', $lesson->id) }}" class="{{ $lesson->is_active ? 'text-white' : '' }}">{{ $lesson->title }}</a> --}}
-                                    @if($lesson->is_free)
-                                    <small class="badge badge-soft-success">FREE</small>
-                                    @endif
-                                    @if($lesson->is_pro)
-                                    <small class="badge badge-soft-warning">PRO</small>
-                                    @endif
-                                </div>
-                                <div class="media-right">
-                                    <small class="{{ $lesson->is_active ? '' : 'text-muted' }}">{{ $lesson->duration }}</small>
+                                    <strong>{{ $purchasedCourse->course->instructor->name }}</strong>
+                                    <p class="text-muted mb-0">Instructor</p>
                                 </div>
                             </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <!-- Related Courses -->
-                <div class="card">
-                    <div class="card-header card-header-large bg-light d-flex align-items-center">
-                        <div class="flex">
-                            <h4 class="card-header__title">Related Courses</h4>
+                        </div>
+                        <div class="card-body">
+                            {{ $purchasedCourse->course->instructor->bio }}
                         </div>
                     </div>
-                    {{-- <div class="card-body">
-                        @foreach($relatedCourses as $related)
-                        <div class="card card__course clear-shadow border">
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('course.view', $related->id) }}">
-                                    <img src="{{ $related->cover_image }}" style="width:100%" alt="{{ $related->title }}">
-                                </a>
-                            </div>
-                            <div class="p-3">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <a class="text-body mb-1" href="{{ route('course.view', $related->id) }}">
-                                            <strong>{{ $related->title }}</strong>
-                                        </a><br>
-                                        <div class="d-flex align-items-center">
-                                            <span class="text-blue mr-1">
-                                                ${{ $related->price }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                    <!-- Course Description -->
+                    <div class="card mt-3">
+                        <div class="card-header bg-light">
+                            <h4 class="card-title">Course Description</h4>
                         </div>
-                        @endforeach
-                    </div> --}}
+                        <div class="card-body">
+                            {!! $purchasedCourse->course->description !!}
+                        </div>
+                    </div>
                 </div>
 
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header bg-light">
+                            <h4 class="card-title">Lessons</h4>
+                        </div>
+                        <ul class="list-group list-group-fit" id="lesson-list">
+                            @foreach ($purchasedCourse->course->lessons as $lesson)
+                                <li class="list-group-item lesson-item {{ $currentLesson && $currentLesson->id == $lesson->id ? 'active' : '' }}"
+                                    data-lesson-id="{{ $lesson->id }}">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <a href="javascript:void(0);"
+                                                class="lesson-link {{ $currentLesson && $currentLesson->id == $lesson->id ? 'text-white' : 'text-dark' }}">
+                                                {{ $lesson->title }}
+                                            </a>
+                                            @if ($lesson->is_free)
+                                                <small class="badge badge-success ml-2">FREE</small>
+                                            @endif
+                                        </div>
+                                        <div class="media-right">
+                                            <small
+                                                class="{{ $currentLesson && $currentLesson->id == $lesson->id ? 'text-white' : 'text-muted' }}">
+                                                {{ $lesson->duration }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <!-- Section for displaying new active lesson content -->
+                    <div id="lesson-content" class="mt-4">
+                        @if ($currentLesson)
+                            <h5>{{ $currentLesson->title }}</h5>
+                            <!-- Add other lesson details here -->
+                            <p>{{ $currentLesson->description }}</p>
+                        @else
+                            <p>Select a lesson to view details.</p>
+                        @endif
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <h4 class="card-title">Related Courses</h4>
+                        </div>
+                        <div class="card-body">
+                            @foreach ($relatedCourses as $related)
+                                <div class="card mb-2">
+                                    <img src="{{ $related->cover_image }}" class="card-img-top"
+                                        alt="{{ $related->title }}">
+                                    <div class="card-body p-2">
+                                        <h6 class="mb-0">{{ $related->title }}</h6>
+                                        <span class="text-success">${{ $related->price }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div> <!-- End Sidebar -->
             </div>
         </div>
     </div>
-</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.lesson-item').on('click', function() {
+                const lessonId = $(this).data('lesson-id');
+    
+                // Make an AJAX call to update the active lesson
+                $.ajax({
+                    url: '{{ url('/student/lesson/set-active/') }}/' + lessonId, // Correct URL construction
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}', // CSRF Token for Laravel
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Remove 'active' class from all lessons and set it for the selected one
+                            $('.lesson-item').removeClass('active');
+                            $(`li[data-lesson-id="${lessonId}"]`).addClass('active');
+    
+                            // Update lesson content dynamically
+                            $('#lesson-content').html(`
+                                <h5>${response.lesson_title}</h5>
+                                <p>${response.lesson_description}</p>
+                            `);
+                        } else {
+                            alert('Something went wrong: ' + response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        // Proper error message display
+                        alert('Error: ' + xhr.status + ' ' + xhr.statusText);
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
+
 
 @endsection

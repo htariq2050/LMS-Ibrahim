@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1\Instructor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateLessonRequest;
 use App\Http\Requests\LessonRequest;
+use App\Models\ActiveLesson;
 use App\Models\Lesson;
 use App\Models\Video;
 use App\Services\LessonService;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+
 class LessonController extends Controller
 {
     protected $lessonService;
@@ -21,7 +23,6 @@ class LessonController extends Controller
     public function __construct(LessonService $lessonService)
     {
         $this->lessonService = $lessonService;
-        
     }
 
     public function index()
@@ -35,6 +36,35 @@ class LessonController extends Controller
         $courses = $this->lessonService->getLessonsByCourse();
         return view('admin.instructor.lessons.create', compact('courses'));
     }
+
+    public function setActiveLesson(Request $request, $lessonId)
+    {
+        // Find the lesson
+        $lesson = Lesson::find($lessonId);
+    
+        if (!$lesson) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lesson not found!',
+            ], 404);  // Return 404 if lesson not found
+        }
+    
+        // Update or create the active lesson
+        ActiveLesson::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['lesson_id' => $lessonId]
+        );
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Lesson activated!',
+            'lesson_title' => $lesson->title,
+            'lesson_description' => $lesson->description,
+            'lesson_id' => $lessonId
+        ]);
+    }
+    
+
 
     public function store(Request $request)
     {
@@ -50,13 +80,13 @@ class LessonController extends Controller
             'duration'     => 'required|integer',
             'video_order'  => 'required|integer',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         DB::beginTransaction();
-    
+
         try {
             // Store lesson
             $lesson = Lesson::create([
@@ -68,12 +98,12 @@ class LessonController extends Controller
                 'created_by'   => Auth::id(),
                 'updated_by'   => Auth::id(),
             ]);
-    
+
             $thumbnailPath = null;
             if ($request->hasFile('thumbnail')) {
                 $thumbnailPath = $request->file('thumbnail')->store('public/thumbnails');
             }
-    
+
             $video = Video::create([
                 'lesson_id'    => $lesson->id,
                 'title'        => $request->video_title,
@@ -85,18 +115,17 @@ class LessonController extends Controller
                 'created_by'   => Auth::id(),
                 'updated_by'   => Auth::id(),
             ]);
-    
+
             DB::commit();
-    
+
             return redirect()->route('instructor.lessons.index')->with('success', 'Lesson and video saved successfully.');
-    
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'There was an error saving the lesson and video. Please try again.'. $e->getMessage());
+            return redirect()->back()->with('error', 'There was an error saving the lesson and video. Please try again.' . $e->getMessage());
         }
     }
-    
+
     public function edit($id)
     {
         $lesson = $this->lessonService->getLessonById($id);
@@ -109,12 +138,10 @@ class LessonController extends Controller
         return redirect()->route('instructor.course.index')
             ->with('success', 'Lesson updated successfully.');
     }
-    
+
     public function destroy($id)
     {
         $this->lessonService->deleteLesson($id);
         return redirect()->back()->with('success', 'Lesson deleted successfully.');
     }
-
-
 }

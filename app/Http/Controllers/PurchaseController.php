@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActiveLesson;
 use App\Models\Course;
 use App\Models\Purchase;
 use App\Models\User;
@@ -29,17 +30,38 @@ class PurchaseController extends Controller
         return view('admin.student.courses.index', ['courses' => $courses]);
     }
 
-    public function studentCoursesAndLessons(Request $request, $id)
+    public function studentCoursesAndLessons($courseId)
     {
-        $courses = Purchase::where('user_id', Auth::id()) 
-        ->where('course_id', $id) 
-        ->with(['course.lessons.videos', 'user']) 
-        ->get();
-        
-        return view('admin.student.lessons', ['courses' => $courses]);
-    }
+        $purchasedCourse = Purchase::where('user_id', Auth::id())
+            ->where('course_id', $courseId)
+            ->with(['course.lessons.videos'])
+            ->first();
     
-
+        if (!$purchasedCourse) {
+            abort(404, 'Course not found or not purchased.');
+        }
+    
+        $relatedCourses = Course::where('id', '!=', $courseId)->get();
+    
+        $activeLesson = ActiveLesson::where('user_id', Auth::id())->first();
+        if (!$activeLesson) {
+            $firstLesson = optional($purchasedCourse->course->lessons()->with('videos')->first());
+            if ($firstLesson) {
+                $activeLesson = ActiveLesson::updateOrCreate(
+                    ['user_id' => Auth::id()], 
+                    ['lesson_id' => $firstLesson->id]
+                );
+                $activeLesson->load('lesson.videos');
+            }
+        } else {
+            $activeLesson->load('lesson.videos');
+        }
+        return view('admin.student.lessons', [
+            'purchasedCourse' => $purchasedCourse,
+            'relatedCourses' => $relatedCourses,
+            'currentLesson' => $activeLesson ? $activeLesson->lesson : null
+        ]);
+    }
 
     public function create()
     {
@@ -47,9 +69,6 @@ class PurchaseController extends Controller
 
         return view('admin.purchases.create', compact('courses'));
     }
-
-
-
 
     public function store(Request $request)
     {
