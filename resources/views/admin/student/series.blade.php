@@ -52,6 +52,7 @@ Student
                                         </svg>
                                     </small>
                                     <small class="mr-2">{{ $course->price }}</small>
+                                    <button class="mr-2 bg-primary p-2 text-white" >Buy Now</button>
                                 </div>
                             </div>
                         </div>

@@ -13,23 +13,22 @@ class QuizAttemptController extends Controller
      
         public function index()
         {
-            $studentId = Auth::id(); 
+            // $studentId = Auth::id(); 
             
-            $quizzes = Quiz::with('course')->where('status', 'active')->get();
+            // $quizzes = Quiz::with('course')->where('status', 'active')->get();
             
-            $correctAnswers = [];
+            // $correctAnswers = [];
      
-            foreach ($quizzes as $quiz) {
-                $correctCount = QuizAttempt::where('quiz_id', $quiz->id)
-                    ->where('user_id', $studentId)
-                    ->where('is_correct', true) 
-                    ->count();
+            // foreach ($quizzes as $quiz) {
+            //     $correctCount = QuizAttempt::where('quiz_id', $quiz->id)
+            //         ->where('user_id', $studentId)
+            //         ->count();
         
-                $correctAnswers[$quiz->id] = $correctCount;
-            }
+            //     $correctAnswers[$quiz->id] = $correctCount;
+            // }
         
             
-            return view('admin.student.quiz-attempts.index', compact('quizzes', 'correctAnswers'));
+            return view('admin.student.quiz-attempts.index');
         }
     
   
