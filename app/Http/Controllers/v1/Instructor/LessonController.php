@@ -39,17 +39,16 @@ class LessonController extends Controller
 
     public function setActiveLesson(Request $request, $lessonId)
     {
-        // Find the lesson
+        
         $lesson = Lesson::find($lessonId);
     
         if (!$lesson) {
             return response()->json([
                 'success' => false,
                 'message' => 'Lesson not found!',
-            ], 404);  // Return 404 if lesson not found
+            ], 404);  
         }
     
-        // Update or create the active lesson
         ActiveLesson::updateOrCreate(
             ['user_id' => Auth::id()],
             ['lesson_id' => $lessonId]
@@ -62,9 +61,8 @@ class LessonController extends Controller
             'lesson_description' => $lesson->description,
             'lesson_id' => $lessonId
         ]);
-    }
-    
 
+    }
 
     public function store(Request $request)
     {

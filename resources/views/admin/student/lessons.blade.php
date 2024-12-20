@@ -55,12 +55,13 @@
                         <div class="card-header">
                             <div class="media align-items-center">
                                 <div class="media-left">
-                                    <img src="{{ $purchasedCourse->course->instructor->profile_image }}"
+                                    {{-- <p>{{$purchasedCourse->course->instructor->first_name}}</p> --}}
+                                    {{-- <img src="{{ $purchasedCourse->course->instructor->profile_image }}"
                                         alt="About {{ $purchasedCourse->course->instructor->name }}" width="40"
-                                        class="rounded-circle">
+                                        class="rounded-circle"> --}}
                                 </div>
                                 <div class="media-body">
-                                    <strong>{{ $purchasedCourse->course->instructor->name }}</strong>
+                                    <strong>{{ $purchasedCourse->course->instructor->first_name }}</strong>
                                     <p class="text-muted mb-0">Instructor</p>
                                 </div>
                             </div>
@@ -113,7 +114,7 @@
                     </div>
 
                     <!-- Section for displaying new active lesson content -->
-                    <div id="lesson-content" class="mt-4">
+                    {{-- <div id="lesson-content" class="mt-4">
                         @if ($currentLesson)
                             <h5>{{ $currentLesson->title }}</h5>
                             <!-- Add other lesson details here -->
@@ -121,7 +122,7 @@
                         @else
                             <p>Select a lesson to view details.</p>
                         @endif
-                    </div>
+                    </div> --}}
 
 
                     <div class="card">
@@ -131,7 +132,7 @@
                         <div class="card-body">
                             @foreach ($relatedCourses as $related)
                                 <div class="card mb-2">
-                                    <img src="{{ $related->cover_image }}" class="card-img-top"
+                                    <img src="{{'/uploads/courses_cover_images/'.$related->cover_image }}" class="card-img-top"
                                         alt="{{ $related->title }}">
                                     <div class="card-body p-2">
                                         <h6 class="mb-0">{{ $related->title }}</h6>
@@ -176,7 +177,6 @@
                         }
                     },
                     error: function(xhr) {
-                        // Proper error message display
                         alert('Error: ' + xhr.status + ' ' + xhr.statusText);
                     }
                 });

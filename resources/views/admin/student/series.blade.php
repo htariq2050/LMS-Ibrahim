@@ -10,7 +10,7 @@ Student
 
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex align-items-center justify-content-between mb-0">
-            <h1 class="m-0">Series</h1>
+            <h1 class="m-0">All Courses</h1>
         </div>
     </div>
 

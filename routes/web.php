@@ -3,12 +3,14 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\PurchasedCourseController;
+use App\Http\Controllers\QuizAttemptController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\v1\Auth\AuthController;
 use App\Http\Controllers\v1\Instructor\CoursesController;
 use App\Http\Controllers\v1\Instructor\LessonController;
 use App\Http\Controllers\v1\Instructor\ProfileController;
+use App\Http\Controllers\v1\Student\StudentProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,21 +32,25 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
+    Route::view('/dashboard', 'admin.student.dashboard')->name('dashboard');
+    Route::resource('profile', StudentProfileController::class);
+
     Route::get('/courses', [PurchaseController::class, 'purchasedCourses'])->name('courses');
     Route::post('/lesson/set-active/{lessonId}', [LessonController::class, 'setActiveLesson'])->name('setActiveLesson');
-
-
     Route::get('/series', [CoursesController::class, 'studentCourses'])->name('series');
-
-
-    Route::view('/dashboard', 'admin.student.dashboard')->name('dashboard');
     Route::get('lessons/{id}', [PurchaseController::class, 'studentCoursesAndLessons'])->name('lessons');
 
+    Route::prefix('quiz-attempts')->name('quiz-attempts.')->group(function () {
+        Route::get('/', [QuizAttemptController::class, 'index'])->name('index');
+        Route::get('/{quiz}', [QuizAttemptController::class, 'show'])->name('show');
+        Route::post('/{quiz}', [QuizAttemptController::class, 'store'])->name('store');
+    });
+
+
     Route::view('/take-course', 'admin.student.take_course')->name('take_course');
-    Route::view('/take-quiz', 'admin.student.take_quiz')->name('take_quiz');
+    // Route::view('/take-quiz', 'admin.student.take_quiz')->name('take_quiz');
     Route::view('/billing', 'admin.student.billing')->name('billing');
     Route::view('/edit-account', 'admin.student.edit_account')->name('account');
-    Route::view('/profile', 'admin.student.profile')->name('profile');
 
 });
 

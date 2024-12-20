@@ -18,10 +18,6 @@ Student
     </div>
 
 
-
-
-
-
     <div class="container-fluid page__container">
         <div class="row">
             <div class="col-md-3">

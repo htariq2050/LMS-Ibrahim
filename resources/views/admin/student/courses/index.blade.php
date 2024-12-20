@@ -65,10 +65,10 @@ Student
                                 <strong>4.7</strong><br />
                                 <small class="text-muted">(391 ratings)</small>
                             </div>
-                            <div class="d-flex align-items-center">
+                            {{-- <div class="d-flex align-items-center">
                                 <strong class="h4 m-0">${{ $purchase->course->price }}</strong>
                                 <a href="#" class="btn btn-primary ml-auto"><i class="material-icons">add_shopping_cart</i></a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
