@@ -1,0 +1,235 @@
+.header {
+  background-color: white; /* Background color */
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for effect */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header .logo img {
+  height: 75px; /* Adjust logo size */
+  max-width: 100%;
+}
+
+.header .nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.header .nav ul li {
+  margin: 0 15px;
+}
+
+.header .nav ul li a {
+  text-decoration: none;
+  color: #4a1a8c; /* Purple text color */
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header .nav ul li.active a {
+  position: relative;
+  color: #4a1a8c; /* Purple for active */
+}
+
+.header .nav ul li.active a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-color: #fddc00; /* Yellow underline */
+  width: 100%; /* Adjust width for the underline */
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.header .right-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* flex:1; */
+}
+
+.header .login-button {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fddc00; /* Yellow text color */
+  display: flex;
+  align-items: center;
+}
+
+.header .login-button i {
+  background-color: #f4f3f8;
+  padding: 5px;
+  border-radius: 5px;
+  color: #000;
+}
+
+.header .login-button span {
+  white-space: nowrap;
+  margin-left: 5px;
+}
+
+.menu-toggle {
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Hidden by default */
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: left 0.3s ease-in-out;
+  z-index: 10000;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.sidebar-header .close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #4a1a8c;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.sidebar-menu li {
+  padding: 15px;
+}
+
+.sidebar-menu li a {
+  text-decoration: none;
+  color: #4a1a8c; /* Purple */
+  font-size: 18px;
+}
+
+.sidebar-menu li.active a {
+  position: relative;
+  color: #4a1a8c; /* Purple for active */
+}
+
+.sidebar-menu li.active a::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  height: calc(100% + 30px);
+  background-color: #fddc00; /* Yellow underline */
+  width: 10px; /* Adjust width for the underline */
+  margin: 0 auto;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.sidebar .login-button {
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fddc00; /* Yellow text color */
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .login-button i {
+  background-color: #f4f3f8;
+  padding: 5px;
+  border-radius: 5px;
+  color: #000;
+}
+
+.sidebar .login-button span {
+  white-space: nowrap;
+  margin-left: 5px;
+}
+
+.sidebar .language-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Show Sidebar */
+.sidebar.open {
+  right: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header .nav ul {
+    gap: 10px; /* Reduce spacing for smaller screens */
+  }
+
+  .header .nav ul li a {
+    font-size: 1.2rem; /* Adjust font size */
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Stack header content vertically */
+    text-align: center;
+    padding: 15px 10px;
+    background-color: transparent;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .header .nav {
+    display: none;
+  }
+
+  .header .right-section {
+    display: none; /* Space between nav and login button */
+  }
+}
+
+@media (max-width: 480px) {
+
+}

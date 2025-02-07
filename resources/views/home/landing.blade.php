@@ -1,178 +1,317 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Website - Learn and Grow</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Basic Styling */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; color: #333; background-color: #fafafa; }
-        .container { width: 90%; max-width: 1200px; margin: auto; }
+@extends('home.layouts.app')
+@section('title')
+Student
+@endsection
+@section('homecontent')
+<main>
+    <section class="hp-banner">
 
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; background-color: #1E2A38; color: #fff; }
-        .header .logo a { font-size: 2rem; font-weight: 700; color: #fff; text-decoration: none; }
-        .header nav a { margin-left: 1rem; color: #fff; text-decoration: none; font-weight: 600; }
-        .header .btn-login { padding: 0.8rem 1.5rem; border: none; border-radius: 30px; cursor: pointer; background-color: #FF6F61; color: white; font-weight: 600; transition: background-color 0.3s ease; }
-        .header .btn-login:hover { background-color: #FF5A4A; }
+        <div class="video-container">
+            <!-- <video class="local-video" loop="true" autoplay="autoplay" muted>
+                <source src="./assets/videos/banner-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video> -->
+            <img class="local-video" src="{{ asset('assets/home/images/banner.gif') }}" />
+        </div>
+        <!-- Text Section -->
+        <h1 class="LilitaOne">APPRENDS À LIRE L’ARABE EN 2 SEMAINES!</h1>
+        <a href="#" class="discover-button">DÉCOUVRIR <img class="local-video"&nbsp;&nbsp;&nbsp; src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 30px; height: 30px; vertical-align: middle;"/></a>
+       
+    </section>
+    <!---------------------------------- card--------------- -->
+    <section class="hp-card-section">
 
-        /* Hero */
-        .hero { text-align: center; padding: 6rem 0; background: linear-gradient(135deg, #FF6F61, #FF9A8B); color: #fff; }
-        .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; font-weight: 300; margin-bottom: 2rem; }
-        .btn-main { padding: 1rem 2rem; border-radius: 30px; background: #fff; color: #FF6F61; text-decoration: none; font-weight: 700; transition: background-color 0.3s ease; }
-        .btn-main:hover { background-color: #FF9A8B; color: #fff; }
+            <h2 class="section-title LilitaOne">LE FONCTIONNEMENT</h2>
+            <div class="card-container">
+                <!-- Card 1 -->
+                <div class="card card-yellow">
+                    <div class="card-header">
+                        <div class="card-number">1</div>
+                        <h3 class="LilitaOne">CONNECTES TOI</h3>
+                    </div>
+                    <p class="card-text">Tu accèderas à un espace personnel et tu pourras suivre tes cours facilement, à
+                        l'aide de vidéos, nos textes explicatifs et nos quiz amusants.</p>
+                    <div class="card-image">
+                    <img src="{{ asset('assets/home/images/card (1).png') }}" />
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card card-purple">
+                    <div class="card-header">
+                        <div class="card-number">2</div>
+                        <h3 class="LilitaOne">EXERCES TOI AVEC NOS QUIZ</h3>
+                    </div>
+                    <p class="card-text">Les études montrent que l'apprentissage par quiz améliore la rétention des
+                        informations de 60%.</p>
+                    <div class="card-image">
+                    <img src="{{ asset('assets/home/images/card (2).png') }}" />
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card card-yellow">
+                    <div class="card-header">
+                        <div class="card-number">3</div>
+                        <h3 class="LilitaOne">UN ENSEIGNEMENT DE QUALITÉ ET DES SUPPORTS DE COURS RECONNUS</h3>
+                    </div>
+                    <p class="card-text">Cours de qualité, des supports de cours certifiés et accessibles pour mieux
+                        apprendre.</p>
+                    <div class="card-image">
+                    <img src="{{ asset('assets/home/images/card (3).png') }}" />
+                    </div>
+                </div>
+            </div>
 
-        /* About, Courses, Testimonials */
-        section { padding: 4rem 0; text-align: center; }
-        .course, .testimonial { background: #fff; padding: 2rem; border-radius: 10px; width: 28%; margin: 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .course:hover, .testimonial:hover { transform: translateY(-10px); box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15); }
+            <br />
+            <br />
 
-        /* About Us */
-        .about { display: flex; align-items: center; justify-content: space-between; padding: 4rem 0; }
-        .about img { width: 45%; border-radius: 10px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
-        .about .text { width: 50%; padding: 1rem; }
-        .about h2 { font-size: 2.5rem; margin-bottom: 1rem; color: #333; }
-        .about p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem; }
+            <h2 class="section-title LilitaOne">Nos Programmes</h2>
+            <div class="programs-container">
+                <!-- Beginner Program -->
+                <div class="program-card beginner">
+                    <div class="title-container">
+                        <h2 class="bordered-text">Niveau Débutant</h2>
+                    </div>
+                    <h6 class="description Bouncy">
+                        Si tu démarres de zéro alors ceTTE FORMULE est faitE pour toi!
+                    </h6>
+                    <ul>
+                        <li>VIDÉOS EXPLICATIVES SUR LA 1ÈRE PARTIE DE LA MOUQADDIMAT DES TOMES DE MÉDINE.</li>
+                        <li>ÉCHANGES AVEC NOTRE ÉQUIPE PÉDAGOGIQUE 6JRS/7.</li>
+                        <li>NOMBREUX QUIZ INTERACTIFS POUR APPRENDRE TOUT EN S’AMUSANT.</li>
+                        <li>CAHIER D’EXERCICES INCLUS POUR S’ENTRAINER À ÉCRIRE.</li>
+                        <li>TADJWID: INTRODUCTION AU MAKHARIDJAL HOUROUF.</li>
+                    </ul>
+                    <div class="price-buble PermanentMarker">
+                        <h1 class="price">29€<span>/mois</span></h1>
+                        <small>sans engagement</small>
+                    </div>
+                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video" src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
+                </div>
 
-        /* Courses */
-        .courses { text-align: center; padding: 4rem 0; background: #f9f9f9; }
-        .courses h2 { font-size: 2.5rem; margin-bottom: 2rem; color: #333; }
-        .course-list { display: flex; justify-content: space-between; gap: 1rem; }
-        .course { background: #fff; padding: 2rem; border-radius: 10px; width: 30%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .course h3 { font-size: 1.5rem; color: #333; margin-bottom: 0.5rem; }
-        .course p { font-size: 1rem; color: #666; line-height: 1.6; }
-        .course:hover { transform: translateY(-10px); box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15); }
+                <!-- Intermediate Program -->
+                <!-- <div class="program-card intermediate">
+                    <div class="title-container">
+                        <h2 class="bordered-text">Niveau Intermédiaire</h2>
+                    </div>
+                    <h6 class="description Bouncy">
+                        Si tu sais lire mais prononce mal les lettres arabes, et souhaites t’initier à la grammaire, au
+                        Tajwid, et avoir du vocabulaire, alors ceTTE FORMULE est faitE pour toi!
+                    </h6>
+                    <ul>
+                        <li>VIDÉOS EXPLICATIVES SUR LA 1ÈRE PARTIE DE LA MOUQADDIMAT DES TOMES DE MÉDINE.</li>
+                        <li>ÉCHANGES AVEC NOTRE ÉQUIPE PÉDAGOGIQUE 6JRS/7.</li>
+                        <li>NOMBREUX QUIZ INTERACTIFS POUR APPRENDRE TOUT EN S’AMUSANT.</li>
+                        <li>CAHIER D’EXERCICES INCLUS POUR S’ENTRAINER À ÉCRIRE.</li>
+                        <li>TADJWID: INTRODUCTION AU MAKHARIDJAL HOUROUF.</li>
+                        <li>INITIATION À LA GRAMMAIRE, À LA CONJUGAISON ET AU VOCABULAIRE.</li>
+                    </ul>
+                    <div class="price-buble PermanentMarker">
+                        <h1 class="price">39€<span>/mois</span></h1>
+                        <small>sans engagement</small>
+                    </div>
+                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video"src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
+                </div> -->
 
-        /* Testimonials */
-        .testimonials { padding: 4rem 0; }
-        .testimonials h2 { font-size: 2.5rem; margin-bottom: 2rem; color: #333; text-align: center; }
-        .testimonial-list { display: flex; gap: 2rem; justify-content: center; }
-        .testimonial { background: #fff; padding: 1.5rem; border-radius: 10px; width: 30%; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); text-align: center; }
-        .testimonial h3 { font-size: 1.2rem; color: #FF6F61; }
-        .testimonial p { font-size: 1rem; color: #666; margin-top: 0.5rem; }
+                <!-- Advanced Program -->
+                <!-- <div class="program-card advanced">
+                    <div class="title-container">
+                        <h2 class="bordered-text">Niveau Confirmé</h2>
+                    </div>
+                    <h6 class="description Bouncy">
+                        TU SOUHAITEs TE PERFECTIONNER EN TADJWID, EN GRAMMAIRE, et en vocabulaire,
+                        alors cette formule est faite pour toi!
+                    </h6>
+                    <ul>
+                        <li>VIDÉOS EXPLICATIVES SUR LA 1ÈRE PARTIE DE LA MOUQADDIMAT DES TOMES DE MÉDINE.</li>
+                        <li>ÉCHANGES AVEC NOTRE ÉQUIPE PÉDAGOGIQUE 6JRS/7.</li>
+                        <li>NOMBREUX QUIZ INTERACTIFS POUR APPRENDRE TOUT EN S’AMUSANT.</li>
+                        <li>CAHIER D’EXERCICES INCLUS POUR S’ENTRAINER À ÉCRIRE.</li>
+                        <li>TADJWID: INTRODUCTION AU MAKHARIDJAL HOUROUF.</li>
+                        <li>PERFECTIONNEMENT EN GRAMMAIRE, EN CONJUGAISON ET EN VOCABULAIRE.</li>
+                    </ul>
+                    <div class="price-buble PermanentMarker">
+                        <h1 class="price">49€<span>/mois</span></h1>
+                        <small>sans engagement</small>
+                    </div>
+                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video"src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
+                </div> -->
+            </div>
+    </section>
+    <!---------------------------------- google reating--------------- -->
+    <section class="hp-banner-reating">
+        <div  class="rating">
+            <h2 class="section-title LilitaOne ">ILS PARLENT DE NOUS</h2>
+            <div class="rating-container">
+                <!-- Card 1 -->
+                <div class="rating-card">
+                    <div class="name-reating-logo">
+                        <h4 class="name LilitaOne ">LINA</h4>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                            <img src="{{ asset('assets/home/images/google.png') }}"  alt="Google Logo"/>
+                        </div>
+                    </div>    
+                    
+                    <div class="rating-image">
+                    <img src="{{ asset('assets/home/images/reating1.png') }}" alt="Lina"/>
+                        <a href="https://www.youtube.com/watch?v=example1" target="_blank" class="play-button">
+                        <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                    
+                </div>
 
-        /* Contact */
-        .contact { padding: 4rem 0; text-align: center; background-color: #1E2A38; color: #fff; }
-        .contact h2 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .contact p { font-size: 1.1rem; margin-bottom: 2rem; }
-        .contact .btn-contact { padding: 1rem 2rem; border-radius: 30px; background: #FF6F61; color: #fff; text-decoration: none; font-weight: 700; transition: background-color 0.3s ease; }
-        .contact .btn-contact:hover { background-color: #FF5A4A; }
+                <!-- Card 2 -->
+                <div class="rating-card">
+                    <div class="name-reating-logo">
+                        <h4 class="name LilitaOne ">JORDY</h4>
+                        <div class="stars">
+                            <span>★★★★★</span>
+                            
+                            <img src="{{ asset('assets/home/images/google.png') }}"  alt="Google Logo"/>
+                        </div>
+                    </div>    
+                    
+                    <div class="rating-image">
+                      
+                        <img src="{{ asset('assets/home/images/reating2.png') }}" alt="JORDY"/>
+                        <a href="https://www.youtube.com/watch?v=example1" target="_blank" class="play-button">
+                        <i class="fas fa-play"></i>
+                        </a>
+                    </div>
+                    
+                </div>
 
-        /* Footer */
-        .footer { background: #1E2A38; color: #fff; padding: 3rem 0; text-align: center; }
-        .footer nav a { color: #fff; text-decoration: none; margin: 0 1rem; font-weight: 600; }
-        .footer nav a:hover { text-decoration: underline; }
+            </div>
+            <button class="voir-plus LilitaOne">VOIR PLUS&nbsp;&nbsp;&nbsp;<img class="local-video"src="{{ asset('assets\images\marker\purple.gif') }}" style="width: 30px; height: 30px; vertical-align: middle;"/> </button>
+       </div>
+   </section>
+    <!---------------------------------- faq--------------- -->
+    <section class="hp-card-section">
+            <h2 class="section-title LilitaOne">FAQ</h2>
 
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1rem; }
-            .course, .testimonial { width: 45%; }
-        }
-        @media (max-width: 480px) {
-            .header { flex-direction: column; text-align: center; }
-            .header nav { margin-top: 1rem; }
-            .course, .testimonial { width: 90%; }
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header class="header">
+            <div class="faq-section">
+
+                <div class="faq-item">
+                    <div class="question"><span class="question-bullet"></span>Je sais déjà lire l'arabe quel programme
+                        choisir ?</div>
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="faq-answer">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis neque in magna sodales venenatis.
+                </div>
+                <div class="faq-item">
+                    <div class="question"><span class="question-bullet"></span>Par où commencer en langue arabe ?</div>
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="faq-answer">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis neque in magna sodales venenatis.
+                </div>
+                <div class="faq-item">
+                    <div class="question"><span class="question-bullet"></span>En combien de temps je pourrai lire l'arabe ?
+                    </div>
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="faq-answer">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis neque in magna sodales venenatis.
+                </div>
+                <div class="faq-item">
+                    <div class="question"><span class="question-bullet"></span>Apprendre en e-learning est ce difficile ?
+                    </div>
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="faq-answer">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis neque in magna sodales venenatis.
+                </div>
+                <div class="faq-item">
+                    <div class="question"><span class="question-bullet"></span>Pourquoi apprendre l'arabe littéraire ?</div>
+                    <div class="icon"><i class="fas fa-plus"></i></div>
+                </div>
+                <div class="faq-answer">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis neque in magna sodales venenatis.
+                </div>
+
+                <a href="#" class="faq-button">Voir Plus&nbsp;&nbsp;&nbsp; <img class="local-video"&nbsp;&nbsp;&nbsp; src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 30px; height: 30px; vertical-align: middle;"/></a>
+            </div>
+    </section>
+
+   
+
+
+
+
+    <section class="info-section">
+        <div class="info-container">
+            <p class="title">
+                <q>Une méthode d’apprentissage qui allie enfin la <span class="highlight">SIMPLICITÉ</span>,
+                    la <span class="highlight">QUALITÉ</span> et la <span class="highlight">RAPIDITÉ</span>.</q>
+            </p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="number">10.000.000</div>
+                    <div class="description">de musulman(e)s en France</div>
+                </div>
+                <div class="stat">
+                    <div class="number">60%</div>
+                    <div class="description">ne savent pas lire l’arabe</div>
+                </div>
+                <div class="stat">
+                    <div class="number">100%</div>
+                    <div class="description">de réussite avec cette méthode</div>
+                </div>
+                <div class="stat">
+                    <div class="number">400</div>
+                    <div class="description">vidéos et quiz pour mieux illustrer</div>
+                </div>
+                <div class="stat full-width">
+                    <div class="number">6JR/7</div>
+                    <div class="description">disponible pour vos questions</div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <p class="title">
+                <q>
+                    Si moi qui ne connaissais <span class="highlight2">RIEN</span> j’ai pu 
+                    <span class="highlight2">RÉUSSIR</span> alors pourquoi pas TOI?
+                </q>
+            </p>
+        </div>
+    </section>
+    <section class="info-footer">
         <div class="container">
-            <div class="logo">
-                <a href="#">CourseBrand</a>
-            </div>
-            <nav>
-                <a href="#about">About</a>
-                <a href="#courses">Courses</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#contact">Contact</a>
-                <a href="/login?role=student" class="btn-login">Login</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>Unlock Your Potential</h1>
-            <p>Join thousands of learners and start your journey to expertise with our professional courses.</p>
-            <a href="/register" class="btn-main">Get Started</a>
+            <img class="footer-img"src="{{ asset('assets/home/images/admin.png') }}"/>
+            <h3>Florian fondateur du site lirelarabefacile.fr</h3>
+            
+            <a href="#" class="footer-button">JE M’INSCRIS&nbsp;&nbsp;&nbsp; <img class="local-video"&nbsp;&nbsp;&nbsp; src="{{ asset('assets\images\marker\purple.gif') }}" style="width: 30px; height: 30px; vertical-align: middle;"/></a>
         </div>
     </section>
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <img src="about-image.jpg" alt="About Us Image">
-            <div class="text">
-                <h2>About Us</h2>
-                <p>CourseBrand is dedicated to providing top-notch education and skill development to help you reach your career goals. With expert instructors and a range of courses, we ensure you have everything you need to succeed.</p>
-                <p>Our mission is to empower individuals by making quality education accessible and affordable for everyone. Whether you’re looking to advance in your career or explore a new field, CourseBrand has something for you.</p>
-            </div>
-        </div>
-    </section>
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
 
-    <!-- Courses Section -->
-    <section id="courses" class="courses">
-        <h2>Our Courses</h2>
-        <div class="container course-list">
-            <div class="course">
-                <h3>Course 1</h3>
-                <p>Learn the fundamentals of Course 1 and gain valuable insights to enhance your skills.</p>
-            </div>
-            <div class="course">
-                <h3>Course 2</h3>
-                <p>Master Course 2 and advance your career with industry-recognized skills and knowledge.</p>
-            </div>
-            <div class="course">
-                <h3>Course 3</h3>
-                <p>Dive into Course 3 and become proficient with hands-on experience and expert guidance.</p>
-            </div>
-        </div>
-    </section>
+                // Toggle Active Class
+                item.classList.toggle('active');
+                answer.classList.toggle('active');
 
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <h2>What Our Students Say</h2>
-        <div class="container testimonial-list">
-            <div class="testimonial">
-                <h3>John Doe</h3>
-                <p>"The best learning experience I've ever had! Highly recommend CourseBrand."</p>
-            </div>
-            <div class="testimonial">
-                <h3>Jane Smith</h3>
-                <p>"CourseBrand's courses are well-structured and easy to follow. Fantastic!"</p>
-            </div>
-            <div class="testimonial">
-                <h3>Michael Brown</h3>
-                <p>"I gained the skills I needed to advance in my career. Thank you, CourseBrand!"</p>
-            </div>
-        </div>
-    </section>
+                // Close other active FAQ items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherItem.nextElementSibling.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <p>Have questions or need help? Reach out to our support team, and we’ll be happy to assist you.</p>
-        <a href="mailto:support@coursebrand.com" class="btn-contact">Contact Support</a>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <nav>
-                <a href="#about">About</a>
-                <a href="#courses">Courses</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <p>&copy; 2024 CourseBrand. All Rights Reserved.</p>
-        </div>
-    </footer>
-</body>
-</html>
+<!-- test carocl     -->
+
+    
+
+</main>
+@endsection

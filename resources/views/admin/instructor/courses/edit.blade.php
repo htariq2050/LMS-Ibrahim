@@ -59,7 +59,7 @@
                                 @enderror
                             </div>
                             
-                            <div class="form-group">
+                            {{--<div class="form-group">
                                 <label for="subcategory">SubCategory</label><br />
                                 <select id="subcategory" name="subcategory_id" class="custom-select w-auto">
                                     <option disabled>Select subcategory</option>
@@ -70,7 +70,7 @@
                                 @error('subcategory_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div>--}}
 
                             <div class="form-group">
                                 <label for="price">Price</label>
@@ -93,7 +93,7 @@
                                 <div class="dz-clickable media align-items-center" data-toggle="dropzone" data-dropzone-clickable=".dz-clickable">
                                     <div class="dz-preview dz-file-preview dz-clickable mr-3">
                                         <div class="avatar avatar-lg">
-                                            <img src="{{ $course->cover_image ? asset('storage/'.$course->cover_image) : asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
+                                            <img src="{{ $course->cover_image ? asset('uploads/courses_cover_images/' . $course->cover_image) : asset('assets/images/account-add-photo.svg') }}" class="avatar-img rounded" alt="..." data-dz-thumbnail>
                                         </div>
                                     </div>
                                     <div class="media-body">

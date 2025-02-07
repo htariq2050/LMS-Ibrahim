@@ -1,9 +1,9 @@
 <div id="header" class="mdk-header js-mdk-header m-0" data-fixed>
     <div class="mdk-header__content">
 
-        <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-primary pl-md-0 pr-0" id="navbar" data-primary>
+        <div class="navbar navbar-expand-sm navbar-main navbar-dark bg-purple pl-md-0 pr-0" id="navbar" data-primary>
             <div class="container-fluid pr-0 ">
-
+                
                 <!-- Navbar toggler -->
                 <button class="navbar-toggler navbar-toggler-custom d-lg-none d-flex mr-navbar" type="button" data-toggle="sidebar">
                     <span class="material-icons">short_text</span>
@@ -49,7 +49,7 @@
 
 
 
-                <ul class="ml-auto nav navbar-nav mr-2 d-none d-lg-flex">
+                <!-- <ul class="ml-auto nav navbar-nav mr-2 d-none d-lg-flex">
                     <li class="nav-item"><a href="#" class="nav-link">Get Help</a></li>
                 </ul>
 
@@ -57,10 +57,10 @@
                 <form class="search-form search-form--light d-none d-sm-flex flex ml-3" action="index.html">
                     <input type="text" class="form-control" placeholder="Search">
                     <button class="btn" type="submit"><i class="material-icons">search</i></button>
-                </form>
+                </form> -->
 
 
-                <ul class="nav navbar-nav d-none d-md-flex">
+                <!-- <ul class="nav navbar-nav d-none d-md-flex">
                     <li class="nav-item dropdown">
                         <a href="#notifications_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
                             <span class="nav-icon navbar-notifications-indicator">
@@ -175,11 +175,18 @@
                         </a>
                     </li>
                    
-                </ul>
+                </ul> -->
                 @if (auth()->user()->role == 'student')
                     <div class="dropdown">
                         <a href="#account_menu" class="dropdown-toggle navbar-toggler navbar-toggler-dashboard border-left d-flex align-items-center ml-navbar" data-toggle="dropdown">
-                            <img src="assets/images/avatar/demi.png" class="rounded-circle" width="32" alt="Frontted">
+                            <!-- <img src="assets/images/avatar/demi.png" class="rounded-circle" width="32" alt="Frontted"> -->
+                            @if (auth()->user()->profile != null)
+                                <img src="{{ auth()->user()->profile }}"
+                                    width="32" alt="Frontted" class="rounded-circle" />
+                            @else
+                                <img src="/assets/images/avatar/profile-sample.avif"
+                                width="32" alt="Frontted" class="rounded-circle" />                                   
+                            @endif
                             <span class="ml-1 d-flex-inline">
                                 <span class="text-light">{{auth()->user()->first_name}}</span>
                             </span>

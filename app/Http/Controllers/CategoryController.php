@@ -11,16 +11,25 @@ class CategoryController extends Controller
     {
         try {
             $categories = Category::all();
+            return view('admin.instructor.categories.index', compact('categories'));
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('An error occurred while fetching categories: ' . $e->getMessage());
+        }
+    }
+    public function JSONCategories()
+    {
+        try {
+            $categories = Category::all();
             return $categories;
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('An error occurred while fetching categories: ' . $e->getMessage());
         }
     }
-
+    
     public function create()
     {
         try {
-            return view('categories.create');
+            return view('admin.instructor.categories.create');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('An error occurred while loading the create category page: ' . $e->getMessage());
         }
@@ -49,7 +58,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-            return view('categories.show', compact('category'));
+            return view('admin.instructor.categories.show', compact('category'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('An error occurred while fetching the category: ' . $e->getMessage());
         }
@@ -59,7 +68,7 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::findOrFail($id);
-            return view('categories.edit', compact('category'));
+            return view('admin.instructor.categories.edit', compact('category'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors('An error occurred while loading the edit category page: ' . $e->getMessage());
         }

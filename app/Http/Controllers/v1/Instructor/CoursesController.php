@@ -47,7 +47,8 @@ class CoursesController extends Controller
                 'title' => 'required|string|max:255',
                 'description' => 'required|string',
                 'category_id' => 'required|exists:categories,id',
-                'subcategory_id' => 'required',
+                'plan_id' => 'required|exists:plans,id',
+                'subcategory_id' => 'nullable',
                 'status' => 'boolean',
                 'price' => 'integer',
                 'cover_image' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
@@ -103,12 +104,14 @@ class CoursesController extends Controller
             $validated['slug_url'] = $this->generateUniqueSlug($request->title);
         }
 
+
         if ($request->hasFile('cover_image')) {
-            if ($course->cover_image) {
-                Storage::delete($course->cover_image);
-            }
-            $validated['cover_image'] = $this->uploadImage($request->file('cover_image'));
+            $image = $request->file('cover_image');
+            $filename = 'course_' . time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/courses_cover_images'), $filename);
+            $validated['cover_image'] = $filename;
         }
+
 
         $validated['updated_by'] = Auth::id();
 
@@ -140,6 +143,6 @@ class CoursesController extends Controller
         $course->save();
         $course->delete();
 
-        return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
+        return redirect()->route('instructor.courses.index')->with('success', 'Course deleted successfully.');
     }
 }

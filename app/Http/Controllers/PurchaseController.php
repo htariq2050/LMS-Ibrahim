@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ActiveLesson;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Purchase;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -63,6 +64,30 @@ class PurchaseController extends Controller
         ]);
     }
 
+    public function setActiveLesson(Request $request, $lessonId)
+    {
+        $lesson = Lesson::findOrFail($lessonId);
+
+        // Update the active lesson for the user
+        ActiveLesson::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['lesson_id' => $lessonId]
+        );
+
+        return response()->json([
+            'success' => true,
+            'lesson_title' => $lesson->title,
+            'lesson_description' => $lesson->description,
+            'video_url' => $lesson->videos->isNotEmpty() ? $lesson->videos[0]->video_url : null,
+        ]);
+    }
+
+    public function checkout(Course $course)
+    {
+        return view('admin.purchases.checkout', compact('course'));
+    }
+
+
     public function create()
     {
         $courses = Course::all(); // Retrieve all courses for the dropdown or selection
@@ -77,7 +102,17 @@ class PurchaseController extends Controller
             'amount_paid' => 'required|numeric|min:0',
             'payment_status' => 'required|in:pending,completed,failed',
         ]);
+        
+        // Check if the user already purchased the course
+        $existingPurchase = Purchase::where('user_id', Auth::id())
+        ->where('course_id', $request->course_id)
+        ->first();
 
+        if ($existingPurchase) {
+            return redirect()->route('purchases.index')->with('error', 'You have already purchased this course.');
+        }
+
+        // Create a new purchase
         $purchase = Purchase::create([
             'purchase_id' => uniqid('PUR-'),
             'course_id' => $request->course_id,

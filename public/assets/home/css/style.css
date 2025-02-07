@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'LilitaOne'; 
+    src: url('../fonts/Lilita_One/LilitaOne-Regular.ttf') format('truetype'); 
+    font-weight: 400; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BarlowCondensedLight';
+    src: url('../fonts/Barlow_Condensed/BarlowCondensed-Light.ttf') format('truetype');
+    font-weight: 900; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BarlowCondensedBold';
+    src: url('../fonts/Barlow_Condensed/BarlowCondensed-Bold.ttf') format('truetype');
+    font-weight: 700; 
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bouncy';
+    src: url('../fonts/bouncy/Bouncy-Black.otf') format('truetype');
+    font-weight: 700; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PermanentMarker';
+    src: url('../fonts/Permanent_Marker/PermanentMarker-Regular.ttf') format('truetype');
+    font-weight: 700; 
+    font-style: normal;
+}
+
+:root{
+    font-family: 'BarlowCondensedBold';
+}
+
+.LilitaOne{
+    font-family: 'LilitaOne';
+}
+
+.Bouncy{
+    font-family: 'Bouncy';
+}
+
+.PermanentMarker{
+    font-family: 'PermanentMarker';   
+}

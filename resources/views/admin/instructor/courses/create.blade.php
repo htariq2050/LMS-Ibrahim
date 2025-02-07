@@ -72,6 +72,15 @@ Instructor
                             </div>
                             
                             <div class="form-group">
+                                <label for="plan">Plan</label><br />
+                                <select id="plan" name="plan_id" class="custom-select w-auto">
+                                    <option disabled selected>Select Plan</option>
+                                </select>
+                                @error('plan_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!-- <div class="form-group">
                                 <label for="subcategory">SubCategory</label><br />
                                 <select id="subcategory" name="subcategory_id" class="custom-select w-auto">
                                     <option disabled selected>Select subcategory</option>
@@ -79,7 +88,7 @@ Instructor
                                 @error('subcategory_id')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> -->
 
                             <div class="form-group">
                                 <label for="price">Price</label>
@@ -133,106 +142,12 @@ Instructor
                             <div class="card-subtitle text-muted">Manage Lessons</div>
                         </div>
                         <div class="ml-auto">
-                            <a href="student-courses.html" class="btn btn-primary">New <i class="material-icons">add</i></a>
+                            <a href="student-courses.html" class="btn btn-purple">New <i class="material-icons">add</i></a>
                         </div>
                     </div>
 
 
-                    {{-- <ul class="list-group list-group-fit">
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Overview</a>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted">3:33</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Asset Pipeline</a>
-                                </div>
-                                <div class="media-right">
-                                    <small>18:43</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Getting Started</a>
-                                    <small class="badge badge-soft-success ">FREE</small>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted">5:21</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Advanced Workflows</a>
-                                    <small class="badge badge-soft-warning ">PRO</small>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted">5:24</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Tips & Tricks</a>
-                                    <small class="badge badge-soft-warning ">PRO</small>
-                                </div>
-                                <div class="media-right">
-                                    <small class="text-muted">11:38</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <i class="material-icons text-light-gray">list</i>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="#">Final Quiz</a>
-                                </div>
-                                <div class="media-right">
-                                    <small class="badge badge-soft-primary ">QUIZ</small>
-                                </div>
-                            </div>
-                        </li>
-                    </ul> --}}
+                   
                 </div>
             </div>
         </div>
@@ -247,8 +162,9 @@ Instructor
     window.onload = async function() {
         try {
             // Fetch categories on page load
-            const categoryResponse = await fetch('{{ route('categories.index') }}');
+            const categoryResponse = await fetch('{{ route('categories.json') }}');
             const categories = await categoryResponse.json();
+            console.log(categories);
 
             const categorySelect = document.getElementById('category');
             categorySelect.innerHTML += categories.map(category => 
@@ -256,7 +172,7 @@ Instructor
             ).join('');
 
             // Add event listener to category dropdown
-            categorySelect.addEventListener('change', async function() {
+            {{-- categorySelect.addEventListener('change', async function() {
                 const selectedCategoryId = this.value;
                 const subcategorySelect = document.getElementById('subcategory');
 
@@ -274,10 +190,26 @@ Instructor
                 } catch (error) {
                     console.error('Error fetching subcategories:', error);
                 }
-            });
+            }); --}}
         } catch (error) {
             console.error('Error fetching categories:', error);
         }
+
+        try {
+            // Fetch categories on page load
+            const planResponse = await fetch('{{ route('instructor.plans.json') }}');
+            const plans = await planResponse.json();
+
+            const planSelect = document.getElementById('plan');
+            planSelect.innerHTML += plans.map(plan => 
+                `<option value="${plan.id}">${plan.title}</option>`
+            ).join('');
+
+        } catch (error) {
+            console.error('Error fetching plans:', error);
+        }
+
     }
+    
 </script>
 @endsection

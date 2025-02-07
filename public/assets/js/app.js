@@ -823,7 +823,7 @@ __webpack_require__.r(__webpack_exports__);
 
   domFactory.handler.autoInit(); // ENABLE TOOLTIPS
 
-  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip;
   $('.search-form input').on('focus', function () {
     $('.search-form').addClass('highlight');
   });

@@ -1,0 +1,815 @@
+.hp-banner {
+  background-color: #663d90; /* Purple background */
+  min-height: 80vh;
+  background-image: url("../images/arabic12.png"); /* Replace with your pattern image path */
+  background-repeat: repeat; /* Repeating background pattern */
+  background-size: 320px 240px; /* Set size to 80px width and 100px height */
+  background-position: -10% -10%;
+  text-align: center;
+  background-blend-mode: hard-light;
+  padding: 100px 20px 40px 20px;
+  color: white;
+}
+
+.hp-banner .video-container {
+  position: relative;
+  display: inline-block;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.hp-banner .local-video {
+  width: 500px; /* Adjust as needed */
+  border-radius: 10px;
+}
+
+.hp-banner h1 {
+  font-size: 3.5rem;
+  margin: 20px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.hp-banner .discover-button {
+  display: inline-block;
+  background-color: #fddc00; /* Yellow Button */
+  color: #fff; /* Purple Text */
+  font-weight: bold;
+  font-size: 2rem;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Button Shadow */
+  transition: background-color 0.3s;
+}
+
+.hp-banner .discover-button:hover {
+  background-color: #e5c700; /* Slightly darker yellow on hover */
+}
+
+.hp-card-section {
+  text-align: center;
+  padding: 50px 40px;
+  background-color: #ffffff;
+  background-image: url("../images/arabic.png"); /* Replace with your pattern image path */
+  background-repeat: repeat; /* Repeating background pattern */
+  background-size: 320px 240px; /* Set size to 80px width and 100px height */
+  background-position: -10% -10%;
+  text-align: center;
+  background-blend-mode: hard-light;
+  
+}
+
+
+
+.hp-card-section .section-title {
+  color: #663d90;
+  font-size: 3rem;
+  margin: 20px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.hp-card-section .card-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.hp-card-section .card-container .card {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 32%;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.hp-card-section .card-yellow {
+  border: 2px solid #ffd700;
+}
+.hp-card-section .card-purple {
+  border: 2px solid #663d90;
+}
+.hp-card-section .card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.hp-card-section .card-number {
+  /* background-color: #FFD700; */
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+.hp-card-section .card-yellow .card-number {
+  background-color: #ffd700;
+}
+.hp-card-section .card-purple .card-number {
+  background-color: #663d90;
+}
+
+.hp-card-section .card h3 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.hp-card-section .card-text {
+  font-size: 1.2rem;
+  margin: 10px 0 20px;
+}
+
+.card-yellow h3,
+.card-yellow .card-text {
+  color: #ffd700;
+}
+.hp-card-section .card-purple h3,
+.hp-card-section .card-purple .card-text {
+  color: #663d90;
+}
+
+.hp-card-section .card-image img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.programs-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 0;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.program-card {
+  width: 30%;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  min-height: 150px;
+  background-image: url("../images/arabic2.png"); /* Replace with your pattern image path */
+  background-size: 200px; /* Set size to 80px width and 100px height */
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.program-card.beginner {
+  border: 5px solid #663d90;
+}
+
+.program-card.intermediate {
+  border: 5px solid #5fab77;
+}
+
+.program-card.advanced {
+  border: 5px solid #ffd700;
+}
+
+.program-card .bordered-text {
+  font-size: 2.5rem; /* Adjust the font size as needed */
+  color: white; /* Text color */
+  font-weight: bold; /* Optional for better visibility */
+  font-family: "LilitaOne";
+}
+
+.program-card.advanced .bordered-text {
+  text-shadow: 2px 2px 0 #ffd700, /* Right-bottom shadow */ 
+            -2px 2px 0 #ffd700, /* Left-bottom shadow */ 
+            2px -2px 0 #ffd700, /* Right-top shadow */ 
+            -2px -2px 0 #ffd700; /* Left-top shadow */
+}
+
+.program-card.intermediate .bordered-text {
+  text-shadow: 2px 2px 0 #5fab77, /* Right-bottom shadow */ 
+            -2px 2px 0 #5fab77, /* Left-bottom shadow */ 
+            2px -2px 0 #5fab77, /* Right-top shadow */ 
+            -2px -2px 0 #5fab77; /* Left-top shadow */
+}
+.program-card.beginner .bordered-text {
+  text-shadow: 2px 2px 0 #663d90, /* Right-bottom shadow */ 
+            -2px 2px 0 #663d90, /* Left-bottom shadow */ 
+            2px -2px 0 #663d90, /* Right-top shadow */ 
+            -2px -2px 0 #663d90; /* Left-top shadow */
+}
+
+.program-card .description {
+  font-size: 0.9rem;
+    letter-spacing: 2px;
+  line-height: 1rem;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+}
+.program-card.beginner .description {
+  color: #663d90;
+}
+
+.program-card.intermediate .description {
+  color: #5fab77;
+}
+
+.program-card.advanced .description {
+  color: #ffd700;
+}
+
+.program-card ul {
+  text-align: left;
+  margin: 20px auto;
+  list-style: none; /* Remove default bullets */
+  padding: 0;
+  flex: 1;
+}
+
+.program-card ul li {
+  padding: 10px 10px 10px 30px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  position: relative;
+  color:#545454;
+}
+
+.program-card ul li::before {
+  position: absolute;
+  left: 0;
+  font-size: 1.5rem;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-right: 10px;
+}
+.program-card.beginner ul li::before {
+  color: #663d90;
+}
+
+.program-card.intermediate ul li::before {
+  color: #5fab77;
+}
+
+.program-card.advanced ul li::before {
+  color: #ffd700;
+}
+/* Target the first five list items and add icons */
+.program-card ul li:nth-child(1)::before {
+  content: "\f144"; /* FontAwesome user icon */
+}
+
+.program-card ul li:nth-child(2)::before {
+  content: "\f363"; /* FontAwesome users icon */
+}
+.program-card ul li:nth-child(3)::before {
+  content: "\f059"; /* FontAwesome handshake icon */
+}
+.program-card ul li:nth-child(4)::before {
+  content: "\f5ad"; /* FontAwesome handshake icon */
+}
+
+.program-card ul li:nth-child(5)::before {
+  content: "\f518"; /* FontAwesome car icon */
+}
+
+.program-card ul li:nth-child(6)::before {
+  content: "\f56b"; /* FontAwesome car icon */
+}
+
+.program-card .price-buble {
+  height: 100px;
+  width: 115px;
+  position: absolute;
+  bottom: -30px;
+  left: -40px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.program-card .price {
+  font-size: 2.4rem;
+}
+
+.program-card .price span {
+  font-size: 0.5rem;
+}
+
+.program-card small {
+  font-size: 0.5rem;
+}
+
+.program-card .subscribe-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #6a2c91;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  align-self: flex-end;
+  border: 1px solid;
+}
+
+.program-card.beginner .subscribe-btn,
+.program-card.beginner .price-buble {
+  background-color: #663d90;
+}
+
+.program-card.intermediate .subscribe-btn,
+.program-card.intermediate .price-buble {
+  background-color: #5fab77;
+}
+
+.program-card.advanced .subscribe-btn,
+.program-card.advanced .price-buble {
+  background-color: #ffd700;
+}
+.program-card .subscribe-btn:hover {
+  background-color: white;
+}
+
+.program-card.beginner .subscribe-btn:hover {
+  color: #663d90;
+  border: 1px solid #663d90;
+}
+
+.program-card.intermediate .subscribe-btn:hover {
+  color: #5fab77;
+  border: 1px solid #5fab77;
+}
+
+.program-card.advanced .subscribe-btn:hover {
+  color: #ffd700;
+  border: 1px solid #ffd700;
+}
+
+.faq-section {
+  background-color: white;
+  padding: 40px 130px;
+  margin: 20px auto;
+  /* max-width: 800px; */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid #663D90;
+  position: relative;
+}
+
+.faq-section h2 {
+  text-align: center;
+  color: #663D90;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.question-bullet{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #fddc00;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.faq-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 5px;
+  /* border: 1px solid #E5E5E5; */
+  background-color: #FFF;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.faq-item:hover {
+  background-color: #F9F9F9;
+}
+
+.faq-item.active {
+  background-color: #F4E7FD;
+}
+
+.faq-item .question {
+  font-size: 1.15rem;
+  color: black;
+}
+
+.faq-item .icon {
+  color: #663D90;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #F8F8F8;
+  border-radius: 5px;
+  border-left: 3px solid #663D90;
+  color: black;
+}
+
+.faq-answer.active {
+  display: block;
+}
+
+.faq-button {
+  display: inline-block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 6px 20px;
+  font-size: 1.6rem;
+  color: white;
+  background-color: #663d90;
+  border: none;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.faq-button:hover {
+  background-color: #FFC107;
+}
+
+.info-section {
+  text-align: center;
+  padding: 50px 40px 0 40px;
+  background-color: #ffffff;
+  background-image: url("../images/arabic.png"); 
+  background-repeat: repeat; 
+  background-size: 320px 240px; 
+  background-position: -10% -10%;
+  text-align: center;
+  background-blend-mode: hard-light;
+}
+.info-footer{
+  background-color: #663D90;
+  height: 60vh;
+  position: relative;
+  text-align: center;
+}
+.info-footer .container{
+  position: absolute;
+  top: -35%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info-footer img{
+  max-width: 400px;
+  
+}
+.info-footer h3{
+  color: white;
+  margin-top: 15px;
+  
+}
+.info-footer button{
+  padding: 10px 20px;
+  background-color: white;
+  color:#663D90;
+  border: none;
+  border-radius: 3px;
+  font-weight: 700;
+  
+}
+
+.info-section .info-container{
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid #663D90;
+  border-bottom: none;
+  padding: 40px 30px 160px 30px;
+}
+
+.info-section .title {
+  width: 60%;
+  margin: 0 auto;
+  font-size: 2.4rem;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.info-section .title .highlight {
+  color: #714aa3;
+  font-weight: bold;
+}
+.info-section .title .highlight2 {
+  background-color: #714aa3;
+  color: white;
+  padding: 0 6px;
+  font-weight: bold;
+}
+
+.info-section .stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+
+}
+
+.info-section .stat {
+  flex: 1 1 calc(50% - 20px);
+  text-align: center;
+  margin-bottom: 10px;
+  border: solid 1px #00000012;
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.09);
+    border-radius: 10px;
+    padding: 20px;
+}
+.info-section .stat:hover {
+  border: solid 1px #663D90;
+  box-shadow: -9px -11px 22px 0px rgba(0, 0, 0, 0.091);
+}
+
+.info-section .stat .number {
+  font-size: 2.3rem;
+  color: #e5c700;
+  font-weight: bold;
+}
+
+.info-section .stat .description {
+  font-size: 1.5rem;
+  color: #663D90;
+  margin-top: 5px;
+}
+
+.info-section .stat.full-width {
+  flex: 1 1 100%;
+}
+
+.info-section .stat.full-width .number {
+  font-size: 2.3rem;
+  color: #e5c700;
+  font-weight: bold;
+}
+
+.info-section .stat.full-width .description {
+  font-size: 1.5rem;
+  color: #663D90;
+  margin-top: 5px;
+}
+
+.footer-img{
+  border: 2px solid #E5C700;
+    border-radius: 15px;
+}
+@media (max-width: 900px) {
+  .faq-section {
+     padding: 0;}
+
+  .hp-banner h1 {
+    font-size: 1.5rem;
+  }
+  .hp-banner .local-video {
+    width: 100%;
+  }
+  .hp-card-section .card-container {
+    justify-content: center;
+    width: 100%;
+  }
+  .info-section .stats {
+  
+    gap: 8px;
+}
+.info-section .title {
+  width: 90%;}
+  .info-section .stat {
+    flex: 1 1 calc(100% - 20px);
+     margin-bottom: 0; 
+}
+  .hp-card-section .card-container .card {
+    width: 100%;
+  }
+  .programs-container {
+    justify-content: center;
+  }
+
+  .program-card {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+  .hp-card-section .card-container .card {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+}
+
+
+
+/* reating */
+.rating {
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  padding:50px 0;
+  color: #ffffff; /* White text */
+ 
+}
+
+.section-title {
+  font-size: 3rem;
+    margin: 20px 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+}
+
+.rating-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-direction: row;
+}
+
+.rating-card {
+  width: 50%;
+  background-color: #ffffff00; /* White card background */
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  
+}
+
+.rating-image {
+  position: relative;
+  width: 100%;
+  
+  overflow: hidden;
+}
+
+.rating-image img {
+  width: 100%;
+  
+  object-fit: cover;
+  border-radius: 20px;
+  border: solid 3px white;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.227);
+  border-radius: 50%;
+  display: flex;
+  border: solid 10px #ffff;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.5em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: rgba(133, 133, 133, 0.399);
+}
+
+.name {
+  font-size: 1.2em;
+  font-weight: bold;
+
+  color: #ffffff; /* Purple name color */
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  
+}
+
+.stars span {
+  color: #ffcc00; /* Gold stars */
+  font-size: 2em;
+}
+
+.stars img {
+  width: 40px;
+  height: 40px;
+}
+
+.voir-plus {
+  background-color: #ffffff;
+  color: #6f3bae;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+    font-size: 1.4rem;
+
+  cursor: pointer;
+  margin-top: 60px;
+  transition: background-color 0.3s ease;
+}
+
+.voir-plus:hover {
+  background-color: #e6e6e6;
+}
+.name-reating-logo {
+  display: flex
+;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.hp-banner-reating {
+  background-color: #663d90; /* Purple background */
+  /* min-height: 80vh; */
+  background-image: url("../images/arabic12.png"); /* Replace with your pattern image path */
+  background-repeat: repeat; /* Repeating background pattern */
+  background-size: 320px 240px; /* Set size to 80px width and 100px height */
+  background-position: -10% -10%;
+  text-align: center;
+  background-blend-mode: hard-light;
+  /* padding: 40px 20px 40px 20px; */
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .rating-container {
+   
+    flex-direction: column;
+  }
+  .rating-card {
+    width: 100%;
+}
+.faq-section {
+  padding: 0;
+
+}
+}
+
+.footer-button {
+  display: inline-block;
+    background-color: #ffffff;
+    color: #663d90;
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+    padding: 4px 20px 6px;
+    margin-top: 40px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s;
+}
+
+
+
+
+
+
+
+
+
+
+

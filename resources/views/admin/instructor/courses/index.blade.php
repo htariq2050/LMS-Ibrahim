@@ -11,12 +11,12 @@ Instructor
     <div class="container-fluid page__heading-container">
         <div class="page__heading d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-lg-between text-center text-lg-left">
             <h1 class="m-lg-0">Instructor Courses</h1>
-            <a href="{{ route('instructor.courses.create') }}" class="btn btn-success ml-lg-3">New Course <i class="material-icons">add</i></a>
+            <a href="{{ route('instructor.courses.create') }}" class="btn btn-purple ml-lg-3">New Course <i class="material-icons">add</i></a>
         </div>
     </div>
 
     <div class="container-fluid page__container">
-        <form action="#" class="mb-2">
+        {{--<form action="#" class="mb-2">
             <div class="d-flex">
                 <div class="search-form mr-3 search-form--light">
                     <input type="text" class="form-control" placeholder="Filter by name" id="searchSample02">
@@ -42,7 +42,7 @@ Instructor
                     </div>
                 </div>
             </div>
-        </form>
+        </form>--}}
 
         <div class="row">
             @foreach($courses as $course)
@@ -71,19 +71,26 @@ Instructor
                                             <a class="dropdown-item" href="{{ route('instructor.courses.edit', $course->id) }}">Edit Course</a>
                                             <a class="dropdown-item" href="#">Statistics</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#">Archive</a>
+                                            <form action="{{ route('instructor.courses.destroy', $course->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item text-danger"
+                                                    onclick="return confirm('Are you sure?')">Archive</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-end">
                                     <div class="d-flex flex flex-column mr-3">
                                         <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">${{ number_format($course->price, 2) }}/mo</span>
+                                            <span class="mr-2">${{ number_format($course->plan->price, 2) }}/mo</span>
                                             <small class="text-muted ml-auto">{{ $course->sales_count }} SALES</small>
                                         </div>
                                         <div class="d-flex align-items-center py-2">
                                             <span class="badge badge-vuejs mr-2">{{ $course->category->name }}</span>
                                             <span class="badge badge-soft-secondary">{{ optional($course->subcategory)->name }}</span>
+                                            <span class="badge badge-soft-secondary">{{ optional($course->plan)->title }}</span>
                                         </div>
                                     </div>
                                 </div>
