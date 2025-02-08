@@ -21,6 +21,9 @@ Route::view('/about', 'home.about')->name('about')->middleware('auth');
 
 
 
+Route::get('JSONCategories', [CategoryController::class, 'JSONCategories'])->name('categories.json');
+Route::get('JSONPlans', [PlanController::class, 'JSONPlans'])->name('instructor.plans.json');
+
 Route::resource('subcategories', SubCategoryController::class);
 
 Route::resource('purchases', PurchaseController::class);
@@ -41,9 +44,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::prefix('student')->middleware(['role:student'])->as('student.')->group(function () {
     Route::view('/dashboard', 'admin.student.dashboard')->name('dashboard');
     Route::resource('profile', StudentProfileController::class);
-
-    Route::get('JSONCategories', [CategoryController::class, 'JSONCategories'])->name('categories.json');
-    Route::get('JSONPlans', [PlanController::class, 'JSONPlans'])->name('instructor.plans.json');
 
     Route::get('/courses', [PurchaseController::class, 'purchasedCourses'])->name('courses');
     Route::post('/lesson/set-active/{lessonId}', [PurchaseController::class, 'setActiveLesson'])->name('setActiveLesson');

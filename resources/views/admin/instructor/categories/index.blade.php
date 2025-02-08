@@ -9,7 +9,7 @@
         <div class="page__heading d-flex align-items-center justify-content-between mb-0">
             <h1>Categories</h1>
             <div class="d-flex align-items-center">
-                <a href="{{ route('categories.create') }}" class="btn btn-purple">Create New Category<i
+                <a href="{{ route('instructor.categories.create') }}" class="btn btn-purple">Create New Category<i
                         class="material-icons">add</i></a>
             </div>
 
@@ -49,9 +49,9 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>
-                                            <a href="{{ route('categories.edit', $category->id) }}"
+                                            <a href="{{ route('instructor.categories.edit', $category->id) }}"
                                                 class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                            <form action="{{ route('instructor.categories.destroy', $category->id) }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')

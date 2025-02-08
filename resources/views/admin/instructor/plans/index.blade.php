@@ -9,12 +9,13 @@
         <div class="page__heading d-flex align-items-center justify-content-between mb-0">
             <h1 class="m-0">PLANS</h1>
             <div class="d-flex align-items-center">
-                <a href="{{ route('instructor.plans.create') }}" class="btn btn-purple">Add New Plan <i class="material-icons">add</i></a>
+                <a href="{{ route('instructor.plans.create') }}" class="btn btn-purple">Add New Plan <i
+                        class="material-icons">add</i></a>
             </div>
 
         </div>
     </div>
-    
+
     <div class="container-fluid page__container mt-2">
         <div class="card card-form">
             <div class="row no-gutters">
@@ -53,6 +54,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Are you sure?')">Delete</button>
                                             </form>
+                                            
                                         </td>
                                     </tr>
                                 @endforeach
@@ -65,5 +67,22 @@
     </div>
 </div>
 
+@section('model')
+    <!-- Warning Alert Modal -->
+    <div id="modal-warning" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <i class="material-icons icon-40pt text-warning mb-2">warning</i>
+                    <h4>Warning!You are about to delete Plan. </h4>
+                    <p class="mt-3">Are you Sure?</p>
+                    <!-- <button type="button" class="btn btn-warning my-2" data-dismiss="modal" onclick="return true">Continue</button> -->
+                    <button type="button" class="btn btn-warning my-2" data-dismiss="modal" onclick="deletePlan()">Continue</button>
+                    <button type="button" class="btn btn-secondary my-2" data-dismiss="modal">Cancel</button>
+                </div> <!-- // END .modal-body -->
+            </div> <!-- // END .modal-content -->
+        </div> <!-- // END .modal-dialog -->
+    </div> <!-- // END .modal -->
+@endsection
 
 @endsection

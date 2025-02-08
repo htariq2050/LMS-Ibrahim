@@ -78,6 +78,7 @@
 
     @include('admin.partials.footer')
 
+    @yield('model')
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -111,7 +112,7 @@
             setTimeout(hideLoader, 100); // Hide loader after a brief delay
         });
     });
-</script>
+    </script>
 
 </body>
 

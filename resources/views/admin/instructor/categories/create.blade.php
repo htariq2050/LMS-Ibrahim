@@ -22,7 +22,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{ route('instructor.categories.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
