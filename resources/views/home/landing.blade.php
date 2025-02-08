@@ -66,84 +66,52 @@ Student
 
             <h2 class="section-title LilitaOne">Nos Programmes</h2>
             <div class="programs-container">
-                <!-- Beginner Program -->
-                @foreach($plans as $plan)
-                <div class="program-card beginner">
-                    <div class="title-container">
-                        <h2 class="bordered-text">{{$plan->title}}</h2>
-                    </div>
-                    <h6 class="description Bouncy">
-                        Si tu démarres de zéro alors ceTTE FORMULE est faitE pour toi!
-                    </h6>
-                    <ul>
-                        @php
-                            // Check if $plan->features is an array or JSON string
-                            $features = is_array($plan->features) ? $plan->features : json_decode($plan->features, true);
-                            $features = is_array($features) ? $features : [];
-                        @endphp
-                    
-                        @foreach ($features as $feature)
-                            <li>{{ $feature }}</li>
-                        @endforeach
-                    </ul>
-                    
-                    <div class="price-buble PermanentMarker">
-                        <h1 class="price">{{ number_format($plan->price, 0, ',', ' ') }}<span>/mois</span></h1>
-
+                @foreach($plans as $index => $plan)
+                    @php
+                        // Assign category based on index position
+                        if ($index == 0) {
+                            $category = 'beginner';
+                            $title = "Si tu démarres de zéro alors ceTTE FORMULE est faitE pour toi!";
+                        } elseif ($index == 1) {
+                            $category = 'intermediate';
+                            $title = "Si tu sais lire mais prononce mal les lettres arabes, et souhaites t’initier à la grammaire, au Tajwid, et avoir du vocabulaire, alors ceTTE FORMULE est faitE pour toi!";
+                        } else {
+                            $category = 'advanced';
+                            $title = "TU SOUHAITEs TE PERFECTIONNER EN TADJWID, EN GRAMMAIRE, et en vocabulaire, alors cette formule est faite pour toi!";
+                        }
+                    @endphp
+            
+                    <div class="program-card {{ $category }}">
+                        <div class="title-container">
+                            <h2 class="bordered-text">{{ $plan->title }}</h2>
+                        </div>
+                        <h6 class="description Bouncy">{{ $title }}</h6>
                         
+                        <ul>
+                            @php
+                                $features = is_array($plan->features) ? $plan->features : json_decode($plan->features, true);
+                                $features = is_array($features) ? $features : [];
+                            @endphp
+            
+                            @foreach ($features as $feature)
+                                <li>{{ $feature }}</li>
+                            @endforeach
+                        </ul>
+            
+                        <div class="price-buble PermanentMarker">
+                            <h1 class="price">{{ number_format($plan->price, 0, ',', ' ') }}<span>/mois</span></h1>
+                            <small>sans engagement</small>
+                        </div>
+                        
+                        <a href="#" class="subscribe-btn">
+                            Je m'inscris&nbsp;&nbsp;&nbsp;
+                            <img class="local-video" src="{{ asset('assets/images/marker/arrow gif.gif') }}" 
+                                 style="width: 20px; height: 20px; vertical-align: middle;"/>
+                        </a>
                     </div>
-                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video" src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
-                </div>
                 @endforeach
-
-                <!-- Intermediate Program -->
-                <!-- <div class="program-card intermediate">
-                    <div class="title-container">
-                        <h2 class="bordered-text">Niveau Intermédiaire</h2>
-                    </div>
-                    <h6 class="description Bouncy">
-                        Si tu sais lire mais prononce mal les lettres arabes, et souhaites t’initier à la grammaire, au
-                        Tajwid, et avoir du vocabulaire, alors ceTTE FORMULE est faitE pour toi!
-                    </h6>
-                    <ul>
-                        <li>VIDÉOS EXPLICATIVES SUR LA 1ÈRE PARTIE DE LA MOUQADDIMAT DES TOMES DE MÉDINE.</li>
-                        <li>ÉCHANGES AVEC NOTRE ÉQUIPE PÉDAGOGIQUE 6JRS/7.</li>
-                        <li>NOMBREUX QUIZ INTERACTIFS POUR APPRENDRE TOUT EN S’AMUSANT.</li>
-                        <li>CAHIER D’EXERCICES INCLUS POUR S’ENTRAINER À ÉCRIRE.</li>
-                        <li>TADJWID: INTRODUCTION AU MAKHARIDJAL HOUROUF.</li>
-                        <li>INITIATION À LA GRAMMAIRE, À LA CONJUGAISON ET AU VOCABULAIRE.</li>
-                    </ul>
-                    <div class="price-buble PermanentMarker">
-                        <h1 class="price">39€<span>/mois</span></h1>
-                        <small>sans engagement</small>
-                    </div>
-                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video"src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
-                </div> -->
-
-                <!-- Advanced Program -->
-                <!-- <div class="program-card advanced">
-                    <div class="title-container">
-                        <h2 class="bordered-text">Niveau Confirmé</h2>
-                    </div>
-                    <h6 class="description Bouncy">
-                        TU SOUHAITEs TE PERFECTIONNER EN TADJWID, EN GRAMMAIRE, et en vocabulaire,
-                        alors cette formule est faite pour toi!
-                    </h6>
-                    <ul>
-                        <li>VIDÉOS EXPLICATIVES SUR LA 1ÈRE PARTIE DE LA MOUQADDIMAT DES TOMES DE MÉDINE.</li>
-                        <li>ÉCHANGES AVEC NOTRE ÉQUIPE PÉDAGOGIQUE 6JRS/7.</li>
-                        <li>NOMBREUX QUIZ INTERACTIFS POUR APPRENDRE TOUT EN S’AMUSANT.</li>
-                        <li>CAHIER D’EXERCICES INCLUS POUR S’ENTRAINER À ÉCRIRE.</li>
-                        <li>TADJWID: INTRODUCTION AU MAKHARIDJAL HOUROUF.</li>
-                        <li>PERFECTIONNEMENT EN GRAMMAIRE, EN CONJUGAISON ET EN VOCABULAIRE.</li>
-                    </ul>
-                    <div class="price-buble PermanentMarker">
-                        <h1 class="price">49€<span>/mois</span></h1>
-                        <small>sans engagement</small>
-                    </div>
-                    <a href="#" class="subscribe-btn">Je m'inscris&nbsp;&nbsp;&nbsp;<img class="local-video"src="{{ asset('assets\images\marker\arrow gif.gif') }}" style="width: 20px; height: 20px; vertical-align: middle;"/></a>
-                </div> -->
             </div>
+            
     </section>
     <!---------------------------------- google reating--------------- -->
     <section class="hp-banner-reating">
