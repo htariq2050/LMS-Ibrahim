@@ -37,6 +37,18 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                
                                 @foreach($plans as $plan)
                                     <tr>
                                         <td>
@@ -47,13 +59,14 @@
                                         <td>
                                             <a href="{{ route('instructor.plans.edit', $plan->id) }}"
                                                 class="btn btn-sm btn-warning">Edit</a>
-                                            <form action="{{ route('instructor.plans.destroy', $plan->id) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure?')">Delete</button>
-                                            </form>
+                                                <form action="{{ route('instructor.plans.destroy', $plan->id) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                                
                                             
                                         </td>
                                     </tr>

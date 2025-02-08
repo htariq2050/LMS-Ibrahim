@@ -86,9 +86,25 @@ class PlanController extends Controller
     /**
      * Remove the specified plan from the database.
      */
-    public function destroy(Plan $plan)
-    {
-        $plan->delete();
-        return redirect()->route('instructor.plans.index')->with('success', 'Plan deleted successfully.');
-    }
+    public function destroy($id)
+        {
+            // Find the plan by ID
+            $plan = Plan::find($id);
+
+            // Check if the plan exists
+            if (!$plan) {
+                return redirect()->route('instructor.plans.index')->with('error', 'Plan not found.');
+            }
+
+            // Check if the plan has any associated courses
+            if ($plan->courses()->exists()) {
+                return redirect()->route('instructor.plans.index')->with('error', 'Cannot delete plan because courses are associated with it.');
+            }
+
+            // If no courses are associated, delete the plan
+            $plan->delete();
+            return redirect()->route('instructor.plans.index')->with('success', 'Plan deleted successfully.');
+        }
+
+    
 }
