@@ -28,10 +28,6 @@ Route::resource('purchases', PurchaseController::class);
 Route::get('checkout/{course}', [PurchaseController::class, 'checkout'])->name('checkout');
 
 
-Route::get('JSONCategories', [CategoryController::class, 'JSONCategories'])->name('categories.json');
-Route::get('JSONPlans', [PlanController::class, 'JSONPlans'])->name('instructor.plans.json');
-
-
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'showRegisterForm')->name('register')->middleware(RedirectIfAuthenticated::class);
@@ -65,7 +61,6 @@ Route::prefix('student')->middleware(['role:student'])->as('student.')->group(fu
 });
 
 
-Route::resource('categories', CategoryController::class);
 
 Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')->group(function () {
         
@@ -79,6 +74,7 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
     Route::resource('courses', CoursesController::class);
     Route::resource('lessons',  LessonController::class);
     Route::resource('profile', ProfileController::class);
+    Route::resource('categories', CategoryController::class);
 
     Route::prefix('plans')->group(function () {
         Route::get('/', [PlanController::class, 'index'])->name('plans.index');
