@@ -24,16 +24,32 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="number" name="price" id="price" class="form-control" step="0.01" required>
+                            <input type="number" name="price" id="price" class="form-control"  required>
                         </div>
                         <div class="form-group">
                             <label for="billing_cycle">Billing Cycle</label>
                             <input type="text" name="billing_cycle" id="billing_cycle" class="form-control" required>
                         </div>
                         <div class="form-group">
-                            <label for="features">Features (JSON)</label>
-                            <textarea name="features" id="features" class="form-control"></textarea>
+                            <label for="features">Features</label>
+                            <div id="features-list">
+                                <input type="text" name="features[]" class="form-control mb-2" placeholder="Feature 1">
+                            </div>
+                            <button type="button" id="add-feature" class="btn btn-sm btn-success mt-2">Add Feature</button>
                         </div>
+
+                        
+                        <script>
+                            document.getElementById('add-feature').addEventListener('click', function () {
+                                let featureInput = document.createElement('input');
+                                featureInput.type = 'text';
+                                featureInput.name = 'features[]';
+                                featureInput.className = 'form-control mb-2';
+                                featureInput.placeholder = 'Feature ' + (document.querySelectorAll('[name="features[]"]').length + 1);
+                                document.getElementById('features-list').appendChild(featureInput);
+                            });
+                        </script>
+                        
                         <!-- <div class="form-group">
                             <label for="is_commitment_free">Commitment Free?</label>
                             <input type="checkbox" name="is_commitment_free" id="is_commitment_free" value="1">

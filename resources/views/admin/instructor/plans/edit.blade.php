@@ -34,9 +34,24 @@
                                 value="{{ $plan->billing_cycle }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="features">Features (JSON)</label>
-                            <textarea name="features" id="features" class="form-control">{{ $plan->features }}</textarea>
+                            <label for="features">Features</label>
+                            <div id="features-list">
+                                <input type="text" name="features[]" class="form-control mb-2" placeholder="Feature 1">
+                            </div>
+                            <button type="button" id="add-feature" class="btn btn-sm btn-success mt-2">Add Feature</button>
                         </div>
+
+                        
+                        <script>
+                            document.getElementById('add-feature').addEventListener('click', function () {
+                                let featureInput = document.createElement('input');
+                                featureInput.type = 'text';
+                                featureInput.name = 'features[]';
+                                featureInput.className = 'form-control mb-2';
+                                featureInput.placeholder = 'Feature ' + (document.querySelectorAll('[name="features[]"]').length + 1);
+                                document.getElementById('features-list').appendChild(featureInput);
+                            });
+                        </script>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-purple">Update Plan</button>
                         </div>
