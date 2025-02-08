@@ -34,16 +34,36 @@ class PlanController extends Controller
         return view('admin.instructor.plans.create');
     }
 
+    public function begin()
+{
+    $plans = Plan::all();
+    return view('home.landing', compact('plans'));
+}
+
     /**
      * Store a newly created plan in the database.
      */
     public function store(Request $request)
-    {
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric',
+        'billing_cycle' => 'required|string',
+        'features' => 'nullable|array', // Accepts an array input
+    ]);
 
-        Plan::create($request->all());
+    Plan::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'price' => $request->price,
+        'billing_cycle' => $request->billing_cycle,
+        'features' => json_encode($request->features), // Convert array to JSON
+    ]);
 
-        return redirect()->route('instructor.plans.index')->with('success', 'Plan created successfully.');
-    }
+    return redirect()->route('instructor.plans.index')->with('success', 'Plan created successfully!');
+}
+
 
     /**
      * Show the form for editing the specified plan.

@@ -15,10 +15,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RedirectIfAuthenticated;
 
 
-Route::view('/', 'home.landing')->name('home');
+Route::get('/', [PlanController::class, 'begin'])->name('home');
 Route::view('/about', 'home.about')->name('about')->middleware('auth');
-
-
 
 
 Route::get('JSONCategories', [CategoryController::class, 'JSONCategories'])->name('categories.json');
@@ -30,6 +28,8 @@ Route::resource('purchases', PurchaseController::class);
 Route::get('checkout/{course}', [PurchaseController::class, 'checkout'])->name('checkout');
 
 
+Route::get('JSONCategories', [CategoryController::class, 'JSONCategories'])->name('categories.json');
+Route::get('JSONPlans', [PlanController::class, 'JSONPlans'])->name('instructor.plans.json');
 
 
 
@@ -65,6 +65,8 @@ Route::prefix('student')->middleware(['role:student'])->as('student.')->group(fu
 });
 
 
+Route::resource('categories', CategoryController::class);
+
 Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')->group(function () {
         
     Route::view('/dashboard', 'admin.instructor.dashboard')->name('dashboard');
@@ -77,7 +79,6 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
     Route::resource('courses', CoursesController::class);
     Route::resource('lessons',  LessonController::class);
     Route::resource('profile', ProfileController::class);
-    Route::resource('categories', CategoryController::class);
 
     Route::prefix('plans')->group(function () {
         Route::get('/', [PlanController::class, 'index'])->name('plans.index');
@@ -95,8 +96,8 @@ Route::prefix('instructor')->middleware(['role:instructor'])->as('instructor.')-
 Route::prefix('admin')->middleware(['role:admin'])->group(function () {
     // Route::controller(CategoryController::class)->group(function () {
               
-    //     Route::post('/categories', 'store')->name('categories.store');      
-    //     Route::put('/categories/{id}', 'update')->name('categories.update'); 
-    //     Route::get('/categories/{id}', 'show')->name('categories.show');     
-    // });
+   //     Route::post('/categories', 'store')->name('categories.store');      
+  //     Route::put('/categories/{id}', 'update')->name('categories.update'); 
+ //     Route::get('/categories/{id}', 'show')->name('categories.show');     
+ // });
 });
