@@ -144,8 +144,14 @@ class QuizController extends Controller
     public function edit(Quiz $quiz)
     {
         try {
+            // Load the quiz with its questions and answers
             $quiz->load('questions.answers');
-            return view('admin.instructor.quizzes.edit', compact('quiz'));
+    
+            // Fetch the courses to populate the dropdown
+            $courses = Course::all(); // Assuming you have a Course model
+    
+            // Pass both $quiz and $courses to the view
+            return view('admin.instructor.quizzes.edit', compact('quiz', 'courses'));
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to load quiz for editing: ' . $e->getMessage());
         }

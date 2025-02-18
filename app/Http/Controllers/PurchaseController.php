@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ActiveLesson;
 use App\Models\Course;
+use App\Models\CompleteVideo;
+use App\Models\Video;
 use App\Models\Lesson;
 use App\Models\Purchase;
 use App\Models\User;
@@ -30,7 +32,7 @@ class PurchaseController extends Controller
     
         return view('admin.student.courses.index', ['courses' => $courses]);
     }
-
+    
     public function studentCoursesAndLessons($courseId)
     {
         $purchasedCourse = Purchase::where('user_id', Auth::id())
@@ -44,12 +46,13 @@ class PurchaseController extends Controller
     
         $relatedCourses = Course::where('id', '!=', $courseId)->get();
     
+        // Get or create the active lesson
         $activeLesson = ActiveLesson::where('user_id', Auth::id())->first();
         if (!$activeLesson) {
             $firstLesson = optional($purchasedCourse->course->lessons()->with('videos')->first());
             if ($firstLesson) {
                 $activeLesson = ActiveLesson::updateOrCreate(
-                    ['user_id' => Auth::id()], 
+                    ['user_id' => Auth::id()],
                     ['lesson_id' => $firstLesson->id]
                 );
                 $activeLesson->load('lesson.videos');
@@ -57,12 +60,102 @@ class PurchaseController extends Controller
         } else {
             $activeLesson->load('lesson.videos');
         }
+    
+        $lesson = $activeLesson ? $activeLesson->lesson : null;
+        $videos = $lesson ? $lesson->videos->sortBy('order') : [];
+    
+        // Get current video index
+        $currentVideoIndex = $videos->search(function ($video) use ($lesson) {
+            return $video->id == $lesson->videos()->first()->id;
+        });
+    
+        // Get the next video URL
+        $nextVideoUrl = null;
+        if ($currentVideoIndex !== false && $currentVideoIndex < $videos->count() - 1) {
+            $nextVideo = $videos[$currentVideoIndex + 1]; // Get next video
+            $nextVideoUrl = route('student.video', $nextVideo->id); // Generate URL for next video
+        }
+    
+        // If there's no next video, set URL to NULL (course completed)
+        $nextVideoUrl = $nextVideoUrl ? $nextVideoUrl : null;
+    
+        // Calculate course completion percentage
+        $totalLessons = $purchasedCourse->course->lessons->count();
+        $completedLessons = CompleteVideo::where('user_id', Auth::id())
+            ->where('course_id', $courseId)
+            ->count();
+        $completionPercentage = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100, 2) : 0;
+    
         return view('admin.student.lessons', [
             'purchasedCourse' => $purchasedCourse,
             'relatedCourses' => $relatedCourses,
-            'currentLesson' => $activeLesson ? $activeLesson->lesson : null
+            'currentLesson' => $lesson,
+            'completionPercentage' => $completionPercentage,
+            'nextVideoUrl' => $nextVideoUrl,  // Pass next video URL
         ]);
     }
+    
+
+public function viewVideo($videoId)
+{
+    $video = Video::find($videoId);
+    
+    $lesson = $video->lesson; 
+    $course = $lesson->course;
+
+    return view('admin.student.lessons', [
+        'video' => $video,
+        'lesson' => $lesson,
+        'course' => $course,
+    ]);
+}
+
+    public function markLessonComplete(Request $request)
+{
+    $lessonId = $request->input('lesson_id');
+    $courseId = $request->input('course_id');
+
+    // Mark the lesson as complete
+    CompleteVideo::updateOrCreate(
+        ['user_id' => Auth::id(), 'lesson_id' => $lessonId, 'course_id' => $courseId],
+        ['completed_at' => now()]
+    );
+    
+
+    // Get the next video
+    $lesson = Lesson::find($lessonId);
+    
+    if (!$lesson) {
+        return redirect()->route('student.dashboard')->with('error', 'Lesson not found.');
+    }
+
+    // Get the next video within the same lesson
+    $nextVideo = Video::where('lesson_id', $lessonId)
+        ->orderBy('order', 'asc')
+        ->first();
+
+    // If there's no next video, check the next lesson
+    if (!$nextVideo) {
+        $nextLesson = Lesson::where('course_id', $courseId)
+            ->where('id', '>', $lessonId)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        if ($nextLesson) {
+            $nextVideo = Video::where('lesson_id', $nextLesson->id)
+                ->orderBy('order', 'asc')
+                ->first();
+        }
+    }
+
+    // Redirect to the next video or back if course completed
+    if ($nextVideo) {
+        return redirect()->route('student.video', $nextVideo->id);  // Redirect to next video
+    }
+
+    return redirect()->route('student.dashboard')->with('message', 'Course completed!');
+}
+
 
     public function setActiveLesson(Request $request, $lessonId)
     {

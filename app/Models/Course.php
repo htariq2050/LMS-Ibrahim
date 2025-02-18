@@ -40,4 +40,10 @@ class Course extends BaseModel
     {
         return $this->belongsTo(Plan::class, 'plan_id');
     }
+
+    public function videos()
+{
+    return $this->hasMany(Video::class);
+}
+
 }

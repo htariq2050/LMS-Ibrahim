@@ -14,4 +14,10 @@ class Video extends BaseModel
     {
         return $this->belongsTo(Lesson::class, 'lesson_id');
     }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class,);
+ 
+    }
 }

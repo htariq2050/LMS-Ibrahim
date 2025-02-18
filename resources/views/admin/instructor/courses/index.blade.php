@@ -46,56 +46,56 @@ Instructor
 
         <div class="row">
             @foreach($courses as $course)
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <!-- Link to the course show page on image -->
-                            <a href="{{ route('instructor.courses.show', $course->id) }}" class="avatar mb-3 w-xs-plus-down-100 mr-sm-3">
-                                <img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" alt="{{$course->title}}" class="avatar-course-img">
-                            </a>
-                            <div class="flex" style="min-width: 200px;">
-                                <div class="d-flex">
-                                    <div>
-                                        <!-- Link to the course show page on title -->
-                                        <h4 class="card-title mb-1">
-                                            <a href="{{ route('instructor.courses.show', $course->id) }}">{{ $course->title }}</a>
-                                        </h4>
-                                        <p class="text-muted">{{ Str::limit($course->description, 100) }}</p>
-                                    </div>
-                                    <div class="dropdown ml-auto">
-                                        <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{{ route('instructor.courses.edit', $course->id) }}">Edit Course</a>
-                                            <a class="dropdown-item" href="#">Statistics</a>
-                                            <div class="dropdown-divider"></div>
-                                            <form action="{{ route('instructor.courses.destroy', $course->id) }}" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item text-danger"
-                                                    onclick="return confirm('Are you sure?')">Archive</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div class="d-flex flex flex-column mr-3">
-                                        <div class="d-flex align-items-center py-2 border-bottom">
-                                            <span class="mr-2">${{ number_format($course->plan->price, 2) }}/mo</span>
-                                            <small class="text-muted ml-auto">{{ $course->sales_count }} SALES</small>
-                                        </div>
-                                        <div class="d-flex align-items-center py-2">
-                                            <span class="badge badge-vuejs mr-2">{{ $course->category->name }}</span>
-                                            <span class="badge badge-soft-secondary">{{ optional($course->subcategory)->name }}</span>
-                                            <span class="badge badge-soft-secondary">{{ optional($course->plan)->title }}</span>
-                                        </div>
-                                    </div>
+            <div class="col-md-3">
+                <div class="card card__course">
+                    <div class="card-header card-header-large card-header-dark bg-dark d-flex justify-content-center">
+                        <!-- Course image as link -->
+                        <a class="card-header__title justify-content-center align-self-center d-flex flex-column" href="{{ route('instructor.courses.show', $course->id) }}">
+                            <span><img src="{{ asset('uploads/courses_cover_images/' . $course->cover_image) }}" class="mb-1" style="width:100%;" alt="logo"></span>
+                            <span class="course__title">{{ $course->title }}</span>
+                            <span class="course__subtitle">{{ Str::limit($course->description, 100) }}</span>
+                        </a>
+                    </div>
+                    <div class="p-3">
+                        <div class="mb-2" style="display: flex; align-items: center; justify-content: space-between;">
+
+                            <span class="mr-2">
+                                <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star</i></a>
+                                <a href="#" class="rating-link active"><i class="material-icons icon-16pt">star_half</i></a>
+                            </span>
+                            <strong>4.7</strong><br >
+                            <small class="text-muted">(391 ratings)</small>
+
+                            <div class="dropdown mt-3" style="  margin-left: auto; margin-bottom:13px;">
+                                <a href="#" class="dropdown-toggle text-muted" data-caret="false" data-toggle="dropdown">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="{{ route('instructor.courses.edit', $course->id) }}">Edit Course</a>
+                                    <a class="dropdown-item" href="#">Statistics</a>
+                                    <div class="dropdown-divider"></div>
+                                    <form action="{{ route('instructor.courses.destroy', $course->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Are you sure?')">Archive</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="d-flex align-items-center justify-content-between">
+                            <strong class="h5 m-0">${{ number_format($course->plan->price, 2) }}/mo</strong>
+                            <small class="text-muted">{{ $course->sales_count }} SALES</small>
+                        </div>
+                        <div class="mt-2">
+                            <span class="badge badge-vuejs">{{ $course->category->name }}</span>
+                            <span class="badge badge-soft-secondary">{{ optional($course->subcategory)->name }}</span>
+                            <span class="badge badge-soft-secondary">{{ optional($course->plan)->title }}</span>
+                        </div>
+                     
                     </div>
                 </div>
             </div>

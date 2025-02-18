@@ -2,6 +2,7 @@
 
 @section('title', $purchasedCourse->course->title)
 
+
 @section('dashboardcontent')
     <div class="mdk-drawer-layout__content page">
         <!-- Course Header -->
@@ -17,34 +18,148 @@
                         <small class="text-muted ml-1">min</small>
                     </div> -->
                 </div>
+               
                 <div>
-                    <div class="btn" style="background:#4a1a8c; color:#fff;">
-                        Purchased:
-                        <strong>${{ $purchasedCourse->course->price }}</strong>
+                    <form action="{{ url('student/mark-lesson-complete') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="lesson_id" value="{{ $currentLesson->id }}">
+                        <input type="hidden" name="course_id" value="{{ $purchasedCourse->course->id }}">
+                        <button type="submit" class="btn btn-success">Mark Lesson as Complete</button>
+                    </form>
+                    
+                    <h5>Course Completion: {{ min(intval($completionPercentage), 100) }}%</h5>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ min(intval($completionPercentage), 100) }}%;" aria-valuenow="{{ min(intval($completionPercentage), 100) }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                    
+                    <script>
+                        window.onload = function () {
+                            // Hide success alert after 2 seconds
+                            setTimeout(() => {
+                                document.getElementById('successAlert')?.style.display = 'none';
+                            }, 2000);
+                    
+                            // Update progress bar percentage
+                            let newPercentage = Math.min({{ intval($completionPercentage) }}, 100);
+                            let progressBar = document.querySelector('.progress-bar');
+                    
+                            if (progressBar) {
+                                progressBar.style.width = newPercentage + '%';
+                                progressBar.setAttribute('aria-valuenow', newPercentage);
+                            }
+                        };
+                    </script>
+                    
+                    
+                    
+                    <style>
+                        .submit-btn {
+                            background: #4a1a8c;
+                            color: #fff;
+                            font-size: 16px;
+                            font-weight: bold;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            transition: background 0.3s ease, transform 0.2s ease;
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+                        }
+                    
+                        .submit-btn strong {
+                            font-weight: bold;
+                        }
+                    
+                        .submit-btn:hover {
+                            background: #5b22a6;
+                            transform: scale(1.05);
+                        }
+                    
+                        .submit-btn:active {
+                            transform: scale(0.95);
+                        }
+                    </style>
+
                 </div>
+              
+                
             </div>
         </div>
-
+        @if(session('success'))
+        <div class="alert alert-success" id="successAlert">
+            {{ session('success') }}
+        </div>
+        @endif 
         <!-- Page Container -->
         <div class="container-fluid page__container">
             <div class="row">
                 <!-- Course Video and Description -->
                 <div class="col-md-8">
                     <!-- Video Player -->
-                    <div class="card">
-                        <div class="embed-responsive embed-responsive-16by9">
-                            @if ($currentLesson && $currentLesson->videos->isNotEmpty())
-                                <iframe class="embed-responsive-item"
-                                    src="https://www.youtube-nocookie.com/embed/{{ $currentLesson->videos[0]->video_url }}?rel=0&modestbranding=1&showinfo=0"
-                                    frameborder="0" allowfullscreen>
-                                </iframe>
-                            @else
-                                <div class="text-center p-5">No video available for this lesson.</div>
-                            @endif
-                        </div>
-                    </div>
+                 <!-- Include YouTube Iframe API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 
+<!-- Your page content here -->
+<div class="card">
+    <div class="embed-responsive embed-responsive-16by9">
+        @if ($currentLesson && $currentLesson->videos->isNotEmpty())
+        <iframe class="embed-responsive-item"
+                id="course-video"
+                src="https://www.youtube-nocookie.com/embed/{{ $currentLesson->videos->first()->video_url }}?rel=0&modestbranding=1&showinfo=0&enablejsapi=1"
+                frameborder="0" allowfullscreen>
+        </iframe>
+    @else
+        <div class="text-center p-5">No video available for this lesson.</div>
+    @endif
+    
+    </div>
+</div>
+
+<!-- Form for marking video completion -->
+<form id="videoCompleteForm" action="{{ route('student.mark.lesson.complete') }}" method="POST">
+    @csrf
+    <input type="hidden" name="lesson_id" value="{{ $currentLesson->id }}">
+    <input type="hidden" name="course_id" value="{{ $purchasedCourse->course->id }}">
+</form>
+
+<!-- Your script with video redirection logic -->
+<script>
+    var player;
+    // This function is called when the YouTube Iframe API is loaded
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('course-video', {
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    // This function is called when the player's state changes
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+            // Video has finished, mark the lesson as complete
+            document.getElementById('videoCompleteForm').submit();
+
+            // Redirect to the next video
+            redirectToNextVideo();
+        }
+    }
+
+    // Function to redirect to the next video
+    function redirectToNextVideo() {
+        var nextVideoUrl = "{{ $nextVideoUrl }}"; // Pass the next video URL from the backend
+
+        if (nextVideoUrl) {
+            window.location.href = nextVideoUrl; // Redirect to next video
+        } else {
+            window.location.href = "{{ route('student.dashboard') }}"; // Redirect to dashboard if no next video
+        }
+    }
+</script>
+                    
+                                
                     <!-- Instructor Info -->
                     <div class="card mt-3">
                         <div class="card-header">
@@ -84,49 +199,42 @@
 
                 <!-- Sidebar -->
                 <div class="col-md-4">
-                    <!-- Lessons List -->
-                    <div class="card">
-                        <div class="card-header card-header-large bg-light d-flex align-items-center">
-                            <div class="flex">
-                                <h4 class="card-header__title">Course Lessons</h4>
-                            </div>
+          <!-- Lessons List -->
+          <ul class="list-group list-group-fit" id="lesson-list">
+            @foreach ($purchasedCourse->course->lessons->sortBy('order') as $lesson)
+                @php
+                    $isCompleted = \App\Models\CompleteVideo::where([
+                        'user_id' => Auth::id(),
+                        'lesson_id' => $lesson->id,
+                        'course_id' => $purchasedCourse->course->id,
+                    ])->exists();
+                @endphp
+                <li class="list-group-item lesson-item {{ $currentLesson->id == $lesson->id ? 'active' : '' }}"
+                    data-lesson-id="{{ $lesson->id }}">
+                    <div class="media">
+                        <div class="media-left">
+                            <div class="text-muted">{{ $lesson->order }}.</div>
                         </div>
-                        <style>
-                            .lesson-item.active{
-                                background-color: #4a1a8c !important;
-                                color: #fff!important;
-                            }
-                            .lesson-item.active .text-muted, .lesson-item.active .text-dark{
-                                color: #fff!important;
-                            }
-                        </style>
-                        <ul class="list-group list-group-fit" id="lesson-list">
-                            @foreach ($purchasedCourse->course->lessons->sortBy('order') as $index => $lesson)
-                                <li class="list-group-item lesson-item {{ $currentLesson && $currentLesson->id == $lesson->id ? 'active' : '' }}"
-                                    data-lesson-id="{{ $lesson->id }}">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <div class="text-muted">{{ $lesson->order }}.</div> <!-- Use lesson order -->
-                                        </div>
-                                        <div class="media-body">
-                                            <a href="javascript:void(0);" class="lesson-link text-dark">
-                                                {{ $lesson->title }}
-                                            </a>
-                                            @if ($lesson->is_free)
-                                                <small class="badge badge-success ml-2">FREE</small>
-                                            @endif
-                                        </div>
-                                        <div class="media-right">
-                                            <small class="text-muted">
-                                                {{ gmdate('H:i:s', $lesson->videos[0]->duration) }}
-                                            </small>
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <div class="media-body">
+                            <a href="javascript:void(0);" class="lesson-link text-dark">
+                                {{ $lesson->title }}
+                            </a>
+                        </div>
+                        <div class="media-right">
+                            @if ($isCompleted)
+                                <span class="text-success ml-2">✔</span>
+                            @endif
+                        </div>
                     </div>
+                </li>
+            @endforeach
+        </ul>
 
+        
+          
+                    
+                    
+                    
                     <!-- Related Courses -->
                     <div class="card ">
                         <div class="card-header card-header-large bg-light d-flex align-items-center">
@@ -226,6 +334,10 @@
                     }
                 });
             });
+            
         });
+        
     </script>
+      
 @endsection
+

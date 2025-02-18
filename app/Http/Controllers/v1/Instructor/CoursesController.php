@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Purchase;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +32,14 @@ class CoursesController extends Controller
 
     public function show($id)
     {
-        $course = Course::with(['lessons.videos'])->findOrFail($id);
-        return view('admin.instructor.courses.show', ['course' => $course]);
+        $course = Course::with(['lessons.videos', 'instructor'])->findOrFail($id);
+        
+        // Get the first lesson of this course
+        $lesson = $course->lessons->first();
+    
+        return view('admin.instructor.courses.show', compact('course', 'lesson'));
     }
+    
 
     public function create()
     {
