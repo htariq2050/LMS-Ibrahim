@@ -13,6 +13,8 @@ use App\Http\Controllers\v1\Instructor\ProfileController;
 use App\Http\Controllers\v1\Student\StudentProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\PaymentController;
+
 
 
 Route::get('/', [PlanController::class, 'begin'])->name('home');
@@ -98,3 +100,9 @@ Route::prefix('admin')->middleware(['role:admin'])->group(function () {
  //     Route::get('/categories/{id}', 'show')->name('categories.show');     
  // });
 });
+
+
+
+Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
+Route::get('success', [PaymentController::class, 'success']);
+Route::get('error', [PaymentController::class, 'error']);

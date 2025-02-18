@@ -103,7 +103,7 @@ Student
                             <small>sans engagement</small>
                         </div>
                         
-                        <a href="#" class="subscribe-btn">
+                        <a href="" class="subscribe-btn">
                             Je m'inscris&nbsp;&nbsp;&nbsp;
                             <img class="local-video" src="{{ asset('assets/images/marker/arrow gif.gif') }}" 
                                  style="width: 20px; height: 20px; vertical-align: middle;"/>
