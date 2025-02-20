@@ -46,4 +46,9 @@ class Course extends BaseModel
     return $this->hasMany(Video::class);
 }
 
+public function quizzes()
+    {
+        return $this->hasMany(Quiz::class, 'course_id'); 
+    }
+
 }

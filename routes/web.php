@@ -106,3 +106,14 @@ Route::prefix('admin')->middleware(['role:admin'])->group(function () {
 Route::post('pay', [PaymentController::class, 'pay'])->name('payment');
 Route::get('success', [PaymentController::class, 'success']);
 Route::get('error', [PaymentController::class, 'error']);
+
+
+Route::get('/student/quiz-attempt/{quizId}', [QuizAttemptController::class, 'takeQuiz'])->name('student.quizattempt.take');
+Route::get('/admin/instructor/quizzes', [QuizController::class, 'index'])->name('admin.instructor.quizzes.index');
+Route::get('/quiz/{id}/questions', [QuizController::class, 'getQuizQuestions']);
+Route::get('/quiz/{id}/attempt', [QuizController::class, 'attempt'])->name('quiz.attempt');
+// Route::get('/admin/student/quiz-attempts/card', [QuizAttemptController::class, 'showCard'])->name('admin.student.quiz-attempts.card');
+Route::get('/admin/student/quiz-attempts', [QuizAttemptController::class, 'index'])->name('admin.student.quiz-attempts.index');
+Route::get('/course/{course_id}/quizzes', [QuizController::class, 'showQuizzes'])->name('course.quizzes');
+Route::get('/admin/student/quiz-attempts/{id}', [QuizController::class, 'showQuizzes'])->name('admin.student.quiz-attempts.card');
+

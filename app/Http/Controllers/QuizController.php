@@ -19,11 +19,24 @@ class QuizController extends Controller
     {
         try {
             $quizzes = Quiz::with('questions.answers')->get();
-            return view('admin.instructor.quizzes.index', compact('quizzes'));
+            $courses = Course::all(); // Fetch all courses
+            return view('admin.instructor.quizzes.index', compact('quizzes', 'courses'));
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to load quizzes: ' . $e->getMessage());
         }
     }
+
+    public function showQuizzes($courseId)
+{
+    $course = Course::with('quizzes.questions')->findOrFail($courseId);
+    $quizzes = $course->quizzes; // Get quizzes of the course
+
+    return view('admin.student.quiz-attempts.card', compact('course', 'quizzes'));
+}
+
+
+    
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,92 +56,58 @@ class QuizController extends Controller
         }
     }
 
+    public function attempt($id)
+        {
+            $quiz = Quiz::with('course')->findOrFail($id);
+            return view('admin.student.quiz-attempts.card', compact('quiz'));
+        }
+
+
  
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'course_id' => 'required|exists:courses,id',
-    //         'questions.*.question_text' => 'required|string',
-    //         'questions.*.answers.*.answer_text' => 'required|string',
-    //     ]);
-
-    //     DB::beginTransaction();
-    //     try {
-    //         $quiz = Quiz::create([
-    //             'course_id' => $request->course_id,
-    //             'title' => $request->title,
-    //             'status' => 'active',
-    //             'created_by' => auth()->id(),
-    //         ]);
-
-    //         foreach ($request->questions as $questionData) {
-    //             $question = $quiz->questions()->create([
-    //                 'question_text' => $questionData['question_text'],
-    //                 'order' => $questionData['order'] ?? 0,
-    //                 'status' => 'active',
-    //                 'created_by' => auth()->id(),
-    //             ]);
-
-    //             foreach ($questionData['answers'] as $answerData) {
-    //                 $question->answers()->create([
-    //                     'answer_text' => $answerData['answer_text'],
-    //                     'is_correct' => $answerData['is_correct'],
-    //                     'status' => 'active',
-    //                     'created_by' => auth()->id(),
-    //                 ]);
-    //             }
-    //         }
-
-    //         DB::commit();
-    //         return redirect()->route('admin.instructor.quizzes.index')->with('success', 'Quiz created successfully.');
-    //     } catch (\Exception $e) {
-    //         return $e->getMessage();
-    //         DB::rollBack();
-    //         return back()->with('error', 'Failed to create quiz: ' . $e->getMessage());
-    //     }
-    // }
     public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
-            'title' => 'required|string',
+            'title' => 'required|string|max:255',
             'course_id' => 'required|exists:courses,id',
-            'questions' => 'required|array',
             'questions.*.question_text' => 'required|string',
-            'questions.*.answers' => 'required|array',
             'questions.*.answers.*.answer_text' => 'required|string',
-            'questions.*.correct_answer' => 'required|integer',
         ]);
     
-        // Create the quiz
-        $quiz = Quiz::create([
-            'title' => $request->input('title'),
-            'course_id' => $request->input('course_id'),
-        ]);
+        DB::beginTransaction();
+        try {
+            $quiz = Quiz::create([
+                'course_id' => $request->course_id,
+                'title' => $request->title,
+                'status' => 'active',
+                'created_by' => auth()->id(),
+            ]);
     
-        // Process questions and answers
-        foreach ($request->input('questions') as $question) {
-            $questionData = [
-                'question_text' => $question['question_text'],
-                'quiz_id' => $quiz->id,
-            ];
+            foreach ($request->questions as $questionData) {
+                $question = $quiz->questions()->create([
+                    'question_text' => $questionData['question_text'],
+                    'order' => $questionData['order'] ?? 0,
+                    'status' => 'active',
+                    'created_by' => auth()->id(),
+                ]);
     
-            // Loop through answers and add the correct answer flag
-            $answers = [];
-            foreach ($question['answers'] as $key => $answer) {
-                $answers[] = [
-                    'answer_text' => $answer['answer_text'],
-                    'is_correct' => $key == $question['correct_answer'] ? true : false,
-                ];
+                foreach ($questionData['answers'] as $answerData) {
+                    $question->answers()->create([
+                        'answer_text' => $answerData['answer_text'],
+                        'is_correct' => isset($answerData['is_correct']) ? 1 : 0, // Fix applied here
+                        'status' => 'active',
+                        'created_by' => auth()->id(),
+                    ]);
+                }
             }
     
-            // Save answers for each question
-            $quiz->questions()->create($questionData)->answers()->createMany($answers);
+            DB::commit();
+            return redirect()->route('admin.instructor.quizzes.index')->with('success', 'Quiz created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('error', 'Failed to create quiz: ' . $e->getMessage());
         }
-    
-        return redirect()->route('instructor.quizzes.index')->with('success', 'Quiz created successfully');
     }
+    
     
     /**
      * Display the specified resource.
@@ -144,18 +123,35 @@ class QuizController extends Controller
     public function edit(Quiz $quiz)
     {
         try {
-            // Load the quiz with its questions and answers
             $quiz->load('questions.answers');
-    
-            // Fetch the courses to populate the dropdown
-            $courses = Course::all(); // Assuming you have a Course model
-    
-            // Pass both $quiz and $courses to the view
+            $courses = Course::all(); // Fetch all courses before returning the view
+            
             return view('admin.instructor.quizzes.edit', compact('quiz', 'courses'));
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to load quiz for editing: ' . $e->getMessage());
         }
     }
+    
+
+    public function getQuizQuestions($id)
+{
+    $quiz = Quiz::with(['questions.answers'])->findOrFail($id);
+
+    return response()->json([
+        'quiz_title' => $quiz->title,
+        'questions' => $quiz->questions->map(function ($question) {
+            return [
+                'question_text' => $question->question_text,
+                'answers' => $question->answers->map(function ($answer) {
+                    return [
+                        'answer_text' => $answer->answer_text,
+                        'is_correct' => (bool) $answer->is_correct
+                    ];
+                })
+            ];
+        })
+    ]);
+}
 
     /**
      * Update the specified resource in storage.

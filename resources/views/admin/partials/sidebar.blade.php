@@ -110,7 +110,7 @@
                         </li> --}}
 
                         <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button" href="{{ route('student.quiz-attempts.index') }}">
+                            <a class="sidebar-menu-button" href="{{ route('admin.student.quiz-attempts.index') }}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -239,7 +239,7 @@
 
 
                         <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button" href="{{ route('instructor.courses.create') }}">
+                            <a class="sidebar-menu-button" href="{{ route('instructor.courses.index') }}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -299,7 +299,7 @@
 
 
                         <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button" href="{{ route('instructor.quizzes.create') }}">
+                            <a class="sidebar-menu-button" href="{{ route('instructor.quizzes.index') }}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" width="22" height="22">
                                         <g transform="matrix(1.6666666666666667,0,0,1.6666666666666667,0,0)">
@@ -312,7 +312,7 @@
                         </li>
 
                         <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button" href="{{ route('instructor.plans.create') }}">
+                            <a class="sidebar-menu-button" href="{{ route('instructor.plans.index') }}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M8 6h8M8 10h8M8 14h6M14 2h-4a2 2 0 0 0-2 2v0a2 2 0 0 0-2 2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1a2 2 0 0 0-2-2z"></path>
@@ -324,7 +324,7 @@
 
 
                         <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button" href="{{ route('instructor.categories.create') }}">
+                            <a class="sidebar-menu-button" href="{{ route('instructor.categories.index') }}">
                                 <span class="sidebar-menu-icon sidebar-menu-icon--left">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="3" y="3" width="7" height="7"></rect>

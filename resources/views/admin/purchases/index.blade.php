@@ -5,21 +5,24 @@
 @section('dashboardcontent')
 <div class="mdk-drawer-layout__content page">
 
-  
-        <h1>Your Purchases</h1>
-        <div class="container"> 
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Your Purchases</h1>
+            <!-- Create Purchase button -->
+            <a href="{{ route('purchases.create') }}" class="btn btn-primary">Create Purchase</a>
         </div>
-        
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -51,5 +54,6 @@
             </tbody>
         </table>
 
+    </div>
 </div>
 @endsection
