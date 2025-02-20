@@ -5,7 +5,7 @@
 @section('dashboardcontent')
 <div class="container mt-5">
     <h2>Checkout</h2>
-    <form action="{{ route('payment') }}" method="POST">
+    <form action="{{ route('purchases.store')}}" method="POST">
         @csrf
         <div class="form-group">
             <label for="course_name">Course Name</label>
@@ -28,8 +28,15 @@
             <label for="amount_paid">Amount Paid</label>
             <input type="number" name="amount_paid" id="amount_paid" class="form-control" value="{{ $course->price }}" readonly>
         </div>
-        <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+       <button class="btn btn-primary" type="submit">complete purchase</button>
         
     </form>
+    <form action="{{ route('payment') }}" method="POST">
+        @csrf
+        <input type="hidden" name="amount" value="{{ $course->price }}"> <!-- Amount yahan pass karein -->
+        <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+    </form>
+    
+    
 </div>
 @endsection
