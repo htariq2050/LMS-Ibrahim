@@ -29,6 +29,7 @@
             <input type="number" name="amount_paid" id="amount_paid" class="form-control" value="{{ $course->price }}" readonly>
         </div>
         <button type="submit" class="btn btn-primary">Pay with PayPal</button>
+        
     </form>
 </div>
 @endsection

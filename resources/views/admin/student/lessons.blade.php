@@ -97,68 +97,47 @@
             <div class="row">
                 <!-- Course Video and Description -->
                 <div class="col-md-8">
+                    
                     <!-- Video Player -->
                  <!-- Include YouTube Iframe API -->
-<script src="https://www.youtube.com/iframe_api"></script>
 
-<!-- Your page content here -->
+<!-- Video Player -->
 <div class="card">
     <div class="embed-responsive embed-responsive-16by9">
-        @if ($currentLesson && $currentLesson->videos->isNotEmpty())
-        <iframe class="embed-responsive-item"
-                id="course-video"
-                src="https://www.youtube-nocookie.com/embed/{{ $currentLesson->videos->first()->video_url }}?rel=0&modestbranding=1&showinfo=0&enablejsapi=1"
-                frameborder="0" allowfullscreen>
-        </iframe>
-    @else
-        <div class="text-center p-5">No video available for this lesson.</div>
-    @endif
-    
+        @if (!empty($video))
+            <iframe class="embed-responsive-item"
+                    id="course-video"
+                    src="https://www.youtube-nocookie.com/embed/{{ $video->video_url }}?rel=0&modestbranding=1&showinfo=0&enablejsapi=1"
+                    frameborder="0" allowfullscreen>
+            </iframe>
+        @else
+            <div class="text-center p-5">No video available for this lesson.</div>
+        @endif
     </div>
 </div>
 
-<!-- Form for marking video completion -->
+<!-- Mark Video Complete Form -->
 <form id="videoCompleteForm" action="{{ route('student.mark.lesson.complete') }}" method="POST">
     @csrf
     <input type="hidden" name="lesson_id" value="{{ $currentLesson->id }}">
-    <input type="hidden" name="course_id" value="{{ $purchasedCourse->course->id }}">
+    <input type="hidden" name="course_id" value="{{ $course->id }}"> <!-- Ensure $course is passed -->
+    <input type="hidden" name="video_id" value="{{ $video->id }}"> <!-- Ensure $video is passed -->
+    <button type="submit" class="btn btn-primary mt-3">Mark Video as Complete</button>
 </form>
 
-<!-- Your script with video redirection logic -->
-<script>
-    var player;
-    // This function is called when the YouTube Iframe API is loaded
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('course-video', {
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
+
+
+<!-- Auto Redirect After Completion -->
+@if($nextVideoUrl)
+    <script>
+        document.getElementById('videoCompleteForm').addEventListener('submit', function() {
+            setTimeout(function() {
+                window.location.href = "{{ $nextVideoUrl }}"; // Redirect to the next video URL
+            }, 1000); // Delay to ensure form submission
         });
-    }
-
-    // This function is called when the player's state changes
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.ENDED) {
-            // Video has finished, mark the lesson as complete
-            document.getElementById('videoCompleteForm').submit();
-
-            // Redirect to the next video
-            redirectToNextVideo();
-        }
-    }
-
-    // Function to redirect to the next video
-    function redirectToNextVideo() {
-        var nextVideoUrl = "{{ $nextVideoUrl }}"; // Pass the next video URL from the backend
-
-        if (nextVideoUrl) {
-            window.location.href = nextVideoUrl; // Redirect to next video
-        } else {
-            window.location.href = "{{ route('student.dashboard') }}"; // Redirect to dashboard if no next video
-        }
-    }
-</script>
-                    
+    </script>
+@endif
+                
                                 
                     <!-- Instructor Info -->
                     <div class="card mt-3">
