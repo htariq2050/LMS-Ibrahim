@@ -39,14 +39,14 @@ class PurchaseController extends Controller
             ->where('course_id', $courseId)
             ->with(['course.lessons.videos'])
             ->first();
-
+    
         if (!$purchasedCourse) {
             abort(404, 'Course not found or not purchased.');
         }
-
+    
         $relatedCourses = Course::where('id', '!=', $courseId)->get();
         $activeLesson = ActiveLesson::where('user_id', Auth::id())->first();
-
+    
         if (!$activeLesson) {
             $firstLesson = optional($purchasedCourse->course->lessons()->with('videos')->first());
             if ($firstLesson) {
@@ -59,7 +59,7 @@ class PurchaseController extends Controller
         } else {
             $activeLesson->load('lesson.videos');
         }
-
+    
         $currentLesson = $activeLesson ? $activeLesson->lesson : null;
         $course = $purchasedCourse->course;
         $totalLessons = $course->lessons->count();
@@ -67,11 +67,27 @@ class PurchaseController extends Controller
             ->where('course_id', $courseId)
             ->count();
         $completionPercentage = $totalLessons > 0 ? round(($completedLessons / $totalLessons) * 100, 2) : 0;
-
+    
         $video = ($currentLesson && $currentLesson->videos->isNotEmpty()) 
                  ? $currentLesson->videos->first() 
                  : null;
-
+    
+        $nextVideoUrl = null;
+        if ($currentLesson && $video) {
+            $videos = $currentLesson->videos->sortBy('order');
+            $currentVideoIndex = $videos->search(fn($v) => $v->id == $video->id);
+    
+            if ($currentVideoIndex !== false && $currentVideoIndex < $videos->count() - 1) {
+                $nextVideo = $videos->values()[$currentVideoIndex + 1];
+                $nextVideoUrl = route('student.video', ['videoId' => $nextVideo->id]);
+            }
+        }
+    
+        // ✅ Redirect to next video automatically
+        if ($nextVideoUrl) {
+            return redirect()->to($nextVideoUrl);
+        }
+    
         return view('admin.student.lessons', [
             'purchasedCourse'      => $purchasedCourse,
             'relatedCourses'       => $relatedCourses,
@@ -79,92 +95,136 @@ class PurchaseController extends Controller
             'course'               => $course,
             'video'                => $video,
             'completionPercentage' => $completionPercentage,
+            'nextVideoUrl'         => $nextVideoUrl,
         ]);
     }
+        
 
-    public function viewVideo($videoId)
-    {
-        $video = Video::find($videoId);
-        if (!$video) {
-            abort(404, 'Video not found.');
-        }
-    
-        $lesson = $video->lesson;
-        if (!$lesson) {
-            abort(404, 'Lesson not found for this video.');
-        }
-    
-        $course = $lesson->course;
-        if (!$course) {
-            abort(404, 'Course not found for this lesson.');
-        }
-    
-        // Ensure user purchased the course
-        $purchasedCourse = Purchase::where('user_id', Auth::id())
-            ->where('course_id', $course->id)
+public function markLessonComplete(Request $request)
+{
+    $lessonId = $request->input('lesson_id');
+    $courseId = $request->input('course_id');
+    $videoId = $request->input('video_id');
+
+    if (!$videoId) {
+        return response()->json(['error' => 'Video ID is required.'], 400);
+    }
+
+    // Mark the video as complete
+    CompleteVideo::updateOrCreate(
+        [
+            'user_id'   => Auth::id(), 
+            'lesson_id' => $lessonId, 
+            'course_id' => $courseId, 
+            'video_id'  => $videoId
+        ],
+        ['completed_at' => now()]
+    );
+
+    // Retrieve the current video, lesson, and course
+    $video = Video::findOrFail($videoId);
+    $lesson = $video->lesson;
+    $course = $lesson->course;
+
+    // Get all videos for this lesson in the desired order
+    $videos = $lesson->videos()->orderBy('order', 'asc')->get();
+    $currentVideoIndex = $videos->search(fn($v) => $v->id == $videoId);
+
+    $nextVideoUrl = null;
+    if ($currentVideoIndex !== false && $currentVideoIndex < $videos->count() - 1) {
+        // Next video in the same lesson
+        $nextVideo = $videos[$currentVideoIndex + 1];
+        $nextVideoUrl = "https://www.youtube.com/watch?v=" . $nextVideo->video_url;
+    } else {
+        // No more videos in current lesson; check the next lesson
+        $nextLesson = Lesson::where('course_id', $course->id)
+            ->where('id', '>', $lesson->id)
+            ->orderBy('id', 'asc')
             ->first();
-    
-        if (!$purchasedCourse) {
-            abort(403, 'You do not have access to this course.');
-        }
-    
-        // Debugging log
-        \Log::info("Viewing Video: ", ['video_id' => $videoId, 'lesson_id' => $lesson->id, 'course_id' => $course->id]);
-    
-        // Get all videos for the lesson
-        $videos = $lesson->videos()->orderBy('order', 'asc')->get();
-        $currentVideoIndex = $videos->search(fn($v) => $v->id == $videoId);
-    
-        $nextVideoUrl = null;
-        if ($currentVideoIndex !== false && $currentVideoIndex < $videos->count() - 1) {
-            $nextVideo = $videos[$currentVideoIndex + 1];
-            $nextVideoUrl = route('student.video', ['videoId' => $nextVideo->id]);
-        } else {
-            $nextLesson = Lesson::where('course_id', $course->id)
-                ->where('id', '>', $lesson->id)
-                ->orderBy('id', 'asc')
+
+        if ($nextLesson) {
+            $nextVideo = Video::where('lesson_id', $nextLesson->id)
+                ->orderBy('order', 'asc')
                 ->first();
-            if ($nextLesson) {
-                $nextVideo = Video::where('lesson_id', $nextLesson->id)
-                    ->orderBy('order', 'asc')
-                    ->first();
-                if ($nextVideo) {
-                    $nextVideoUrl = route('student.video', ['videoId' => $nextVideo->id]);
-                }
+            if ($nextVideo) {
+            $nextVideoUrl = "https://www.youtube.com/watch?=" . $nextVideo->video_url;
             }
         }
-    
-        return view('admin.student.lessons', [
-            'purchasedCourse' => $purchasedCourse, // Add this line
-            'video'           => $video,
-            'lesson'          => $lesson,
-            'course'          => $course,
-            'nextVideoUrl'    => $nextVideoUrl,
-        ]);
     }
-    
-        
-    public function markLessonComplete(Request $request)
-    {
-        $lessonId = $request->input('lesson_id');
-        $courseId = $request->input('course_id');
-        $videoId = $request->input('video_id');
 
-        if (!$videoId) {
-            return response()->json(['error' => 'Video ID is required.'], 400);
+    // Redirect to the next video URL if available, or redirect to the course page
+    return redirect()->to($nextVideoUrl ?? route('student.course', ['courseId' => $course->id]));
+
+}
+
+public function viewVideo($videoId)
+{
+    $video = Video::findOrFail($videoId);
+    $lesson = $video->lesson;
+    $course = $lesson->course;
+
+    // Ensure the user has purchased the course
+    $purchasedCourse = Purchase::where('user_id', Auth::id())
+        ->where('course_id', $course->id)
+        ->first();
+
+    if (!$purchasedCourse) {
+        abort(404, 'Course not found or not purchased.');
+    }
+
+    // Get all videos for this lesson in order
+    $videos = $lesson->videos()->orderBy('order', 'asc')->get();
+    $currentVideoIndex = $videos->search(fn($v) => $v->id == $videoId);
+
+    $nextVideoUrl = null;
+    if ($currentVideoIndex !== false && $currentVideoIndex < $videos->count() - 1) {
+        // Next video in the same lesson
+        $nextVideo = $videos[$currentVideoIndex + 1];
+        $nextVideoUrl = "https://www.youtube.com/watch?v=" . $nextVideo->video_url;
+    } else {
+        // Check next lesson
+        $nextLesson = Lesson::where('course_id', $course->id)
+            ->where('id', '>', $lesson->id)
+            ->orderBy('id', 'asc')
+            ->first();
+        if ($nextLesson) {
+            $nextVideo = Video::where('lesson_id', $nextLesson->id)
+                ->orderBy('order', 'asc')
+                ->first();
+            if ($nextVideo) {
+                $nextVideoUrl = "https://www.youtube.com/watch?v=" . $nextVideo->video_url;
+            }
         }
+    }
 
-        CompleteVideo::updateOrCreate(
-            [
-                'user_id'   => Auth::id(), 
-                'lesson_id' => $lessonId, 
-                'course_id' => $courseId, 
-                'video_id'  => $videoId
-            ],
-            ['completed_at' => now()]
+    return view('admin.student.lessons', [
+        'purchasedCourse' => $purchasedCourse,
+        'video'           => $video,
+        'lesson'          => $lesson,
+        'currentLesson'   => $lesson,
+        'course'          => $course,
+        'nextVideoUrl'    => $nextVideoUrl,
+    ]);
+}
+
+    public function setActiveLesson(Request $request, $lessonId)
+    {
+        $lesson = Lesson::findOrFail($lessonId);
+
+        // Update the active lesson for the user
+        ActiveLesson::updateOrCreate(
+            ['user_id' => Auth::id()],
+            ['lesson_id' => $lessonId]
         );
 
-        return response()->json(['message' => 'Lesson marked as complete.']);
+        return response()->json([
+            'success' => true,
+            'lesson_title' => $lesson->title,
+            'lesson_description' => $lesson->description,
+            'video_url' => $lesson->videos->isNotEmpty() ? $lesson->videos[0]->video_url : null,
+            'video' => $lesson ? $lesson->videos->first() : null, // Add this line
+
+        ]);
     }
 
     public function checkout(Course $course)
