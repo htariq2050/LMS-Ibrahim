@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompleteVideo extends Model
 {
     //
-    protected $fillable = ['user_id', 'lesson_id', 'course_id'];
+    protected $fillable = ['user_id', 'lesson_id', 'course_id','video_id'];
     protected $table = 'completed_videos';
 
     public function user() {

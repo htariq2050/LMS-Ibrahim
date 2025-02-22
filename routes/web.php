@@ -47,8 +47,8 @@ Route::prefix('student')->middleware(['role:student'])->as('student.')->group(fu
     Route::post('/lesson/set-active/{lessonId}', [PurchaseController::class, 'setActiveLesson'])->name('setActiveLesson');
     Route::get('/series', [CoursesController::class, 'studentCourses'])->name('series');
     Route::get('lessons/{id}', [PurchaseController::class, 'studentCoursesAndLessons'])->name('lessons');
-    Route::get('/student/video/{videoId}', [PurchaseController::class, 'viewVideo'])->name('video');
-    Route::post('mark-lesson-complete', [PurchaseController::class, 'markLessonComplete'])->name('mark.lesson.complete');
+Route::get('student/video/{videoId}', [PurchaseController::class, 'viewVideo'])->name('video');
+Route::post('mark-lesson-complete', [PurchaseController::class, 'markLessonComplete'])->name('mark.lesson.complete');
     Route::prefix('quiz-attempts')->name('quiz-attempts.')->group(function () {
         Route::get('/', [QuizAttemptController::class, 'index'])->name('index');
         Route::get('/{quiz}', [QuizAttemptController::class, 'show'])->name('show');
